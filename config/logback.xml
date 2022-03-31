@@ -1,0 +1,7 @@
+<!-- Disable logback logging
+       Used by kafka client lib
+  -->
+<configuration>
+  <root level="off">
+  </root>
+</configuration>
