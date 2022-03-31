@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Phoebus build and installation location
-TOP=.
+TOP="$PWD"
 
 export JAVA_HOME=$TOP/lib/jvm/jdk-11.0.2
 export PATH="$JAVA_HOME/bin:$PATH"
