@@ -10,7 +10,7 @@ It also consists of settings and configuration needed to run cs-studio effective
 Clone the FNAL-phoebus product repo to the installation location.
 
 ```
-git clone https://github.com/shroffk/FNAL-phoebus
+git clone https://github.com/hanlet/FNAL-phoebus
 ./build.sh
 ```
 

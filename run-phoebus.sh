@@ -7,7 +7,7 @@ export JAVA_HOME=$TOP/lib/jvm/jdk-11.0.2
 export PATH="$JAVA_HOME/bin:$PATH"
 
 echo $TOP
-V="4.6.6-SNAPSHOT"
+V="4.7.2-SNAPSHOT"
 
 # figure out the path to the product jar
 if [[ -z "${PHOEBUS_JAR}" ]]; then

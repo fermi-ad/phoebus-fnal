@@ -26,7 +26,7 @@ fi
 # install phoebus
 if [ ! -d ${TOP}/lib/phoebus ]; then
     cd ${TOP}/lib
-    git clone https://github.com/shroffk/phoebus.git
+    git clone https://github.com/hanlet/phoebus.git
 fi
 
 # Update the git repos
