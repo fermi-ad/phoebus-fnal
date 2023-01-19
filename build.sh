@@ -5,14 +5,14 @@
 export TOP="$PWD"
 
 # Download third party tools and services needed for the epics tools and services
-mkdir -p ${TOP}/lib/jvm
+mkdir -p ${TOP}/lib
 
 # download jdk 11
-if [ ! -d ${TOP}/lib/jvm/jdk-11.0.2 ]; then
-    wget --no-verbose https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz -O /tmp/openjdk-11+28_linux-x64_bin.tar.gz
-    tar xfvz /tmp/openjdk-11+28_linux-x64_bin.tar.gz --directory ${TOP}/lib/jvm
-    rm /tmp/openjdk-11+28_linux-x64_bin.tar.gz
-fi
+#if [ ! -d ${TOP}/lib/jvm/jdk-11.0.2 ]; then
+#    wget --no-verbose https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz -O /tmp/openjdk-11+28_linux-x64_bin.tar.gz
+#    tar xfvz /tmp/openjdk-11+28_linux-x64_bin.tar.gz --directory ${TOP}/lib/jvm
+#    rm /tmp/openjdk-11+28_linux-x64_bin.tar.gz
+#fi
 
 
 # download maven
@@ -26,7 +26,7 @@ fi
 # install phoebus
 if [ ! -d ${TOP}/lib/phoebus ]; then
     cd ${TOP}/lib
-    git clone https://github.com/hanlet/phoebus.git
+    git clone https://github.com/shroffk/phoebus.git
 fi
 
 # Update the git repos
@@ -35,7 +35,8 @@ git pull
 
 # set the java and maven env variables
 
-export JAVA_HOME=$TOP/lib/jvm/jdk-11.0.2
+#export JAVA_HOME=$TOP/lib/jvm/jdk-11.0.2
+export JAVA_HOME=/usr/local/jdk-13.0.2
 export PATH="$JAVA_HOME/bin:$PATH"
 
 export MVN_HOME=$TOP/lib/apache-maven-3.6.0
