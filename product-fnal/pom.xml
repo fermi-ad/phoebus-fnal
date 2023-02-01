@@ -7,6 +7,18 @@
   <artifactId>fnal-product</artifactId>
   <name>FNAL phoebus accl product</name>
 
+  <parent>
+    <groupId>org.phoebus</groupId>
+    <artifactId>fnal</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+
+
+  <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+   </properties>
+
 <dependencies>
     <dependency>
       <groupId>org.phoebus</groupId>
@@ -34,7 +46,6 @@
       <artifactId>app-logbook-olog-ui</artifactId>
       <version>4.7.2-SNAPSHOT</version>
     </dependency>
-
   </dependencies>
 
   <build>

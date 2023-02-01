@@ -42,15 +42,9 @@ export PATH="$JAVA_HOME/bin:$PATH"
 export MVN_HOME=$TOP/lib/apache-maven-3.6.0
 export PATH="$MVN_HOME/bin:$PATH"
 
-# Build phoebus
-cd $TOP/lib/phoebus
-
+cd ${TOP}
 # Build the documentation and help
 mvn verify --settings=$TOP/config/settings.xml -P sphinx -N
 # Build the common phoebus binaries
-mvn install --settings=$TOP/config/settings.xml -DskipTests=true
-
-# Build fnal product products
-cd $TOP/products
-mvn clean install --settings=$TOP/config/settings.xml -DskipTests=true -Ddocs=$TOP/lib/phoebus/docs
+mvn clean install  --settings=$TOP/config/settings.xml -DskipTests=true -Ddocs=$TOP/lib/phoebus/docs
 
