@@ -59,7 +59,7 @@ Under the folder  `product ` there is the FNAL source code.
 
 #### Step-by-step
 
-This documentation uses the ACnet plugin as an example on how to include new source code into the FNAL Phoebus product.
+This documentation uses the ACsus plugin as an example on how to include new source code into the FNAL Phoebus product.
 
 1. Clone this repository
 ```
@@ -76,23 +76,23 @@ git clone https://ghe-pip2.fnal.gov/epics-controls/phoebus-fnal.git
         │   └── org
         │       └── phoebus
         │           └── pv
-        │               └── acnet
-        │                   ├── ACnet_PVConn.java
-        │                   ├── ACnet_PVFactory.java
-        │                   └── ACnet_PV.java
+        │               └── acsys
+        │                   ├── ACsys_PVConn.java
+        │                   ├── ACsys_PVFactory.java
+        │                   └── ACsys_PV.java
     ```
 3. Register the class in the phoebus configuration files.
     - Under `products/src/resources/META-INF/services/` create a configuration file using the same name as the phoebus framework. Should be something like `org.phoebus.<module>.<parent class>`
     - Add the name of the new app class into the `org.phoebus.<module>.<parent class>` . 
-    Example to register ACnet into the Phoebus PVFactory:
+    Example to register ACsys into the Phoebus PVFactory:
     ```
     # File : org.phoebus.pv.PVFactory
-    org.phoebus.pv.acnet.ACnet_PVFactory
+    org.phoebus.pv.acsys.ACsys_PVFactory
     ```
 
 3. Optional: add dependencies to `product/pom.xml`. 
    For now, we are assuming that internal dependencies are previously installed into the build server.
-   Example to include ACnet DPM library:
+   Example to include ACsys DPM library:
    ```
     <dependency>
     <groupId>gov.fnal</groupId>

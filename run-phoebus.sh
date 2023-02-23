@@ -11,12 +11,12 @@ V="4.7.2-SNAPSHOT"
 
 # figure out the path to the product jar
 if [[ -z "${PHOEBUS_JAR}" ]]; then
-  PHOEBUS_JAR=${TOP}/fnal-phoebus/products/target/fnal-product-${V}.jar
+  PHOEBUS_JAR=${TOP}/product-fnal/target/fnal-product-${V}.jar
 fi
 
 # figure out the path to the configuration settings
 if [[ -z "${PHOEBUS_CONFIG}" ]]; then
-  PHOEBUS_CONFIG=${TOP}/fnal-phoebus/config/settings.ini
+  PHOEBUS_CONFIG=${TOP}/config/settings.ini
 fi
 
 # To get one instance, use server mode
@@ -32,4 +32,4 @@ export JDK_JAVA_OPTIONS
 
 echo $JDK_JAVA_OPTIONS
 
-java -jar $PHOEBUS_JAR -settings $PHOEBUS_CONFIG -logging $TOP/fnal-phoebus/config/logging.properties $OPT "$@" &
+java -jar $PHOEBUS_JAR -settings $PHOEBUS_CONFIG -logging $TOP/config/logging.properties $OPT "$@" &
