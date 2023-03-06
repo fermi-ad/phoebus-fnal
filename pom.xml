@@ -36,6 +36,7 @@
   </build>
 
   <modules>
+    <module>dependencies</module>
     <module>lib/phoebus</module>
     <module>product-fnal</module>
   </modules>

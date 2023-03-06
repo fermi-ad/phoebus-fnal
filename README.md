@@ -91,7 +91,6 @@ git clone https://ghe-pip2.fnal.gov/epics-controls/phoebus-fnal.git
     ```
 
 3. Optional: add dependencies to `product/pom.xml`. 
-   For now, we are assuming that internal dependencies are previously installed into the build server.
    Example to include ACsys DPM library:
    ```
     <dependency>
@@ -100,6 +99,14 @@ git clone https://ghe-pip2.fnal.gov/epics-controls/phoebus-fnal.git
     <version>1.2.3</version>
     </dependency>
    ```
+
+  >**NOTE** 
+  The phoebus framework is Maven-centric and external dependencies
+  defined in the pox.xml can be downloaded.
+  The 'dependencies/install-jar' directory allows adding dependencies that 
+  cannot be downloaded.
+  See more information at: 
+  https://github.com/ControlSystemStudio/phoebus/tree/master/dependencies
 
 
 ## Useful links
