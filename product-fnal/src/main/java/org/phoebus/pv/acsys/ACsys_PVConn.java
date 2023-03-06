@@ -35,6 +35,7 @@ import gov.fnal.controls.service.proto.DPM;
 import gov.fnal.controls.service.dpm.DPMList;
 import gov.fnal.controls.service.dpm.DPMListTCP;
 import gov.fnal.controls.service.dpm.DPMDataHandler;
+import gov.fnal.controls.servers.dpm.SettingData;
 
 /** ACsys device subscription handler
  *
@@ -57,6 +58,7 @@ public class ACsys_PVConn implements DPMDataHandler
   protected final HashMap<Long,ArrayList<ACsys_PV>> devices 
       = new HashMap<>();
 
+  protected long enableSettings = 0;
   protected long dpmIndex = 0; // Running DPM device index, never goes down
                                // when a listener/device is removed
 
@@ -69,6 +71,45 @@ public class ACsys_PVConn implements DPMDataHandler
   public static void removeListenerRequest(ACsys_PV pv)
   {
     if ( instance != null ) { instance.removeDevice(pv);}
+  }
+
+  public static void newValue(ACsys_PV pv, final Object newValue)
+  {
+    if ( instance == null ) { instance = new ACsys_PVConn();}
+    instance.applySetting(pv,newValue);
+  }
+
+  public void applySetting(ACsys_PV pv, final Object newValue)
+  {
+    ArrayList<ACsys_PV> entries = devices.get(pv.dpmIndex);
+    if ( entries == null ) // Does not exist in DPMList
+    {
+      logger.log(Level.WARNING,"Device "+pv.fullName+" refId "+pv.dpmIndex+
+		 " not found");
+      logger.log(Level.WARNING,devices.toString());
+      logger.log(Level.WARNING,listeners.toString());
+      return;
+    }
+
+    if ( newValue instanceof Double )
+    {
+      dpmList.addSetting(pv.dpmIndex,
+			   ((Double)newValue).doubleValue());
+    }
+    else if ( newValue instanceof String )
+    {
+      dpmList.addSetting(pv.dpmIndex,(String)newValue);
+    }
+
+    try
+    {
+      // Settings must be enabled at this point for this to work
+      dpmList.applySettings(this);
+    }
+    catch ( Exception e )
+    {
+      logger.log(Level.WARNING,"Error enabling settings",e);
+    }
   }
 
   protected void removeDevice(ACsys_PV pv)
@@ -144,6 +185,28 @@ public class ACsys_PVConn implements DPMDataHandler
     }
   }
 
+  public static void enableSettings(String role)
+  {
+    try 
+    {
+      instance.dpmList.enableSettings(role);
+    }
+    catch (Exception e)
+    {
+      logger.log(Level.WARNING,"Unable to enable settings",e);
+    }
+  }
+
+  public void handle(DPM.Reply.DeviceInfo devInfo[], DPM.Reply.ApplySettings m)
+  {
+    logger.log(Level.INFO,"Settings Complete "+m.status.length);
+    for (int i=0; i<m.status.length; i++)
+    {
+      logger.log(Level.INFO,"Setting complete refId "+ m.status[i].ref_id+
+		 " status "+m.status[i].status);
+    }
+  }
+
   public void handle(DPM.Reply.DeviceInfo devInfo, DPM.Reply.Scalar s)
   {
     ArrayList<ACsys_PV> refArrayList = devices.get(devInfo.ref_id);
@@ -192,7 +255,15 @@ public class ACsys_PVConn implements DPMDataHandler
 
     refArrayList.forEach( (pv) -> 
     {
-      findFieldAndNotify(s,pv);
+      if ( pv.deviceName.equals("enableSettings"))
+      {
+	enableSettings = s.status;
+	return;
+      }
+      else
+      {
+	findFieldAndNotify(s,pv);
+      }
       logger.log(Level.FINE,
 		 "Device Status "+pv.fullName+ " ref_id "+ s.ref_id+
 		 " " +s.status);
@@ -223,7 +294,7 @@ public class ACsys_PVConn implements DPMDataHandler
       findFieldAndNotify(a,pv);
 
       logger.log(Level.FINE,
-		 "Device DigitalAlarm "+pv.deviceName+ " " + pv.qualifier + 
+		 "Device DigitalAlarm "+pv.deviceName+ " " +
 		 " ref_id "+ a.ref_id+" " +a.alarm_enable+" "+a.alarm_status);
     });
   }
@@ -313,10 +384,10 @@ public class ACsys_PVConn implements DPMDataHandler
 
   public static void findFieldAndNotify(DPM.Reply message, ACsys_PV pv)
   {
-    if ( pv.qualifier == null ) { return;}
+
     try
     {
-      Field field = message.getClass().getField(pv.qualifier);
+      Field field = message.getClass().getField("data");
       Object value = field.get(message);
       if ( value.getClass().isArray() )
       {
@@ -324,19 +395,20 @@ public class ACsys_PVConn implements DPMDataHandler
 	double [] array = (double [])value; // Breaks if not a double array
 	pv.notify(array[pv.index]);
 	logger.log(Level.FINER,
-		   "Field "+pv.qualifier+" value["+pv.index+"] "
+		   "Field  value["+pv.index+"] "
 		   +array[pv.index]);
       }
       else
       {
 	logger.log(Level.FINER,
-		   "Field "+pv.qualifier+" value "+value.toString());
+		   "Field value "+value.toString());
 	pv.notify(value);
       }
     }
     catch ( Exception e )
     {
-      logger.log(Level.WARNING,"Error in getField: "+e.toString(),e);
+      logger.log(Level.WARNING,"Error in getField on "+pv.fullName+": "+
+		 e.toString(),e);
     }
   }
 }
