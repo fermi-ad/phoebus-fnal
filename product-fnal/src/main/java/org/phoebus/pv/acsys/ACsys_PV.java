@@ -68,14 +68,14 @@ public class ACsys_PV extends PV
     {
       // Prompt for ACsys role in ordder to do settings
       String defaultRole = System.getProperty("user.name");
-      logger.log(Level.WARNING,"Enabling settins; user is "+defaultRole);
+      logger.log(Level.WARNING,"Enabling settings; user is "+defaultRole);
 
       String role = JOptionPane.showInputDialog("Role name for ACsys settings?",
-						defaultRole);
+						"testing");
       ACsys_PVConn.enableSettings(role);
       logger.log(Level.WARNING,"Settings Enabled with role "+role);
     }
-    else
+    else // Regular write
     {
       logger.log(Level.WARNING,"Write on "+fullName+" "+newValue.toString());
       ACsys_PVConn.newValue(this,newValue);

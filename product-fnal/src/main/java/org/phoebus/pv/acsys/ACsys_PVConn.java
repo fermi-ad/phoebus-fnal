@@ -199,7 +199,7 @@ public class ACsys_PVConn implements DPMDataHandler
 
   public void handle(DPM.Reply.DeviceInfo devInfo[], DPM.Reply.ApplySettings m)
   {
-    logger.log(Level.INFO,"Settings Complete "+m.status.length);
+    logger.log(Level.INFO,"Settings Complete: "+m.status.length);
     for (int i=0; i<m.status.length; i++)
     {
       logger.log(Level.INFO,"Setting complete refId "+ m.status[i].ref_id+
