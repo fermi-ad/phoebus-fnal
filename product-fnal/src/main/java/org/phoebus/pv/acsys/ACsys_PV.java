@@ -72,8 +72,16 @@ public class ACsys_PV extends PV
 
       String role = JOptionPane.showInputDialog("Role name for ACsys settings?",
 						"testing");
-      ACsys_PVConn.enableSettings(role);
-      logger.log(Level.WARNING,"Settings Enabled with role "+role);
+      logger.log(Level.WARNING,"Settings Enable request with role "+role);
+      if ( role != null )
+      {
+	ACsys_PVConn.enableSettings(role);
+        logger.log(Level.WARNING,"Settings Enabled with role "+role);
+      }
+      else
+      {
+        logger.log(Level.WARNING,"Settings Enable cancelled");
+      }
     }
     else // Regular write
     {
