@@ -31,3 +31,20 @@ jobs:
 
     - name: Build phoebus fnal product
       run: mvn clean install --batch-mode  --settings=config/settings.xml -DskipTests=true -Ddocs=lib/phoebus/docs
+
+  deploy:
+    runs-on: [ epics-build-test ]
+    needs: [ build ]
+    environment: production
+    if: github.event_name == 'push'
+
+    steps:
+    - name: Deploy phoebus fnal product
+      run: |
+        rsync --exclude='.*' --delete -a * ${{secrets.INSTALL_DIR}}/phoebus-fnal-${{ github.run_number }}
+        rm -f ${{secrets.INSTALL_DIR}}/phoebus-fnal
+        cd ${{secrets.INSTALL_DIR}}
+        ln -s phoebus-fnal-${{ github.run_number }} phoebus-fnal
+
+    - name: Clean old builds
+      run: ls -t | grep phoebus-fnal- | tail -n +4 | xargs rm -rf --
