@@ -41,7 +41,7 @@ jobs:
     steps:
     - name: Deploy phoebus fnal product
       run: |
-        rsync --exclude='.*' --delete -a * ${{secrets.INSTALL_DIR}}/phoebus-fnal-${{ github.run_number }}
+        rsync --exclude='.*' -p * ${{secrets.INSTALL_DIR}}/phoebus-fnal-${{ github.run_number }}
         rm -f ${{secrets.INSTALL_DIR}}/phoebus-fnal
         cd ${{secrets.INSTALL_DIR}}
         ln -s phoebus-fnal-${{ github.run_number }} phoebus-fnal
