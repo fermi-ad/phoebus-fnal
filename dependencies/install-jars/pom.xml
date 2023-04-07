@@ -19,9 +19,9 @@
             <configuration>
               <groupId>gov.fnal</groupId>
               <artifactId>dae</artifactId>
-              <version>1.0.0</version>
+              <version>1.0.1</version>
               <packaging>jar</packaging>
-              <file>${basedir}/lib/dae/gov-1.0.0.jar</file>
+              <file>${basedir}/lib/dae/gov-1.0.1.jar</file>
               <generatePom>false</generatePom>
               <pomFile>${basedir}/lib/dae/pom.xml</pomFile>
             </configuration>
