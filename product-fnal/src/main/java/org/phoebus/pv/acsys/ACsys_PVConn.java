@@ -164,7 +164,7 @@ public class ACsys_PVConn implements DPMDataHandler
   {
     try
     {
-      dpmList = DPMListTCP.open();
+      dpmList = DPMListTCP.open("/dpmtest");
     }
     catch ( IOException e )
     {
