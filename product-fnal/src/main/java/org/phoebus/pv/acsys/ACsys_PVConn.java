@@ -214,7 +214,7 @@ public class ACsys_PVConn implements DPMDataHandler
 
     refArrayList.forEach( (pv) -> 
     {
-	//lamba expression here for string concat
+      // use lamba expression here for string concat
       logger.log(Level.FINE, "Device "+pv.fullName+ " ref_id "+ devInfo.ref_id+
 		 " " +s.data);
       findFieldAndNotify(s,pv);
@@ -313,16 +313,16 @@ public class ACsys_PVConn implements DPMDataHandler
     });
   }
 
-  // public void handle(DPM.Reply.DeviceInfo devInfo, DPM.Reply.TextArray t)
-  // {
-  //   ArrayList<ACsys_PV> refArrayList = devices.get(t.ref_id);
-  //   if ( refArrayList == null ) { return;}
+  public void handle(DPM.Reply.DeviceInfo devInfo, DPM.Reply.TextArray t)
+  {
+    ArrayList<ACsys_PV> refArrayList = devices.get(t.ref_id);
+    if ( refArrayList == null ) { return;}
 
-  //   refArrayList.forEach( (pv) -> 
-  //   {
-  //     findFieldAndNotify(t,pv);
-  //   });
-  // }
+    refArrayList.forEach( (pv) -> 
+    {
+      findFieldAndNotify(t,pv);
+    });
+  }
 
   public void handle(DPM.Reply.DeviceInfo devInfo, DPM.Reply.Raw r)
   {
@@ -335,8 +335,9 @@ public class ACsys_PVConn implements DPMDataHandler
       long value = 0;
       if ( r.data.length == 4 )
       { 
-        for (int i=0; i<values.length; i++) { values[i] = ((long)r.data[i])&0xFF;}
-	value = values[0] | (values[1] << 8 ) | (values[2] << 16 ) | ( values[3] << 24 ); 
+        for (int i=0; i<values.length; i++) 
+	{ values[i] = ((long)r.data[i])&0xFF;}
+	value = values[0]|(values[1] << 8)|(values[2] << 16)|(values[3] << 24); 
       }
       Long lValue = Long.valueOf(value);
       pv.notify(lValue);
@@ -384,6 +385,10 @@ public class ACsys_PVConn implements DPMDataHandler
 
   public static void findFieldAndNotify(DPM.Reply message, ACsys_PV pv)
   {
+    int index = 0;
+
+    // We cannot serve whole arrays (yet?)
+    if ( pv.index >= 0 ) { index = pv.index;} 
 
     try
     {
@@ -392,16 +397,33 @@ public class ACsys_PVConn implements DPMDataHandler
       if ( value.getClass().isArray() )
       {
 	if ( pv.index < 0 ) { return;}
-	double [] array = (double [])value; // Breaks if not a double array
-	pv.notify(array[pv.index]);
-	logger.log(Level.FINER,
-		   "Field  value["+pv.index+"] "
-		   +array[pv.index]);
+	try
+	{
+	  double [] array = (double [])value; // Breaks if not a double array
+	  if ( index < array.length )
+	  {
+	    pv.notify(array[index]);
+	    logger.log(Level.FINER,
+		       "Double Field  value["+index+"] "
+		       +array[index]);
+	  }
+	}
+	catch ( Exception e ) // by process of elimination, must be text array
+	{
+	  String [] array = (String [])value; // Breaks if not a double array
+	  if ( index < array.length )
+	  { 
+	    pv.notify(array[index]);
+	    logger.log(Level.INFO,
+		       "String Field  value["+index+"] "
+		       +array[index]);
+	  }
+	}
       }
       else
       {
-	logger.log(Level.FINER,
-		   "Field value "+value.toString());
+	logger.log(Level.FINE,
+		   "Field value "+pv.deviceName+"="+value.toString());
 	pv.notify(value);
       }
     }
