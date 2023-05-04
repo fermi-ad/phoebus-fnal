@@ -1,6 +1,9 @@
 // Class  org.phoebus.pv.acsys.ACsys_PVConn    
 //
 // Phoebus plug-in for Fermilab's ACsys control system (W.Badgett)
+// Requests must be prefixed with acsys://
+// Following the prefix can be any DRF2 compatible request, with an optional 
+//   slash followed by an index for array devices.
 //
 // Intended to be a singlet class to reduce the traffic between 
 //   Phoebus and ACsys/DPM
@@ -217,7 +220,7 @@ public class ACsys_PVConn implements DPMDataHandler
       // use lamba expression here for string concat
       logger.log(Level.FINE, "Device "+pv.fullName+ " ref_id "+ devInfo.ref_id+
 		 " " +s.data);
-      findFieldAndNotify(s,pv);
+      pv.notify(s.data);
     });
   }
 
@@ -228,9 +231,14 @@ public class ACsys_PVConn implements DPMDataHandler
 
     refArrayList.forEach( (pv) -> 
     {
+      int index = 0;
+
+      // We cannot serve whole arrays (yet?)
+      if ( pv.index >= 0 ) { index = pv.index;} 
+
       logger.log(Level.FINE,"Device ScalarArray "+pv.fullName+ " ref_id "+ 
 		 s.ref_id+" " +s.data);
-      findFieldAndNotify(s,pv);
+      pv.notify(s.data[index]);
     });
   }
 
@@ -241,7 +249,7 @@ public class ACsys_PVConn implements DPMDataHandler
 
     refArrayList.forEach( (pv) -> 
     {
-      findFieldAndNotify(s,pv);
+      pv.notify(s.on);
       logger.log(Level.FINE,
 		 "Device BasicStatus "+pv.fullName+ " ref_id "+ devInfo.ref_id+
 		 " " +s.on+" "+s.ready);
@@ -262,7 +270,7 @@ public class ACsys_PVConn implements DPMDataHandler
       }
       else
       {
-	findFieldAndNotify(s,pv);
+	pv.notify(s.status);
       }
       logger.log(Level.FINE,
 		 "Device Status "+pv.fullName+ " ref_id "+ s.ref_id+
@@ -277,7 +285,7 @@ public class ACsys_PVConn implements DPMDataHandler
 
     refArrayList.forEach( (pv) -> 
     {
-      findFieldAndNotify(a,pv);
+      pv.notify(a.alarm_status);
       logger.log(Level.FINE,
 		 "Device AnalogAlarm "+pv.fullName+ " ref_id "+ a.ref_id+
 		 " " +a.alarm_enable+" "+a.alarm_status); 
@@ -291,11 +299,10 @@ public class ACsys_PVConn implements DPMDataHandler
 
     refArrayList.forEach( (pv) -> 
     {
-      findFieldAndNotify(a,pv);
-
       logger.log(Level.FINE,
 		 "Device DigitalAlarm "+pv.deviceName+ " " +
 		 " ref_id "+ a.ref_id+" " +a.alarm_enable+" "+a.alarm_status);
+      pv.notify(a.alarm_status);
     });
   }
 
@@ -306,10 +313,10 @@ public class ACsys_PVConn implements DPMDataHandler
 
     refArrayList.forEach( (pv) -> 
     {
-      findFieldAndNotify(t,pv);
       logger.log(Level.FINE,
 		 "Device Text "+pv.fullName+ " ref_id "+ t.ref_id+
 		 " " +t.data);
+      pv.notify(t.data);
     });
   }
 
@@ -320,7 +327,11 @@ public class ACsys_PVConn implements DPMDataHandler
 
     refArrayList.forEach( (pv) -> 
     {
-      findFieldAndNotify(t,pv);
+      int index = 0;
+
+      // We cannot serve whole arrays (yet?)
+      if ( pv.index >= 0 ) { index = pv.index;} 
+      pv.notify(t.data[index]);
     });
   }
 
@@ -342,7 +353,6 @@ public class ACsys_PVConn implements DPMDataHandler
       Long lValue = Long.valueOf(value);
       pv.notify(lValue);
 
-      //      findFieldAndNotify(r,pv);
       logger.log(Level.FINE,
 		 "Device Raw "+pv.fullName+ " ref_id "+ r.ref_id+
 		 " " +r.data[0]+
@@ -380,57 +390,6 @@ public class ACsys_PVConn implements DPMDataHandler
         logger.log(Level.SEVERE,"Device "+arg[i]+" error: "+e.toString());
   	e.printStackTrace();
       }
-    }
-  }
-
-  public static void findFieldAndNotify(DPM.Reply message, ACsys_PV pv)
-  {
-    int index = 0;
-
-    // We cannot serve whole arrays (yet?)
-    if ( pv.index >= 0 ) { index = pv.index;} 
-
-    try
-    {
-      Field field = message.getClass().getField("data");
-      Object value = field.get(message);
-      if ( value.getClass().isArray() )
-      {
-	if ( pv.index < 0 ) { return;}
-	try
-	{
-	  double [] array = (double [])value; // Breaks if not a double array
-	  if ( index < array.length )
-	  {
-	    pv.notify(array[index]);
-	    logger.log(Level.FINER,
-		       "Double Field  value["+index+"] "
-		       +array[index]);
-	  }
-	}
-	catch ( Exception e ) // by process of elimination, must be text array
-	{
-	  String [] array = (String [])value; // Breaks if not a double array
-	  if ( index < array.length )
-	  { 
-	    pv.notify(array[index]);
-	    logger.log(Level.INFO,
-		       "String Field  value["+index+"] "
-		       +array[index]);
-	  }
-	}
-      }
-      else
-      {
-	logger.log(Level.FINE,
-		   "Field value "+pv.deviceName+"="+value.toString());
-	pv.notify(value);
-      }
-    }
-    catch ( Exception e )
-    {
-      logger.log(Level.WARNING,"Error in getField on "+pv.fullName+": "+
-		 e.toString(),e);
     }
   }
 }
