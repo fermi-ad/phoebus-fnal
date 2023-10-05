@@ -6,8 +6,8 @@ Phoebus (https://github.com/ControlSystemStudio/phoebus) product for FNAL.
 - Settings and configuration needed to run cs-studio effectively on the FNAL n/w.
 
 ## Requirements
-- Java
-- mvn 3
+- Java/JDK 13 or later
+- mvn maven 3.8.6 or later
 - Phoebus source code `git clone https://github.com/ControlSystemStudio/phoebus.git lib/phoebus`
 
 ## Build & Run with Maven
