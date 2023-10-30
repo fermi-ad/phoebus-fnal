@@ -25,8 +25,9 @@ jobs:
 
     - name: Checkout phoebus repo
       uses: actions/checkout@v4
-      repository: ControlSystemStudio/phoebus.git
-      path: lib/phoebus
+      with:
+        repository: ControlSystemStudio/phoebus.git
+        path: lib/phoebus
 
     - name: Build phoebus fnal product
       run: mvn clean install --batch-mode  --settings=config/settings.xml -DskipTests=true -Ddocs=lib/phoebus/docs
