@@ -10,10 +10,11 @@ on:
 
 jobs:
   build:
-    runs-on: [ epics-build-test ]
+    runs-on: [ ubuntu-latest ]
 
     steps:
     - uses: actions/checkout@v3
+
     - name: Set up JDK 11
       uses: actions/setup-java@v3
       with:
@@ -22,29 +23,10 @@ jobs:
         cache: maven
 
 
-      # Since Phoebus is at gihthub.com domain we cant use checkout@v2 actions. 
-      # See https://github.com/actions/checkout/discussions/511
-      # We migth want to add phoebus as submodule
     - name: Checkout phoebus repo
-      shell: bash
-      run: git clone --depth 1 https://github.com/ControlSystemStudio/phoebus.git lib/phoebus
+      uses: actions/checkout@v4
+      repository: ControlSystemStudio/phoebus.git
+      path: lib/phoebus
 
     - name: Build phoebus fnal product
       run: mvn clean install --batch-mode  --settings=config/settings.xml -DskipTests=true -Ddocs=lib/phoebus/docs
-
-  deploy:
-    runs-on: [ epics-build-test ]
-    needs: [ build ]
-    environment: production
-    if: github.event_name == 'push'
-
-    steps:
-    - name: Deploy phoebus fnal product
-      run: |
-        rsync --exclude='.*' -rp * ${{secrets.INSTALL_DIR}}/phoebus-fnal-${{ github.run_number }}
-        rm -f ${{secrets.INSTALL_DIR}}/phoebus-fnal
-        cd ${{secrets.INSTALL_DIR}}
-        ln -s phoebus-fnal-${{ github.run_number }} phoebus-fnal
-
-    - name: Clean old builds
-      run: ls -t | grep phoebus-fnal- | tail -n +4 | xargs rm -rf --
