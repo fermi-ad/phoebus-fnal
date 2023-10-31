@@ -20,7 +20,6 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-        cache: maven
 
 
     - name: Checkout phoebus repo
@@ -28,7 +27,7 @@ jobs:
       with:
         repository: ControlSystemStudio/phoebus.git
         path: lib/phoebus
-        ref: v4.7.2
+        ref: master
 
     - name: Build phoebus fnal product
-      run: mvn clean install --batch-mode  --settings=config/settings.xml -DskipTests=true -Ddocs=lib/phoebus/docs
+      run: mvn clean install -X --batch-mode  -DskipTests=true -Ddocs=lib/phoebus/docs

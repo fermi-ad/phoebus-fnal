@@ -14,7 +14,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <!-- Update when phoebus version is changed -->
-    <phoebus.version>4.7.2-SNAPSHOT</phoebus.version>
+    <phoebus.version>4.7.3-SNAPSHOT</phoebus.version>
   </properties>
 
   <build>
