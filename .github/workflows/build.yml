@@ -30,4 +30,4 @@ jobs:
         ref: master
 
     - name: Build phoebus fnal product
-      run: mvn clean install -X --batch-mode  -DskipTests=true -Ddocs=lib/phoebus/docs
+      run: mvn clean install --batch-mode  -DskipTests=true -Ddocs=lib/phoebus/docs
