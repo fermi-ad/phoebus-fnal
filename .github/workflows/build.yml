@@ -27,7 +27,7 @@ jobs:
       with:
         repository: ControlSystemStudio/phoebus.git
         path: lib/phoebus
-        ref: master
+        ref: v4.7.3
 
     - name: Build phoebus fnal product
       run: mvn clean install --batch-mode  -DskipTests=true -Ddocs=lib/phoebus/docs
