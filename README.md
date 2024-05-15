@@ -1,29 +1,34 @@
 # phoebus-fnal
 Phoebus (https://github.com/ControlSystemStudio/phoebus) product for FNAL.
 
-- Fermilab specific source code.
+- Fermilab specific source code, including Phoebus/ACsys interface
 - Set of install and build scripts to setup FNAL-phoebus product on the FNAL controls/internal n/w.
 - Settings and configuration needed to run cs-studio effectively on the FNAL n/w.
 
-## Requirements
-- Java/JDK 13 or later
+## Build Requirements
+- Java/JDK 17 or later, full JDK distribution including *javac* compiler.  Recommended JDK 21
 - mvn maven 3.8.6 or later
+- Access to https://github.com
+
+- 
 - Phoebus source code `git clone https://github.com/ControlSystemStudio/phoebus.git lib/phoebus`
 
-## Build & Run with Maven
-```
-mvn -DskipTests clean install
-java -jar product-fnal/target/product-fnal-*.jar
-````
+## Install and Build phoebus-fnal
 
-## Install Phoebus-fnal
+A full build will include at least 2GB of disk space, so find an appropriate area.
 
-Clone the phoebus-fnal product repo to the installation location.
+### If you are building inside the AD network set up an ssh tunnel to the outside world from your build node:
 
 ```
-git clone https://ghe-pip2.fnal.gov/epics-controls/phoebus-fnal.git
-./build.sh
+  ssh -fN -D 1080 outback
+  export HTTPS_PROXY='socks5://localhost:1080'
 ```
+   You will be automatically returned to your build node.  This needs to be done only once until the ssh session crashes.
+
+### Clone the phoebus-fnal product repo to the installation location.
+  git clone https://ghe-pip2.fnal.gov/epics-controls/phoebus-fnal.git
+
+
 
 ### Run FNAL Phoebus
 
