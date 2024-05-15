@@ -8,7 +8,6 @@ TOP="$PWD"
 
 export JAVA_HOME=/usr/lib/jvm/jre-21-openjdk
 export PATH="$JAVA_HOME/bin:$PATH"
-java --version
 
 echo $TOP
 V="4.7.3"
@@ -17,6 +16,7 @@ V="4.7.3"
 if [[ -z "${PHOEBUS_JAR}" ]]; then
   PHOEBUS_JAR=${TOP}/product-fnal/target/fnal-product-${V}.jar
 fi
+echo $PHOEBUS_JAR
 
 # figure out the path to the configuration settings
 if [[ -z "${PHOEBUS_CONFIG}" ]]; then
@@ -25,13 +25,15 @@ fi
 
 # To get one instance, use server mode
 ID=$(id -u)
-OPT="-server 4$ID"
+#OPT="-server 4$ID"
+OPT=""
 
 JDK_JAVA_OPTIONS=" -DCA_DISABLE_REPEATER=true"
 JDK_JAVA_OPTIONS="$JDK_JAVA_OPTIONS -Dnashorn.args=--no-deprecation-warning -Darch=`uname -i`"
 JDK_JAVA_OPTIONS="$JDK_JAVA_OPTIONS -Djdk.gtk.verbose=true -Dprism.forceGPU=false"
 JDK_JAVA_OPTIONS="$JDK_JAVA_OPTIONS -Dlogback.configurationFile=${TOP}/config/logback.xml"
-JDK_JAVA_OPTIONS="$JDK_JAVA_OPTIONS -Dorg.csstudio.javafx.rtplot.update_counter=true"
+JDK_JAVA_OPTIONS="$JDK_JAVA_OPTIONS -Dorg.csstudio.javafx.rtplot.update_counter=false"
+JDK_JAVA_OPTIONS="$JDK_JAVA_OPTIONS -Dfile.encoding=UTF-8"
 export JDK_JAVA_OPTIONS
 
 echo $JDK_JAVA_OPTIONS
