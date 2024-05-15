@@ -3,19 +3,16 @@ Phoebus (https://github.com/ControlSystemStudio/phoebus) product for FNAL.
 
 - Fermilab specific source code, including Phoebus/ACsys interface
 - Set of install and build scripts to setup FNAL-phoebus product on the FNAL controls/internal n/w.
-- Settings and configuration needed to run cs-studio effectively on the FNAL n/w.
+- For production settings and configuration files, see **epics-controls/Config/CSS/Phoebus**
 
 ## Build Requirements
-- Java/JDK 17 or later, full JDK distribution including *javac* compiler.  Recommended JDK 21
+- Java/JDK 17 or later, with full JDK distribution including *javac* compiler.  Recommended JDK 21
 - mvn maven 3.8.6 or later
 - Access to https://github.com
-
-- 
-- Phoebus source code `git clone https://github.com/ControlSystemStudio/phoebus.git lib/phoebus`
-
+  
 ## Install and Build phoebus-fnal
 
-A full build will include at least 2GB of disk space, so find an appropriate area.
+A full build will include at least 2GB of disk space, so find an appropriate area.  The instructions below were run on node _vclx4_ in a private directory on the **/scratch** disk partition.
 
 ### If you are building inside the AD network set up an ssh tunnel to the outside world from your build node:
 
@@ -23,27 +20,49 @@ A full build will include at least 2GB of disk space, so find an appropriate are
   ssh -fN -D 1080 outback
   export HTTPS_PROXY='socks5://localhost:1080'
 ```
-   You will be automatically returned to your build node.  This needs to be done only once until the ssh session crashes.
+   You will be automatically returned to your build node after a brief login to outland.  This needs to be done only once until the ssh session crashes or your server reboots.  This tunnel enables the use of the *proxychains* prefix command seen below.  
 
-### Clone the phoebus-fnal product repo to the installation location.
-  git clone https://ghe-pip2.fnal.gov/epics-controls/phoebus-fnal.git
+### Clone the phoebus-fnal product repo to the build location.
+```
+  proxychains git clone https://github.com/fermi-ad/phoebus-fnal.git
+```
+The proxychains command uses the above ssh tunnel to access github.com
 
+### Download the full base Phoebus and Select version
+```
+   cd phoebus
+   proxychains git clone https://github.com/ControlSystemStudio/phoebus.git
+   proxychains git checkout v4.7.3
+```
+Currently we are using Phoebus production version 4.7.3
 
+### Select JDK 21 [recommended]
+```
+   export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-21.0.3.0.9-1.el9.alma.1.x86_64
+   export PATH=${JAVA_HOME}/bin:${PATH}
+```
+   Type _javac --version_ to make sure you really picked it up JDK 21 [important!]
 
-### Run FNAL Phoebus
+### Go back up to the phoebus-fnal directory and build with maven:
+```
+   proxychains mvn clean install -DskipTests=true --batch-mode \
+     -Ddocs=lib/phoebus/docs
+```
+Watch for errors.
+
+### Run Test Version of FNAL Phoebus
 
 ```
-./run-phoebus
+./test-phoebus.sh
 ```
-
-If installing on a multi-user host, edit the run-phoebus TOP to point to the phoebus installation folder.  
-
+This script is intended for testing locally developed Phoebus builds, and as such differs from the run-phoebus.sh production launch script.
+Production installation involves merging a feature branch and building in the github build enviroment.
 
 ### Include FNAL modules
 
 The Phoebus framework has modularity that allows to have FNAL site-specific code separate from Phoebus source code.
 
-Under the folder  `product ` there is the FNAL source code.
+Under the folder  `product ` there is the FNAL source code.  The following may be extended to provide more Fermilab specific features in the future
 
 
 ```
@@ -64,12 +83,10 @@ Under the folder  `product ` there is the FNAL source code.
 
 #### Step-by-step
 
-This documentation uses the ACsus plugin as an example on how to include new source code into the FNAL Phoebus product.
+This documentation uses the ACsys plugin as an example on how to include new source code into the FNAL Phoebus product.
 
-1. Clone this repository
-```
-git clone https://ghe-pip2.fnal.gov/epics-controls/phoebus-fnal.git
-```
+1. Clone this repository as shown above
+
 2. Create a new directory and add your source code:
     1. Using phoebus structure, identify which kind of module is the new app and add the new source code following the same directory structure.
 `products/src/main/java/org/phoebus/<core|pv|applications>/<app_name>/`
