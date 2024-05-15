@@ -30,8 +30,11 @@ The proxychains command uses the above ssh tunnel to access github.com
 
 ### Download the full base Phoebus and Select version
 ```
-   cd phoebus
+   cd phoebus-fnal
+   mkdir lib
+   cd lib
    proxychains git clone https://github.com/ControlSystemStudio/phoebus.git
+   cd phoebus
    proxychains git checkout v4.7.3
 ```
 Currently we are using Phoebus production version 4.7.3
