@@ -6,7 +6,7 @@
 # Phoebus build and installation location
 TOP="$PWD"
 
-export JAVA_HOME=/usr/lib/jvm/jre-11-openjdk
+export JAVA_HOME=/usr/lib/jvm/jre-21-openjdk
 export PATH="$JAVA_HOME/bin:$PATH"
 
 echo $TOP
