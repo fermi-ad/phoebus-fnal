@@ -6,7 +6,7 @@
 # Phoebus build and installation location
 TOP="$PWD"
 
-export JAVA_HOME=/usr/lib/jvm/jre-21-openjdk
+export JAVA_HOME=/usr/lib/jvm/jre-11-openjdk
 export PATH="$JAVA_HOME/bin:$PATH"
 
 echo $TOP
@@ -30,7 +30,7 @@ OPT=""
 
 JDK_JAVA_OPTIONS=" -DCA_DISABLE_REPEATER=true"
 JDK_JAVA_OPTIONS="$JDK_JAVA_OPTIONS -Dnashorn.args=--no-deprecation-warning -Darch=`uname -i`"
-JDK_JAVA_OPTIONS="$JDK_JAVA_OPTIONS -Djdk.gtk.verbose=true -Dprism.forceGPU=false"
+JDK_JAVA_OPTIONS="$JDK_JAVA_OPTIONS -Djdk.gtk.verbose=true -Djdk.gtk.version=2 -Dprism.forceGPU=false"
 JDK_JAVA_OPTIONS="$JDK_JAVA_OPTIONS -Dlogback.configurationFile=${TOP}/config/logback.xml"
 JDK_JAVA_OPTIONS="$JDK_JAVA_OPTIONS -Dorg.csstudio.javafx.rtplot.update_counter=false"
 JDK_JAVA_OPTIONS="$JDK_JAVA_OPTIONS -Dfile.encoding=UTF-8"
