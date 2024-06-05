@@ -33,6 +33,16 @@
         <version>2.20</version>
       </plugin>
     </plugins>
+
+    <resources>
+      <resource>
+        <directory>${project.basedir}</directory>
+        <includes>
+        <include>site_splash.png</include>
+        </includes>
+      <targetPath>${project.build.directory}</targetPath>
+      </resource>
+    </resources>
   </build>
 
   <modules>
