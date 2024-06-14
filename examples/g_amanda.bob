@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--Saved on 2024-06-14 09:20:33 by badgett-->
 <display version="2.0.0">
-  <name>S:Q106X Display</name>
+  <name>G:AMANDA Display</name>
   <width>1200</width>
   <widget type="label" version="2.0.0">
     <name>Label</name>
     <class>TITLE</class>
-    <text>S:Q106X Display</text>
+    <text>G:AMANDA Display</text>
     <x use_class="true">0</x>
     <y use_class="true">0</y>
     <width>550</width>
@@ -29,7 +29,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update</name>
-    <pv_name>acsys://S:Q106X</pv_name>
+    <pv_name>acsys://G:AMANDA</pv_name>
     <x>100</x>
     <y>50</y>
   </widget>
@@ -76,13 +76,13 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_1</name>
-    <pv_name>acsys://S:Q106X.ANALOG_ALARM.ALARM_ENABLE</pv_name>
+    <pv_name>acsys://G:AMANDA.ANALOG_ALARM.ALARM_ENABLE</pv_name>
     <x>240</x>
     <y>90</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_2</name>
-    <pv_name>acsys://S:Q106X.ANALOG_ALARM.ALARM_STATUS</pv_name>
+    <pv_name>acsys://G:AMANDA.ANALOG_ALARM.ALARM_STATUS</pv_name>
     <x>240</x>
     <y>110</y>
     <rules>
@@ -105,25 +105,25 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_3</name>
-    <pv_name>acsys://S:Q106X.ANALOG_ALARM.ABORT</pv_name>
+    <pv_name>acsys://G:AMANDA.ANALOG_ALARM.ABORT</pv_name>
     <x>240</x>
     <y>130</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_4</name>
-    <pv_name>acsys://S:Q106X.ANALOG_ALARM.ABORT_INHIBIT</pv_name>
+    <pv_name>acsys://G:AMANDA.ANALOG_ALARM.ABORT_INHIBIT</pv_name>
     <x>240</x>
     <y>147</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_5</name>
-    <pv_name>acsys://S:Q106X.ANALOG_ALARM.MINIMUM</pv_name>
+    <pv_name>acsys://G:AMANDA.ANALOG_ALARM.MINIMUM</pv_name>
     <x>240</x>
     <y>167</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_6</name>
-    <pv_name>acsys://S:Q106X.ANALOG_ALARM.MAXIMUM</pv_name>
+    <pv_name>acsys://G:AMANDA.ANALOG_ALARM.MAXIMUM</pv_name>
     <x>360</x>
     <y>167</y>
   </widget>
@@ -170,13 +170,13 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_7</name>
-    <pv_name>acsys://S:Q106X.DIGITAL_ALARM.ALARM_ENABLE</pv_name>
+    <pv_name>acsys://G:AMANDA.DIGITAL_ALARM.ALARM_ENABLE</pv_name>
     <x>240</x>
     <y>240</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_8</name>
-    <pv_name>acsys://S:Q106X.DIGITAL_ALARM.ALARM_STATUS</pv_name>
+    <pv_name>acsys://G:AMANDA.DIGITAL_ALARM.ALARM_STATUS</pv_name>
     <x>240</x>
     <y>260</y>
     <rules>
@@ -199,19 +199,19 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_9</name>
-    <pv_name>acsys://S:Q106X.DIGITAL_ALARM.ABORT</pv_name>
+    <pv_name>acsys://G:AMANDA.DIGITAL_ALARM.ABORT</pv_name>
     <x>240</x>
     <y>280</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_10</name>
-    <pv_name>acsys://S:Q106X.DIGITAL_ALARM.ABORT_INHIBIT</pv_name>
+    <pv_name>acsys://G:AMANDA.DIGITAL_ALARM.ABORT_INHIBIT</pv_name>
     <x>240</x>
     <y>297</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_11</name>
-    <pv_name>acsys://S:Q106X.DIGITAL_ALARM</pv_name>
+    <pv_name>acsys://G:AMANDA.DIGITAL_ALARM</pv_name>
     <x>240</x>
     <y>317</y>
     <format>4</format>
@@ -225,7 +225,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_13</name>
-    <pv_name>acsys://S:Q106X.DIGITAL_ALARM.NOMINAL</pv_name>
+    <pv_name>acsys://G:AMANDA.DIGITAL_ALARM.NOMINAL</pv_name>
     <x>240</x>
     <y>340</y>
     <format>4</format>
@@ -238,21 +238,21 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_12</name>
-    <pv_name>acsys://S:Q106X.STATUS.RAW</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.RAW</pv_name>
     <x>100</x>
     <y>200</y>
     <format>4</format>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_14</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/0</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/0</pv_name>
     <x>510</x>
     <y>100</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_15</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/1</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/1</pv_name>
     <x>694</x>
     <y>100</y>
     <width>51</width>
@@ -280,14 +280,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_16</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/32</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/32</pv_name>
     <x>795</x>
     <y>100</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_17</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/33</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/33</pv_name>
     <x>979</x>
     <y>100</y>
     <width>51</width>
@@ -303,14 +303,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_18</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/2</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/2</pv_name>
     <x>510</x>
     <y>120</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_19</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/3</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/3</pv_name>
     <x>694</x>
     <y>120</y>
     <width>51</width>
@@ -326,14 +326,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_20</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/34</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/34</pv_name>
     <x>795</x>
     <y>120</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_21</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/35</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/35</pv_name>
     <x>979</x>
     <y>120</y>
     <width>51</width>
@@ -349,14 +349,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_22</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/4</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/4</pv_name>
     <x>510</x>
     <y>140</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_23</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/5</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/5</pv_name>
     <x>694</x>
     <y>140</y>
     <width>51</width>
@@ -372,14 +372,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_24</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/6</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/6</pv_name>
     <x>510</x>
     <y>160</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_25</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/7</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/7</pv_name>
     <x>694</x>
     <y>160</y>
     <width>51</width>
@@ -395,14 +395,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_34</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/8</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/8</pv_name>
     <x>510</x>
     <y>185</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_35</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/9</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/9</pv_name>
     <x>694</x>
     <y>185</y>
     <width>51</width>
@@ -418,14 +418,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_36</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/10</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/10</pv_name>
     <x>510</x>
     <y>205</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_37</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/11</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/11</pv_name>
     <x>694</x>
     <y>205</y>
     <width>51</width>
@@ -441,14 +441,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_38</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/12</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/12</pv_name>
     <x>510</x>
     <y>225</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_39</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/13</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/13</pv_name>
     <x>694</x>
     <y>225</y>
     <width>51</width>
@@ -464,14 +464,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_40</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/14</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/14</pv_name>
     <x>510</x>
     <y>245</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_41</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/15</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/15</pv_name>
     <x>694</x>
     <y>245</y>
     <width>51</width>
@@ -487,14 +487,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_42</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/16</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/16</pv_name>
     <x>510</x>
     <y>269</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_43</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/17</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/17</pv_name>
     <x>694</x>
     <y>269</y>
     <width>51</width>
@@ -510,14 +510,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_44</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/18</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/18</pv_name>
     <x>510</x>
     <y>289</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_45</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/19</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/19</pv_name>
     <x>694</x>
     <y>289</y>
     <width>51</width>
@@ -533,14 +533,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_46</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/20</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/20</pv_name>
     <x>510</x>
     <y>309</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_47</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/21</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/21</pv_name>
     <x>694</x>
     <y>309</y>
     <width>51</width>
@@ -556,14 +556,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_48</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/22</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/22</pv_name>
     <x>510</x>
     <y>329</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_49</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/23</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/23</pv_name>
     <x>694</x>
     <y>329</y>
     <width>51</width>
@@ -579,14 +579,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_50</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/24</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/24</pv_name>
     <x>510</x>
     <y>354</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_51</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/25</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/25</pv_name>
     <x>694</x>
     <y>354</y>
     <width>51</width>
@@ -602,14 +602,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_52</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/26</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/26</pv_name>
     <x>510</x>
     <y>374</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_53</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/27</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/27</pv_name>
     <x>694</x>
     <y>374</y>
     <width>51</width>
@@ -625,14 +625,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_54</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/28</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/28</pv_name>
     <x>510</x>
     <y>394</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_55</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/29</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/29</pv_name>
     <x>694</x>
     <y>394</y>
     <width>51</width>
@@ -648,14 +648,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_56</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/30</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/30</pv_name>
     <x>510</x>
     <y>414</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_57</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/31</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/31</pv_name>
     <x>694</x>
     <y>414</y>
     <width>51</width>
@@ -680,14 +680,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_26</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/36</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/36</pv_name>
     <x>795</x>
     <y>140</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_27</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/37</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/37</pv_name>
     <x>979</x>
     <y>140</y>
     <width>51</width>
@@ -703,14 +703,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_28</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/38</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/38</pv_name>
     <x>795</x>
     <y>160</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_29</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/39</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/39</pv_name>
     <x>979</x>
     <y>160</y>
     <width>51</width>
@@ -726,14 +726,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_30</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/44</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/44</pv_name>
     <x>795</x>
     <y>225</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_31</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/45</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/45</pv_name>
     <x>979</x>
     <y>225</y>
     <width>51</width>
@@ -749,28 +749,28 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_32</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/46</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/46</pv_name>
     <x>795</x>
     <y>245</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_33</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/47</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/47</pv_name>
     <x>979</x>
     <y>245</y>
     <width>51</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_58</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/40</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/40</pv_name>
     <x>795</x>
     <y>185</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_59</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/41</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/41</pv_name>
     <x>979</x>
     <y>185</y>
     <width>51</width>
@@ -786,14 +786,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_60</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/42</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/42</pv_name>
     <x>795</x>
     <y>205</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_61</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/43</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/43</pv_name>
     <x>979</x>
     <y>205</y>
     <width>51</width>
@@ -818,14 +818,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_62</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/52</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/52</pv_name>
     <x>795</x>
     <y>310</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_63</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/53</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/53</pv_name>
     <x>979</x>
     <y>310</y>
     <width>51</width>
@@ -841,28 +841,28 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_64</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/54</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/54</pv_name>
     <x>795</x>
     <y>330</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_65</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/55</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/55</pv_name>
     <x>979</x>
     <y>330</y>
     <width>51</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_66</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/48</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/48</pv_name>
     <x>795</x>
     <y>270</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_67</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/49</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/49</pv_name>
     <x>979</x>
     <y>270</y>
     <width>51</width>
@@ -878,14 +878,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_68</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/50</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/50</pv_name>
     <x>795</x>
     <y>290</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_69</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/51</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/51</pv_name>
     <x>979</x>
     <y>290</y>
     <width>51</width>
@@ -910,14 +910,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_70</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/60</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/60</pv_name>
     <x>795</x>
     <y>394</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_71</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/61</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/61</pv_name>
     <x>979</x>
     <y>394</y>
     <width>51</width>
@@ -933,28 +933,28 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_72</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/62</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/62</pv_name>
     <x>795</x>
     <y>414</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_73</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/63</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/63</pv_name>
     <x>979</x>
     <y>414</y>
     <width>51</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_74</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/56</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/56</pv_name>
     <x>795</x>
     <y>354</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_75</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/57</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/57</pv_name>
     <x>979</x>
     <y>354</y>
     <width>51</width>
@@ -970,14 +970,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_76</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/58</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/58</pv_name>
     <x>795</x>
     <y>374</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_77</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/59</pv_name>
+    <pv_name>acsys://G:AMANDA.STATUS.EXTENDED_TEXT/59</pv_name>
     <x>979</x>
     <y>374</y>
     <width>51</width>
