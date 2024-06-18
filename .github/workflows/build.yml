@@ -31,3 +31,8 @@ jobs:
 
     - name: Build phoebus fnal product
       run: mvn clean install --batch-mode  -DskipTests=true -Ddocs=lib/phoebus/docs
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: phoebus-fnal
+        path: .
