@@ -40,5 +40,7 @@
     <module>dependencies</module>
     <module>lib/phoebus</module>
     <module>product-fnal</module>
+    <module>alarm-server-fnal</module>
+
   </modules>
 </project>
