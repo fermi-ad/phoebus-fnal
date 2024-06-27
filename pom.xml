@@ -39,6 +39,7 @@
   <modules>
     <module>dependencies</module>
     <module>lib/phoebus</module>
+    <module>pv-acsys</module>
     <module>product-fnal</module>
     <module>alarm-server-fnal</module>
 
