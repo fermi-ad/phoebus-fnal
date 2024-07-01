@@ -31,11 +31,7 @@ The proxychains command uses the above ssh tunnel to access github.com
 ### Download the full base Phoebus and Select version
 ```
    cd phoebus-fnal
-   mkdir lib
-   cd lib
-   proxychains git clone https://github.com/ControlSystemStudio/phoebus.git
-   cd phoebus
-   proxychains git checkout v4.7.3
+   proxychains git clone -b v4.7.3 https://github.com/ControlSystemStudio/phoebus.git lib/phoebus
 ```
 Currently we are using Phoebus production version 4.7.3
 
@@ -46,7 +42,7 @@ Currently we are using Phoebus production version 4.7.3
 ```
    Type _javac --version_ to make sure you really picked it up JDK 21 [important!]
 
-### Go back up to the phoebus-fnal directory and build with maven:
+### From the root phoebus-fnal directory build with maven:
 ```
    proxychains mvn clean install -DskipTests=true --batch-mode \
      -Ddocs=lib/phoebus/docs
