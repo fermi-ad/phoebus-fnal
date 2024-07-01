@@ -331,7 +331,7 @@ public class ACsys_PVConn implements DPMDataHandler
 
       // We cannot serve whole arrays (yet?)
       if ( pv.index >= 0 ) { index = pv.index;} 
-      pv.notify(t.data[index]);
+      if ( index < t.data.length ) { pv.notify(t.data[index]);}
     });
   }
 
@@ -342,24 +342,21 @@ public class ACsys_PVConn implements DPMDataHandler
 
     refArrayList.forEach( (pv) -> 
     {
-      long [] values = new long [4];
       long value = 0;
-      if ( r.data.length == 4 )
-      { 
-        for (int i=0; i<values.length; i++) 
-	{ values[i] = ((long)r.data[i])&0xFF;}
-	value = values[0]|(values[1] << 8)|(values[2] << 16)|(values[3] << 24); 
+
+      for (int i=0; i<r.data.length && i<8; i++)
+      {
+	long bValue = ((long)r.data[i])&0xFF;
+	value |= ( bValue << i*4);
       }
+
       Long lValue = Long.valueOf(value);
       pv.notify(lValue);
 
-      logger.log(Level.FINE,
-		 "Device Raw "+pv.fullName+ " ref_id "+ r.ref_id+
-		 " " +r.data[0]+
-		 " " +r.data[1]+
-		 " " +r.data[2]+
-		 " " +r.data[3]+
-		 " "+Long.toHexString(lValue.longValue()));
+      String message = "Device Raw "+pv.fullName+ " ref_id "+ r.ref_id;
+      for ( int i=0; i<r.data.length; i++) { message += " " + r.data[i];}
+      logger.log(Level.FINE, message + 
+		 " 0x"+Long.toHexString(lValue.longValue()));
     });
   }
 
