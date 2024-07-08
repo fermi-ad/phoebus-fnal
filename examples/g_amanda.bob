@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2024-06-14 09:20:33 by badgett-->
+<!--Saved on 2024-07-08 13:45:22 by badgett-->
 <display version="2.0.0">
   <name>G:AMANDA Display</name>
   <width>1200</width>
@@ -211,7 +211,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_11</name>
-    <pv_name>acsys://G:AMANDA.DIGITAL_ALARM</pv_name>
+    <pv_name>acsys://G:AMANDA.DIGITAL_ALARM.MASK</pv_name>
     <x>240</x>
     <y>317</y>
     <format>4</format>
