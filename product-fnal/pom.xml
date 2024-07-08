@@ -112,10 +112,12 @@
                   <directory>${docs}/build/html</directory>
                   <filtering>true</filtering>
                 </resource>
-                <!-- copy the welcome html screens -->
-                <resource>
-                  <directory>${project.basedir}/resources</directory>
-                  <filtering>true</filtering>
+               <resource>
+                  <directory>${project.basedir}</directory>
+                  <includes>
+                    <include>site_splash.png</include>
+                  </includes>
+                  <targetPath>${project.build.directory}</targetPath>
                 </resource>
               </resources>
             </configuration>
