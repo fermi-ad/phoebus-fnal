@@ -245,14 +245,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_14</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/0</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/0</pv_name>
     <x>510</x>
     <y>100</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_15</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/1</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_STATUS/0</pv_name>
     <x>694</x>
     <y>100</y>
     <width>51</width>
@@ -280,14 +280,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_16</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/32</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/16</pv_name>
     <x>795</x>
     <y>100</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_17</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/33</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/16</pv_name>
     <x>979</x>
     <y>100</y>
     <width>51</width>
@@ -303,14 +303,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_18</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/2</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/1</pv_name>
     <x>510</x>
     <y>120</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_19</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/3</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/1</pv_name>
     <x>694</x>
     <y>120</y>
     <width>51</width>
@@ -326,14 +326,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_20</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/34</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/17</pv_name>
     <x>795</x>
     <y>120</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_21</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/35</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/17</pv_name>
     <x>979</x>
     <y>120</y>
     <width>51</width>
@@ -349,14 +349,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_22</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/4</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/2</pv_name>
     <x>510</x>
     <y>140</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_23</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/5</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/2</pv_name>
     <x>694</x>
     <y>140</y>
     <width>51</width>
@@ -372,14 +372,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_24</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/6</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/3</pv_name>
     <x>510</x>
     <y>160</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_25</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/7</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/3</pv_name>
     <x>694</x>
     <y>160</y>
     <width>51</width>
@@ -395,14 +395,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_34</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/8</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/4</pv_name>
     <x>510</x>
     <y>185</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_35</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/9</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/4</pv_name>
     <x>694</x>
     <y>185</y>
     <width>51</width>
@@ -418,14 +418,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_36</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/10</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/5</pv_name>
     <x>510</x>
     <y>205</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_37</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/11</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/5</pv_name>
     <x>694</x>
     <y>205</y>
     <width>51</width>
@@ -441,14 +441,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_38</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/12</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/6</pv_name>
     <x>510</x>
     <y>225</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_39</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/13</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/6</pv_name>
     <x>694</x>
     <y>225</y>
     <width>51</width>
@@ -464,14 +464,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_40</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/14</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/7</pv_name>
     <x>510</x>
     <y>245</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_41</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/15</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/7</pv_name>
     <x>694</x>
     <y>245</y>
     <width>51</width>
@@ -487,14 +487,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_42</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/16</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/8</pv_name>
     <x>510</x>
     <y>269</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_43</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/17</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/8</pv_name>
     <x>694</x>
     <y>269</y>
     <width>51</width>
@@ -510,14 +510,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_44</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/18</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/9</pv_name>
     <x>510</x>
     <y>289</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_45</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/19</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/9</pv_name>
     <x>694</x>
     <y>289</y>
     <width>51</width>
@@ -533,14 +533,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_46</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/20</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/10</pv_name>
     <x>510</x>
     <y>309</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_47</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/21</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/10</pv_name>
     <x>694</x>
     <y>309</y>
     <width>51</width>
@@ -556,14 +556,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_48</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/22</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/11</pv_name>
     <x>510</x>
     <y>329</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_49</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/23</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/11</pv_name>
     <x>694</x>
     <y>329</y>
     <width>51</width>
@@ -579,14 +579,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_50</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/24</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/12</pv_name>
     <x>510</x>
     <y>354</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_51</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/25</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/12</pv_name>
     <x>694</x>
     <y>354</y>
     <width>51</width>
@@ -602,14 +602,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_52</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/26</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/13</pv_name>
     <x>510</x>
     <y>374</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_53</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/27</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/13</pv_name>
     <x>694</x>
     <y>374</y>
     <width>51</width>
@@ -625,14 +625,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_54</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/28</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/14</pv_name>
     <x>510</x>
     <y>394</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_55</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/29</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/14</pv_name>
     <x>694</x>
     <y>394</y>
     <width>51</width>
@@ -648,14 +648,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_56</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/30</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/15</pv_name>
     <x>510</x>
     <y>414</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_57</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/31</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/15</pv_name>
     <x>694</x>
     <y>414</y>
     <width>51</width>
@@ -680,14 +680,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_26</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/36</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/18</pv_name>
     <x>795</x>
     <y>140</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_27</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/37</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/18</pv_name>
     <x>979</x>
     <y>140</y>
     <width>51</width>
@@ -703,14 +703,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_28</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/38</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/19</pv_name>
     <x>795</x>
     <y>160</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_29</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/39</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/19</pv_name>
     <x>979</x>
     <y>160</y>
     <width>51</width>
@@ -726,14 +726,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_30</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/44</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/22</pv_name>
     <x>795</x>
     <y>225</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_31</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/45</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/22</pv_name>
     <x>979</x>
     <y>225</y>
     <width>51</width>
@@ -749,28 +749,28 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_32</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/46</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/23</pv_name>
     <x>795</x>
     <y>245</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_33</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/47</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/23</pv_name>
     <x>979</x>
     <y>245</y>
     <width>51</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_58</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/40</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/20</pv_name>
     <x>795</x>
     <y>185</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_59</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/41</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/20</pv_name>
     <x>979</x>
     <y>185</y>
     <width>51</width>
@@ -786,14 +786,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_60</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/42</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/21</pv_name>
     <x>795</x>
     <y>205</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_61</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/43</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/21</pv_name>
     <x>979</x>
     <y>205</y>
     <width>51</width>
@@ -818,14 +818,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_62</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/52</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/26</pv_name>
     <x>795</x>
     <y>310</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_63</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/53</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/26</pv_name>
     <x>979</x>
     <y>310</y>
     <width>51</width>
@@ -841,28 +841,28 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_64</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/54</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/27</pv_name>
     <x>795</x>
     <y>330</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_65</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/55</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/27</pv_name>
     <x>979</x>
     <y>330</y>
     <width>51</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_66</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/48</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/24</pv_name>
     <x>795</x>
     <y>270</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_67</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/49</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/24</pv_name>
     <x>979</x>
     <y>270</y>
     <width>51</width>
@@ -878,14 +878,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_68</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/50</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/25</pv_name>
     <x>795</x>
     <y>290</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_69</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/51</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/25</pv_name>
     <x>979</x>
     <y>290</y>
     <width>51</width>
@@ -910,14 +910,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_70</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/60</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/30</pv_name>
     <x>795</x>
     <y>394</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_71</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/61</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/30</pv_name>
     <x>979</x>
     <y>394</y>
     <width>51</width>
@@ -933,28 +933,28 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_72</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/62</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/31</pv_name>
     <x>795</x>
     <y>414</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_73</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/63</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/31</pv_name>
     <x>979</x>
     <y>414</y>
     <width>51</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_74</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/56</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/28</pv_name>
     <x>795</x>
     <y>354</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_75</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/57</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/28</pv_name>
     <x>979</x>
     <y>354</y>
     <width>51</width>
@@ -970,14 +970,14 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_76</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/58</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_NAMES/29</pv_name>
     <x>795</x>
     <y>374</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_77</name>
-    <pv_name>acsys://S:Q106X.STATUS.EXTENDED_TEXT/59</pv_name>
+    <pv_name>acsys://S:Q106X.STATUS.BIT_VALUES/29</pv_name>
     <x>979</x>
     <y>374</y>
     <width>51</width>
