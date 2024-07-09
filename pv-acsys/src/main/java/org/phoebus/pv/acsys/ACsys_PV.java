@@ -78,7 +78,7 @@ public class ACsys_PV extends PV
     }
 
     // Optional, index to an array
-    if ( t.hasMoreTokens() ) { index = Integer.parseInt(t.nextToken()); } 
+    if ( t.hasMoreTokens() ) { index = Integer.parseInt(t.nextToken());} 
     else                     { index = -1;}
 
     notifyListenersOfValue(VType.toVType(new String(deviceName)));
@@ -148,5 +148,12 @@ public class ACsys_PV extends PV
   {
     ACsys_PVConn.removeListenerRequest(this);
   }
-}
 
+  public String toString()
+  {
+    String reply = super.toString();
+    reply  += " " + fullName +" " +deviceName + " " + index +" " +dpmIndex;
+    return(reply);
+  }
+
+}

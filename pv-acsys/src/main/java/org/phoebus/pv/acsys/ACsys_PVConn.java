@@ -142,33 +142,40 @@ public class ACsys_PVConn implements DPMDataHandler
 
   protected void addDevice(String deviceName, ACsys_PV pv)
   {
-    ArrayList<ACsys_PV> pvListByName = requestsByName.get(deviceName);
+    // With scalar requests, there should only be one ACsys_PV per ArrayList
+    // For vector/array requests, there could be many ACsys_PV objects
+    //   per Array list, each with a unique array index
+    String deviceNameIndexed = deviceName;
+    if ( pv.index >= 0 ) { deviceNameIndexed = deviceName + "/" + pv.index;}  
+    ArrayList<ACsys_PV> pvListByName = requestsByName.get(deviceNameIndexed);
+
     if ( pvListByName == null )
     {
       pvListByName = new ArrayList<ACsys_PV>();
-      requestsByName.put(deviceName,pvListByName);
+      requestsByName.put(deviceNameIndexed,pvListByName);
+      
+      // We have a brand new request here, so increment our dpmIndex and add
+      //   to our dpmList
+      dpmIndex++;
+      dpmList.addRequest(dpmIndex,deviceName);
+      dpmList.start(this);
+      logger.log(Level.INFO,"Added request "+deviceName+" "+pv.dpmIndex);
     }
-    else // If the list already exists, use the first entry to find the DPM index
+
+    ArrayList<ACsys_PV> pvListByIndex = requestsByIndex.get(dpmIndex);
+    if ( pvListByIndex == null )
     {
-      ArrayList<ACsys_PV> pvListByIndex = requestsByIndex.get(pvListByName.get(0).dpmIndex);
-      if ( pvListByIndex == null )
-      {
-        pvListByIndex = new ArrayList<ACsys_PV>();
-	requestsByIndex.put(dpmIndex,pvListByIndex);
-
-	pv.dpmIndex = dpmIndex;
-	pvListByName.add(pv);
-	pvListByIndex.add(pv);
-	
-	// This must be a brand new request!  Add it to our DPM request list
-	dpmList.addRequest(dpmIndex,deviceName);
-	dpmList.start(this);
-	logger.log(Level.INFO,"Added request "+deviceName+" "+pv.dpmIndex);
-	dpmIndex++;
-      }
+      pvListByIndex = new ArrayList<ACsys_PV>();
+      requestsByIndex.put(dpmIndex,pvListByIndex);
+      logger.log(Level.FINE,"ByIndex: "+requestsByIndex.toString());
     }
-  }
 
+    pv.dpmIndex = dpmIndex;
+    if ( !pvListByName.contains(pv) ) { pvListByName.add(pv);}
+    if ( !pvListByIndex.contains(pv) ){ pvListByIndex.add(pv);}
+
+  }
+    
   // Constructor
   protected ACsys_PVConn() 
   {
@@ -339,10 +346,11 @@ public class ACsys_PVConn implements DPMDataHandler
     pvList.forEach( (pv)->
     {
       int index = 0;
-
+      logger.log(Level.FINE, "Notifying "+pv.toString());
+		 
       // We cannot serve whole arrays (yet?)  Does that even make sense in a widget context?
       if ( pv.index >= 0 ) { index = pv.index;} 
-      if ( index < t.data.length ) { pv.notify(t.data[index]);}
+      if ( index < t.data.length ) { pv.notify(t.data[index]); logger.log(Level.FINE,"...with "+t.data[index]);}
     });
   }
 
