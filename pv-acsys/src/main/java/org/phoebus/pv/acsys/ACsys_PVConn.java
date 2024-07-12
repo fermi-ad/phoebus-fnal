@@ -339,18 +339,20 @@ public class ACsys_PVConn implements DPMDataHandler
     ArrayList<ACsys_PV> pvList = requestsByIndex.get(t.ref_id);
     if ( pvList == null ) { return;}
 
-    logger.log(Level.FINE, "Received TextArray length "+t.data.length);
+    logger.log(Level.FINER, "Received TextArray length "+t.data.length);
     for ( int i =0 ; i<t.data.length; i++)
-    { logger.log(Level.FINE, i+ " " + t.data[i]); }
+    { logger.log(Level.FINER, i+ " " + t.data[i]); }
 
     pvList.forEach( (pv)->
     {
       int index = 0;
-      logger.log(Level.FINE, "Notifying "+pv.toString());
+      logger.log(Level.FINER, "Notifying "+pv.toString());
 		 
-      // We cannot serve whole arrays (yet?)  Does that even make sense in a widget context?
+      // We cannot serve whole arrays (yet?)
+      // Does that even make sense in a widget context?
       if ( pv.index >= 0 ) { index = pv.index;} 
-      if ( index < t.data.length ) { pv.notify(t.data[index]); logger.log(Level.FINE,"...with "+t.data[index]);}
+      if ( index < t.data.length ) { pv.notify(t.data[index]); }
+      else                         { pv.notify(new String("-"));}
     });
   }
 
