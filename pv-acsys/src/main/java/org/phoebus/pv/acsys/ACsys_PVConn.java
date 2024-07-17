@@ -31,12 +31,9 @@ import java.io.FileInputStream;
 
 import java.util.Date;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.io.IOException;
-import java.lang.Class;
-import java.lang.reflect.Field;
 
 // ACsys/DPM classes
 import gov.fnal.controls.service.proto.DPM;
@@ -167,7 +164,7 @@ public class ACsys_PVConn implements DPMDataHandler
     {
       pvListByIndex = new ArrayList<ACsys_PV>();
       requestsByIndex.put(dpmIndex,pvListByIndex);
-      logger.log(Level.FINE,"ByIndex: "+requestsByIndex.toString());
+      //logger.log(Level.FINE,"ByIndex: "+requestsByIndex.toString());
     }
 
     pv.dpmIndex = dpmIndex;
@@ -234,7 +231,7 @@ public class ACsys_PVConn implements DPMDataHandler
       // use lamba expression here for string concat
       logger.log(Level.FINE, "Device "+pv.fullName+ " ref_id "+ devInfo.ref_id+
 		 " " +s.data);
-      pv.notify(s.data);
+      pv.notify(s.data,s.timestamp);
     });
   }
 
@@ -252,7 +249,7 @@ public class ACsys_PVConn implements DPMDataHandler
 
       logger.log(Level.FINE,"Device ScalarArray "+pv.fullName+ " ref_id "+ 
 		 s.ref_id+" " +s.data);
-      pv.notify(s.data[index]);
+      pv.notify(s.data[index],s.timestamp);
     });
   }
 
@@ -263,7 +260,7 @@ public class ACsys_PVConn implements DPMDataHandler
 
     pvList.forEach( (pv)->
     {    
-      pv.notify(s.on);
+      pv.notify(s.on,s.timestamp);
       logger.log(Level.FINE,
 		 "Device BasicStatus "+pv.fullName+ " ref_id "+ devInfo.ref_id+
 		 " " +s.on+" "+s.ready);
@@ -284,7 +281,7 @@ public class ACsys_PVConn implements DPMDataHandler
       }  
       else
       {
-	pv.notify(s.status);
+	pv.notify(s.status,s.timestamp);
       }
       logger.log(Level.FINE,
 		 "Device Status "+pv.fullName+ " ref_id "+ s.ref_id+
@@ -299,7 +296,7 @@ public class ACsys_PVConn implements DPMDataHandler
 
     pvList.forEach( (pv)->
     {
-      pv.notify(a.alarm_status);
+      pv.notify(a.alarm_status,a.timestamp);
       logger.log(Level.FINE,
 		 "Device AnalogAlarm "+pv.fullName+ " ref_id "+ a.ref_id+
 		 " " +a.alarm_enable+" "+a.alarm_status); 
@@ -316,7 +313,7 @@ public class ACsys_PVConn implements DPMDataHandler
       logger.log(Level.FINE,
 		 "Device DigitalAlarm "+pv.deviceName+ " " +
 		 " ref_id "+ a.ref_id+" " +a.alarm_enable+" "+a.alarm_status);
-      pv.notify(a.alarm_status);
+      pv.notify(a.alarm_status,a.timestamp);
     });
   }
 
@@ -330,7 +327,7 @@ public class ACsys_PVConn implements DPMDataHandler
       logger.log(Level.FINE,
 	       "Device Text "+pv.fullName+ " ref_id "+ t.ref_id+
 	       " " +t.data);
-      pv.notify(t.data);
+      pv.notify(t.data,t.timestamp);
     });
   }
 
@@ -351,8 +348,8 @@ public class ACsys_PVConn implements DPMDataHandler
       // We cannot serve whole arrays (yet?)
       // Does that even make sense in a widget context?
       if ( pv.index >= 0 ) { index = pv.index;} 
-      if ( index < t.data.length ) { pv.notify(t.data[index]); }
-      else                         { pv.notify(new String("-"));}
+      if ( index < t.data.length ) { pv.notify(t.data[index],t.timestamp); }
+      else                         { pv.notify(new String(),0);}
     });
   }
 
@@ -372,7 +369,7 @@ public class ACsys_PVConn implements DPMDataHandler
       }  
 
       Long lValue = Long.valueOf(value);
-      pv.notify(lValue);
+      pv.notify(lValue,r.timestamp);
 
       String message = "Device Raw "+pv.fullName+ " ref_id "+ r.ref_id;
       for ( int i=0; i<r.data.length; i++) { message += " " + r.data[i];}
@@ -417,7 +414,7 @@ public class ACsys_PVConn implements DPMDataHandler
   	e.printStackTrace();
       }
     }
-    logger.log(Level.INFO, instance.toString());
+    //    logger.log(Level.INFO, instance.toString());
   }
 
   public String toString()
