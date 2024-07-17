@@ -58,6 +58,7 @@ public class ACsys_PV extends PV implements ACsys_PVListener
   public String  event;
   public long    dpmIndex;
   public VType   lastValue;
+  public long    lastTimestamp;
 
   public boolean isRegular    =  false; // Simple reading request
   public Range   displayRange =  Range.of(-100,100); // Reading min/max
@@ -68,8 +69,10 @@ public class ACsys_PV extends PV implements ACsys_PVListener
   public Alarm   alarm = Alarm.of(AlarmSeverity.NONE, AlarmStatus.NONE, "None");
   public String  units        = "";
   public String  description  = "Description";
-  public double  digitalStatus;
-  public double  analogStatus;
+  public int     digitalStatus;
+  public int     analogStatus;
+  public int     digitalStatusLast;
+  public int     analogStatusLast;
 
   public final static String [] dpmFields = { ".ANALOG.STATUS" ,
       ".DIGITAL.STATUS" ,
@@ -220,11 +223,16 @@ public class ACsys_PV extends PV implements ACsys_PVListener
     }
   }
 
+  protected VType constructVType(Object value, long timestamp)
+  {
+    return(VType.toVType(value,alarm,Time.of(Instant.ofEpochMilli(timestamp)),
+				   Display.of(displayRange,alarmRange,warningRange,
+					      controlRange,units,numberFormat,description)));
+  }
+    
   public void notify(Object value, long timestamp)
   {
-    VType newValue = VType.toVType(value,alarm,Time.of(Instant.ofEpochMilli(timestamp)),
-				   Display.of(displayRange,alarmRange,warningRange,
-					      controlRange,units,numberFormat,description));
+    VType newValue = constructVType(value,timestamp);
     if ( lastValue != null )
     {
       if ( ( newValue instanceof VNumber ) || ( newValue instanceof VString ))
@@ -233,6 +241,7 @@ public class ACsys_PV extends PV implements ACsys_PVListener
 	{
           notifyListenersOfValue(newValue);
           lastValue = newValue;
+	  lastTimestamp = timestamp;
 	}
       }
       else
@@ -278,25 +287,29 @@ public class ACsys_PV extends PV implements ACsys_PVListener
     switch ( pv.dpmFieldsIndex )
     {
       case 0: // .ANALOG.STATUS
-        analogStatus =  ((Double)value).doubleValue();
+	analogStatusLast = analogStatus;
+	analogStatus =  ((Double)value).intValue();
 	updateAlarm();
       break;
 
       case 1: // .DIGITAL.STATUS
-         digitalStatus =  ((Double)value).doubleValue();
+	digitalStatusLast = digitalStatus;
+        digitalStatus = ((Double)value).intValue();
 	updateAlarm();
       break;
 
       case 2: // .ANALOG.MIN
          min = ((Double)value).doubleValue();
 	 max = alarmRange.getMaximum();
-        alarmRange = Range.of(min,max);
+         alarmRange = Range.of(min,max);
+	 warningRange = Range.of(min,max);
       break;
 
       case 3: // .ANALOG.MAX
 	 min = alarmRange.getMinimum();
 	 max = ((Double)value).doubleValue();
-	alarmRange = Range.of(min,max);
+ 	 alarmRange = Range.of(min,max);
+	 warningRange = Range.of(min,max);
       break;
 
       case 4: // .DESCRIPTION
@@ -306,12 +319,27 @@ public class ACsys_PV extends PV implements ACsys_PVListener
     }
   }
 
+  public double getValue()
+  {
+    double reply = 0.0;
+    if ( lastValue instanceof VDouble )
+    {
+      VDouble dValue = (VDouble)lastValue;
+      reply = (dValue.getValue()).doubleValue();
+    }
+    return(reply);
+  }
+    
   public void updateAlarm()
   {
-      if  ( ( digitalStatus != 0 ) || (analogStatus != 0 ))
+    if  ( ( digitalStatus != 0 ) || (analogStatus != 0 ))
     {
       String statusString = new String();
-      if ( analogStatus != 0 ) { statusString = "HIHI";}
+      if ( analogStatus != 0 )
+      {
+	statusString = "HIHI";
+	if ( getValue() < alarmRange.getMinimum()) { statusString = "LOLO";}
+      }
       if ( digitalStatus != 0 )
       {
 	if ( statusString.length() > 0 ) { statusString +="+";}
@@ -322,6 +350,17 @@ public class ACsys_PV extends PV implements ACsys_PVListener
     else
     {
       alarm = Alarm.of(AlarmSeverity.NONE, AlarmStatus.NONE, "None");
+    }
+    if ( ( digitalStatusLast != digitalStatus ) ||
+	 ( analogStatusLast  != analogStatus ) )
+    {
+      if ( lastValue instanceof VDouble )
+      {
+	VDouble dValue = (VDouble)lastValue;
+	VType newValue = constructVType(dValue.getValue(),lastTimestamp);
+	notifyListenersOfValue(newValue);
+	lastValue = newValue;
+      }
     }
   }
 }
