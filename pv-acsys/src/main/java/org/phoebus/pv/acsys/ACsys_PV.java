@@ -3,7 +3,7 @@
 //
 //  An instance of this class is created by Phoebus whenever a widget wants a 
 //    variable starting with "acsys://"
-//  This class registers the device with ACsys_PVConn which actually does 
+//  This class registers the device with the ACsys_PVConn instance which actually does 
 //    the ACsys/DPM communications.
 //
 
@@ -35,7 +35,7 @@ import org.epics.vtype.AlarmSeverity;
 import org.epics.vtype.AlarmStatus;
 import org.epics.util.stats.Range;
 import org.phoebus.pv.PV;
-
+//import org.phoebus.ui.application.ApplicationLauncherService;
 
 /** ACsys Process Variable
  *  @author William Badgett
@@ -200,13 +200,13 @@ public class ACsys_PV extends PV implements ACsys_PVListener
     else if ( deviceName.equals("launchDisplay") )
     {
       // Prompt for ACsys device name to display
-      String device = JOptionPane.showInputDialog("Role name for ACsys settings?",
-						  "G:AMANDA");
+      String device = JOptionPane.showInputDialog("Name of ACsys device?", "Z:ACLTST");
       logger.log(Level.INFO,"Launching ACsys display of "+device);
       if ( device != null )
       {
-	  //ACsys_PVConn.enableSettings(role);
-        logger.log(Level.WARNING,"Launched ACsys display of "+device);
+	//ACsys_PVConn.enableSettings(role);
+	  //ApplicationLauncherService.openFile("file:/scratch/badgett/phoebus-fnal/examples/z_acltst.bob");
+	  logger.log(Level.WARNING,"Launched ACsys display of "+device);
       }
       else
       {
@@ -323,27 +323,27 @@ public class ACsys_PV extends PV implements ACsys_PVListener
 	 min = controlRange.getMinimum();
 	 max = ((Double)value).doubleValue();
  	 controlRange = Range.of(min,max);
-       break;
+      break;
 
-       case 6: // .READING.MIN
+      case 6: // .READING.MIN
          min = ((Double)value).doubleValue();
 	 max = displayRange.getMaximum();
          displayRange = Range.of(min,max);
-       break;
+      break;
 
-       case 7: // .READING.MAX
+      case 7: // .READING.MAX
 	 min = displayRange.getMinimum();
 	 max = ((Double)value).doubleValue();
  	 displayRange = Range.of(min,max);
-       break;
+      break;
 
-       case 8: // .UNITS
-	 units = (String)value;
-       break;
+      case 8: // .UNITS
+        units = (String)value;
+      break;
 
-       case 9: // .DESCRIPTION
-	 description = (String)value;
-
+      case 9: // .DESCRIPTION
+	description = (String)value;
+      break;
 
     }
   }
