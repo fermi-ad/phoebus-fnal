@@ -1,15 +1,12 @@
 //
-//  Class org.phoebus.pv.acsys.ACsys_PV 
+//  Class org.phoebus.pv.acsys.ACsys_PV   [w.badgett]
 //
 //  An instance of this class is created by Phoebus whenever a widget wants a 
 //    variable starting with "acsys://"
 //  This class registers the device with ACsys_PVConn which actually does 
 //    the ACsys/DPM communications.
 //
-//  
-//
-//
-//
+
 
 package org.phoebus.pv.acsys;
 
@@ -259,10 +256,12 @@ public class ACsys_PV extends PV implements ACsys_PVListener
     listeners.forEach( (pv)->{ pv.notifyACsys_PVListener(this,value,timestamp); });
   }
 
-  // This needs thought and more work to get right.
+  // This may need more thought
+  // We ass/u/me here that Phoebus only calls the call() method once all GUI
+  //   widget listeners have closed down.  If this is not true, chaos would ensue.
   protected void close()
   {
-    //ACsys_PVConn.removeListenerRequest(this);
+    ACsys_PVConn.removeListenerRequest(this);
   }
 
   public String toString()
@@ -272,6 +271,7 @@ public class ACsys_PV extends PV implements ACsys_PVListener
     return(reply);
   }
 
+  // ACsys_PVListener instances are intended for inter-PV communications
   public void addACsys_PVListener(ACsys_PVListener pvl)
   {
     listeners.add(pvl);

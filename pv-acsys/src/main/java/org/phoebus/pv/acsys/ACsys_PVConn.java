@@ -126,15 +126,33 @@ public class ACsys_PVConn implements DPMDataHandler
 
   protected void removeDevice(ACsys_PV pv)
   {
-    // This first part requires more thought
-    ArrayList<ACsys_PV> pvList = requestsByIndex.get(pv.dpmIndex);
-    if ( pvList != null ) { requestsByIndex.remove(pv); }
-
-    // We could check for empty vectors and remove them from the HashMaps,
-    //   but the cost is small to keep them there and the requests may be 
-    //   requested again in the future
-    dpmList.removeRequest(pv.dpmIndex);
-    logger.log(Level.FINE,"Removed device "+pv.fullName+" "+pv.dpmIndex);
+    // This may require more thought
+    ArrayList<ACsys_PV> pvListByIndex = requestsByIndex.get(pv.dpmIndex);
+    if ( pvListByIndex != null )
+    {
+      pvListByIndex.remove(pv);
+      if ( pvListByIndex.size() <= 0 )
+      {
+	requestsByIndex.remove(pv.dpmIndex);
+	dpmList.removeRequest(pv.dpmIndex);
+	logger.log(Level.FINE,"Removed device "+pv.fullName+
+		   " "+pv.dpmIndex+" from requestByIndex");
+      }
+    }
+    
+    String deviceNameIndexed = pv.deviceName;
+    if ( pv.index >= 0 ) { deviceNameIndexed = pv.deviceName + "/" + pv.index;}  
+    ArrayList<ACsys_PV> pvListByName = requestsByName.get(deviceNameIndexed);
+    if ( pvListByName  != null )
+    {
+      pvListByName.remove(pv);
+      if ( pvListByName.size() <= 0 )
+      {
+	requestsByName.remove(deviceNameIndexed);
+	logger.log(Level.FINE,"Removed device "+deviceNameIndexed+" "
+		   +pv.dpmIndex+" from requestByIndex");
+      }
+    }
   }
 
   protected void addDevice(String deviceName, ACsys_PV pv)
