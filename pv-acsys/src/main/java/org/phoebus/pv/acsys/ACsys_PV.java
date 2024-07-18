@@ -78,14 +78,14 @@ public class ACsys_PV extends PV implements ACsys_PVListener
       ".DIGITAL.STATUS" ,
       ".ANALOG.MIN",
       ".ANALOG.MAX",
-      //".SETTING.MIN",
-      //".SETTING.MAX",
-      //".READING.MIN",
-      //".READING.MAX",
-      //".UNITS",
+      ".SETTING.MIN",
+      ".SETTING.MAX",
+      ".READING.MIN",
+      ".READING.MAX",
+      ".UNITS",
       ".DESCRIPTION"};
   public int dpmFieldsIndex = -1;
-    
+  
   public static ACsys_PV settingsPV = null;
 
   private static HashMap<String,ACsys_PV> devices = new HashMap<>();
@@ -259,9 +259,10 @@ public class ACsys_PV extends PV implements ACsys_PVListener
     listeners.forEach( (pv)->{ pv.notifyACsys_PVListener(this,value,timestamp); });
   }
 
+  // This needs thought and more work to get right.
   protected void close()
   {
-    ACsys_PVConn.removeListenerRequest(this);
+    //ACsys_PVConn.removeListenerRequest(this);
   }
 
   public String toString()
@@ -312,9 +313,37 @@ public class ACsys_PV extends PV implements ACsys_PVListener
 	 warningRange = Range.of(min,max);
       break;
 
-      case 4: // .DESCRIPTION
-        description = (String)value;
+      case 4: // .SETTING.MIN
+         min = ((Double)value).doubleValue();
+	 max = controlRange.getMaximum();
+         controlRange = Range.of(min,max);
       break;
+
+      case 5: // .SETTING.MAX
+	 min = controlRange.getMinimum();
+	 max = ((Double)value).doubleValue();
+ 	 controlRange = Range.of(min,max);
+       break;
+
+       case 6: // .READING.MIN
+         min = ((Double)value).doubleValue();
+	 max = displayRange.getMaximum();
+         displayRange = Range.of(min,max);
+       break;
+
+       case 7: // .READING.MAX
+	 min = displayRange.getMinimum();
+	 max = ((Double)value).doubleValue();
+ 	 displayRange = Range.of(min,max);
+       break;
+
+       case 8: // .UNITS
+	 units = (String)value;
+       break;
+
+       case 9: // .DESCRIPTION
+	 description = (String)value;
+
 
     }
   }
