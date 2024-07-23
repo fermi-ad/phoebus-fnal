@@ -18,7 +18,8 @@
 //    "$"  Digitial Alarm
 //    "~"  Description
 //
-// For best performance, use only ":" with DRF2 qualifiers following
+// For best performance and less confusion, use only ":" with DRF2 qualifiers (propterties and
+//   fields) following the device name
 //
 
 package org.phoebus.pv.acsys;
@@ -28,12 +29,12 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.io.FileInputStream;
+import java.io.IOException;
 
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
-import java.io.IOException;
 
 // ACsys/DPM classes
 import gov.fnal.controls.service.proto.DPM;
@@ -41,6 +42,7 @@ import gov.fnal.controls.service.dpm.DPMList;
 import gov.fnal.controls.service.dpm.DPMListTCP;
 import gov.fnal.controls.service.dpm.DPMDataHandler;
 import gov.fnal.controls.servers.dpm.SettingData;
+import gov.fnal.controls.acnet.AcnetErrors;
 
 /** ACsys device subscription handler
  *
@@ -72,10 +74,10 @@ public class ACsys_PVConn implements DPMDataHandler
   protected long dpmIndex = 0; // Running DPM device index, never goes down
                                // when a listener/device is removed
 
-  public static void addListenerRequest(String device, ACsys_PV pv)
+  public static void addListenerRequest(String requestName, ACsys_PV pv)
   {
     if ( instance == null ) { instance = new ACsys_PVConn();}
-    instance.addDevice(device,pv);
+    instance.addRequest(requestName,pv);
   }
 
   public static void removeListenerRequest(ACsys_PV pv)
@@ -104,18 +106,24 @@ public class ACsys_PVConn implements DPMDataHandler
 
       if ( newValue instanceof Double )
       {
-	dpmList.addSetting(pv.dpmIndex,
-			   ((Double)newValue).doubleValue());
+	double setting = ((Double)newValue).doubleValue();
+	logger.log(Level.FINE,"Device "+pv.fullName+" refId "+pv.dpmIndex+" adding setting of "+
+		   setting);
+	dpmList.addSetting(pv.dpmIndex, setting);
       }
       else if ( newValue instanceof String )
-      {
+      {	
+	logger.log(Level.FINE,"Device "+pv.fullName+" refId "+pv.dpmIndex+" adding setting of "+
+		   (String)newValue);
 	dpmList.addSetting(pv.dpmIndex,(String)newValue);
       }
 
       try
       {
-	// Settings must be enabled at this point for this to work
+	// Settings must already be enabled at this point for this to work
 	dpmList.applySettings(this);
+	logger.log(Level.FINE,"Device "+pv.fullName+" refId "+pv.dpmIndex+" setting of "+
+		   newValue.toString()+" has been applied");
       }
       catch ( Exception e )
       {
@@ -155,40 +163,32 @@ public class ACsys_PVConn implements DPMDataHandler
     }
   }
 
-  protected void addDevice(String deviceName, ACsys_PV pv)
+  protected void addRequest(String requestName, ACsys_PV pv)
   {
     // With scalar requests, there should only be one ACsys_PV per ArrayList
     // For vector/array requests, there could be many ACsys_PV objects
     //   per Array list, each with a unique array index
-    String deviceNameIndexed = deviceName;
-    if ( pv.index >= 0 ) { deviceNameIndexed = deviceName + "/" + pv.index;}  
-    ArrayList<ACsys_PV> pvListByName = requestsByName.get(deviceNameIndexed);
 
-    if ( pvListByName == null )
+    // Consider requestsByName to be the primary source of truth:
+    //  have we ecountered this request before?
+    ArrayList<ACsys_PV> pvList = requestsByName.get(requestName);
+    if ( pvList == null )
     {
-      pvListByName = new ArrayList<ACsys_PV>();
-      requestsByName.put(deviceNameIndexed,pvListByName);
+      pvList = new ArrayList<ACsys_PV>();
+      requestsByName.put(requestName,pvList);
       
       // We have a brand new request here, so increment our dpmIndex and add
       //   to our dpmList
       dpmIndex++;
-      dpmList.addRequest(dpmIndex,deviceName);
+      pv.dpmIndex = dpmIndex;
+      dpmList.addRequest(dpmIndex,requestName);
       dpmList.start(this);
-      logger.log(Level.INFO,"Added request "+deviceName+" "+pv.dpmIndex);
+      logger.log(Level.INFO,"Added request "+requestName+" "+pv.dpmIndex);
+
+      requestsByIndex.put(dpmIndex,pvList);
     }
 
-    ArrayList<ACsys_PV> pvListByIndex = requestsByIndex.get(dpmIndex);
-    if ( pvListByIndex == null )
-    {
-      pvListByIndex = new ArrayList<ACsys_PV>();
-      requestsByIndex.put(dpmIndex,pvListByIndex);
-      //logger.log(Level.FINE,"ByIndex: "+requestsByIndex.toString());
-    }
-
-    pv.dpmIndex = dpmIndex;
-    if ( !pvListByName.contains(pv) ) { pvListByName.add(pv);}
-    if ( !pvListByIndex.contains(pv) ){ pvListByIndex.add(pv);}
-
+    if ( !pvList.contains(pv) ) { pvList.add(pv);}
   }
     
   // Constructor

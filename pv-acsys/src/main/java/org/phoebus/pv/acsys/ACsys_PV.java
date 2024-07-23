@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.time.Instant;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.io.IOException;
 
 // Using JOptionPane to confirm settings, not sure if this is the right place to
 //  do graphics operations...
@@ -85,6 +86,8 @@ public class ACsys_PV extends PV implements ACsys_PVListener
   
   public static ACsys_PV settingsPV = null;
 
+  // Unlike the request maps in the ACsys_PVConn class, devices here include the
+  //   DRF2 request string, plus an optional "/" plus and array index
   private static HashMap<String,ACsys_PV> devices = new HashMap<>();
 
   // Factory method; each device specification must only have one instance
@@ -94,9 +97,11 @@ public class ACsys_PV extends PV implements ACsys_PVListener
   //
   public static ACsys_PV fetchDevice(String name, String base_name)
   {
+    logger.log(Level.FINE, "Look for device "+name);
     ACsys_PV pv = devices.get(name);
     if ( pv == null )
     {
+      logger.log(Level.FINE, "Did not find device "+name+", creating a new PV object");
       pv = new ACsys_PV(name,base_name);
       devices.put(base_name,pv); // If an array, we must retain the index
                                  // after the slash 
@@ -111,7 +116,7 @@ public class ACsys_PV extends PV implements ACsys_PVListener
     fullName = name;
 
     StringTokenizer t = new StringTokenizer(base_name,"/");
-    deviceName = t.nextToken();
+    deviceName = t.nextToken(); // Should be DRF2 request without the optional array index
 
     // Very special virtual device to enable ACsys settings
     if ( deviceName.equals("enableSettings"))
@@ -128,22 +133,22 @@ public class ACsys_PV extends PV implements ACsys_PVListener
     else                     { index = -1;}
 
     // Suss out what the event is: TCLK or rate if any
-    t = new StringTokenizer(deviceName,"@");
-    request = t.nextToken();
-    if ( t.hasMoreTokens() ) { event = t.nextToken();}
-    else { event = new String();}
+    StringTokenizer tt = new StringTokenizer(deviceName,"@");
+    request = tt.nextToken();
+    if ( tt.hasMoreTokens() ) { event = tt.nextToken();}
+    else                      { event = new String();}
 
     // See if we are a "regular" request without properties or fields
-    t = new StringTokenizer(request,".");
-    rawDeviceName = t.nextToken();
-    if ( t.hasMoreTokens() )
+    StringTokenizer ttt = new StringTokenizer(request,".");
+    rawDeviceName = ttt.nextToken();
+    if ( ttt.hasMoreTokens() )
     {
-       while ( t.hasMoreTokens() ) { qualifiers += t.nextToken();}
+       while ( ttt.hasMoreTokens() ) { qualifiers += ttt.nextToken();}
     }
     else
     {
       qualifiers = new String();
-      if ( deviceName.charAt(1) == ':' ) { isRegular = true;}
+      if ( deviceName.charAt(1) == ':' ) { isRegular = true;} // Look for colon as a regular symbol
     }
 
     // Detect if this a "regular" request of the format G:AMANAD@...
@@ -282,8 +287,8 @@ public class ACsys_PV extends PV implements ACsys_PVListener
   @Override
   public void notifyACsys_PVListener(ACsys_PV pv, Object value, long timestamp)
   {
-    logger.log(Level.FINE,deviceName+" Got update from "+pv.deviceName+" " + qualifiers + " "+
-	       pv.dpmFieldsIndex + " " + value.toString()+ " "+timestamp);
+    logger.log(Level.FINE,deviceName+" Got update from "+pv.deviceName+" quals " + qualifiers + " FieldIndex "+
+	       pv.dpmFieldsIndex + " dpmIndex " + pv.dpmIndex + " value "+value.toString()+ " "+timestamp);
     double min,max;
     switch ( pv.dpmFieldsIndex )
     {
