@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2024-07-08 13:37:27 by badgett-->
+<!--Saved on 2024-07-15 13:36:24 by badgett-->
 <display version="2.0.0">
   <name>S:Q106X Display</name>
   <width>1200</width>
@@ -37,54 +37,54 @@
     <name>Label_2</name>
     <text>AnalogAlarm:</text>
     <x>8</x>
-    <y>90</y>
+    <y>120</y>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_3</name>
     <text>Alarm Enabled</text>
     <x>120</x>
-    <y>90</y>
+    <y>120</y>
     <width>130</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_4</name>
     <text>Alarm Status</text>
     <x>120</x>
-    <y>110</y>
+    <y>140</y>
     <width>130</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_5</name>
     <text>Abort</text>
     <x>120</x>
-    <y>130</y>
+    <y>160</y>
     <width>130</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_6</name>
     <text>Abort Inhibit</text>
     <x>120</x>
-    <y>150</y>
+    <y>180</y>
     <width>130</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_7</name>
     <text>Range</text>
     <x>120</x>
-    <y>170</y>
+    <y>200</y>
     <width>130</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_1</name>
     <pv_name>acsys://S:Q106X.ANALOG_ALARM.ALARM_ENABLE</pv_name>
     <x>240</x>
-    <y>90</y>
+    <y>120</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_2</name>
     <pv_name>acsys://S:Q106X.ANALOG_ALARM.ALARM_STATUS</pv_name>
     <x>240</x>
-    <y>110</y>
+    <y>140</y>
     <rules>
       <rule name="Status_Background" prop_id="background_color" out_exp="false">
         <exp bool_exp="pv0==true">
@@ -107,78 +107,78 @@
     <name>Text Update_3</name>
     <pv_name>acsys://S:Q106X.ANALOG_ALARM.ABORT</pv_name>
     <x>240</x>
-    <y>130</y>
+    <y>160</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_4</name>
     <pv_name>acsys://S:Q106X.ANALOG_ALARM.ABORT_INHIBIT</pv_name>
     <x>240</x>
-    <y>147</y>
+    <y>177</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_5</name>
     <pv_name>acsys://S:Q106X.ANALOG_ALARM.MINIMUM</pv_name>
     <x>240</x>
-    <y>167</y>
+    <y>197</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_6</name>
     <pv_name>acsys://S:Q106X.ANALOG_ALARM.MAXIMUM</pv_name>
     <x>360</x>
-    <y>167</y>
+    <y>197</y>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_8</name>
     <text>DigitalAlarm:</text>
     <x>8</x>
-    <y>240</y>
+    <y>270</y>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_9</name>
     <text>Alarm Enabled</text>
     <x>120</x>
-    <y>240</y>
+    <y>270</y>
     <width>130</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_10</name>
     <text>Alarm Status</text>
     <x>120</x>
-    <y>260</y>
+    <y>290</y>
     <width>130</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_11</name>
     <text>Abort</text>
     <x>120</x>
-    <y>280</y>
+    <y>310</y>
     <width>130</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_12</name>
     <text>Abort Inhibit</text>
     <x>120</x>
-    <y>300</y>
+    <y>330</y>
     <width>130</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_13</name>
     <text>Mask</text>
     <x>120</x>
-    <y>320</y>
+    <y>350</y>
     <width>130</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_7</name>
     <pv_name>acsys://S:Q106X.DIGITAL_ALARM.ALARM_ENABLE</pv_name>
     <x>240</x>
-    <y>240</y>
+    <y>270</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_8</name>
     <pv_name>acsys://S:Q106X.DIGITAL_ALARM.ALARM_STATUS</pv_name>
     <x>240</x>
-    <y>260</y>
+    <y>290</y>
     <rules>
       <rule name="Status_Background" prop_id="background_color" out_exp="false">
         <exp bool_exp="pv0==true">
@@ -201,46 +201,46 @@
     <name>Text Update_9</name>
     <pv_name>acsys://S:Q106X.DIGITAL_ALARM.ABORT</pv_name>
     <x>240</x>
-    <y>280</y>
+    <y>310</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_10</name>
     <pv_name>acsys://S:Q106X.DIGITAL_ALARM.ABORT_INHIBIT</pv_name>
     <x>240</x>
-    <y>297</y>
+    <y>327</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_11</name>
     <pv_name>acsys://S:Q106X.DIGITAL_ALARM.MASK</pv_name>
     <x>240</x>
-    <y>317</y>
+    <y>347</y>
     <format>4</format>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_14</name>
     <text>Nominal</text>
     <x>120</x>
-    <y>343</y>
+    <y>373</y>
     <width>130</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_13</name>
     <pv_name>acsys://S:Q106X.DIGITAL_ALARM.NOMINAL</pv_name>
     <x>240</x>
-    <y>340</y>
+    <y>370</y>
     <format>4</format>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_15</name>
     <text>Basic Status</text>
     <x>8</x>
-    <y>200</y>
+    <y>230</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_12</name>
     <pv_name>acsys://S:Q106X.STATUS.RAW</pv_name>
     <x>100</x>
-    <y>200</y>
+    <y>230</y>
     <format>4</format>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -261,7 +261,7 @@
     <name>Label_16</name>
     <text>0</text>
     <x>485</x>
-    <y>100</y>
+    <y>130</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -319,7 +319,7 @@
     <name>Label_19</name>
     <text>1</text>
     <x>485</x>
-    <y>120</y>
+    <y>150</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -365,7 +365,7 @@
     <name>Label_21</name>
     <text>2</text>
     <x>485</x>
-    <y>140</y>
+    <y>170</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -388,7 +388,7 @@
     <name>Label_22</name>
     <text>3</text>
     <x>485</x>
-    <y>160</y>
+    <y>190</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -411,7 +411,7 @@
     <name>Label_27</name>
     <text>4</text>
     <x>485</x>
-    <y>185</y>
+    <y>215</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -434,7 +434,7 @@
     <name>Label_28</name>
     <text>5</text>
     <x>485</x>
-    <y>205</y>
+    <y>235</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -457,7 +457,7 @@
     <name>Label_29</name>
     <text>6</text>
     <x>485</x>
-    <y>225</y>
+    <y>255</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -480,7 +480,7 @@
     <name>Label_30</name>
     <text>7</text>
     <x>485</x>
-    <y>245</y>
+    <y>275</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -503,7 +503,7 @@
     <name>Label_31</name>
     <text>8</text>
     <x>485</x>
-    <y>269</y>
+    <y>299</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -526,7 +526,7 @@
     <name>Label_32</name>
     <text>9</text>
     <x>485</x>
-    <y>289</y>
+    <y>319</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -549,7 +549,7 @@
     <name>Label_33</name>
     <text>10</text>
     <x>485</x>
-    <y>309</y>
+    <y>339</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -572,7 +572,7 @@
     <name>Label_34</name>
     <text>11</text>
     <x>485</x>
-    <y>329</y>
+    <y>359</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -595,7 +595,7 @@
     <name>Label_35</name>
     <text>12</text>
     <x>485</x>
-    <y>354</y>
+    <y>384</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -618,7 +618,7 @@
     <name>Label_36</name>
     <text>13</text>
     <x>485</x>
-    <y>374</y>
+    <y>404</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -990,5 +990,47 @@
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_49</name>
+    <text>Setting</text>
+    <x>260</x>
+    <y>50</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_50</name>
+    <text>Description</text>
+    <x>8</x>
+    <y>80</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_79</name>
+    <pv_name>acsys://S:Q106X.DESCRIPTION</pv_name>
+    <x>100</x>
+    <y>80</y>
+    <width>352</width>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button</name>
+    <actions>
+      <action type="write_pv">
+        <pv_name>$(pv_name)</pv_name>
+        <value>1</value>
+        <description>Enable Settings</description>
+      </action>
+    </actions>
+    <pv_name>acsys://enableSettings</pv_name>
+    <x>120</x>
+    <y>393</y>
+    <width>150</width>
+    <height>20</height>
+    <show_confirm_dialog>true</show_confirm_dialog>
+    <confirm_message>Are you sure you want to enable ACsys settings?</confirm_message>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Text Entry</name>
+    <pv_name>acsys://S:Q106X.SETTING</pv_name>
+    <x>350</x>
+    <y>50</y>
   </widget>
 </display>
