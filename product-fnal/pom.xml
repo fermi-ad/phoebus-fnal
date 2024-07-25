@@ -57,7 +57,7 @@
     <dependency>
       <groupId>gov.fnal</groupId>
       <artifactId>dae</artifactId>
-      <version>1.0.1</version>
+      <version>PR75819</version>
     </dependency>
   </dependencies>
 

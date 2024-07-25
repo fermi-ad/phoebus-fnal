@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2024-07-16 17:17:53 by badgett-->
+<!--Saved on 2024-07-22 14:04:01 by badgett-->
 <display version="2.0.0">
   <name>G:AMANDA Display</name>
   <width>1200</width>
@@ -1031,7 +1031,7 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>Text Entry_1</name>
-    <pv_name>acsys://G:AMANDA.SETTING</pv_name>
+    <pv_name>acsys://G:AMANDA</pv_name>
     <x>344</x>
     <y>58</y>
     <width>90</width>

@@ -18,7 +18,7 @@
 //    "$"  Digitial Alarm
 //    "~"  Description
 //
-// For best performance and less confusion, use only ":" with DRF2 qualifiers (propterties and
+// For best performance and less confusion, use only ":" with DRF2 qualifiers (properties and
 //   fields) following the device name
 //
 
@@ -30,7 +30,7 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.io.FileInputStream;
 import java.io.IOException;
-
+import java.util.prefs.Preferences;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,6 +43,7 @@ import gov.fnal.controls.service.dpm.DPMListTCP;
 import gov.fnal.controls.service.dpm.DPMDataHandler;
 import gov.fnal.controls.servers.dpm.SettingData;
 import gov.fnal.controls.acnet.AcnetErrors;
+
 
 /** ACsys device subscription handler
  *
@@ -58,6 +59,9 @@ public class ACsys_PVConn implements DPMDataHandler
 
   protected final static Logger logger =
       Logger.getLogger(ACsys_PVConn.class.getPackage().getName()); ;
+
+  protected String dpmServer = null;
+  public final static String dpmServerDefault = "dpmtest";
   protected DPMList dpmList; 
 
   // For non-array request return types, the ArrayList here should only have one entry
@@ -194,9 +198,32 @@ public class ACsys_PVConn implements DPMDataHandler
   // Constructor
   protected ACsys_PVConn() 
   {
+    dpmServer = dpmServerDefault;
+
+    // Optional DPM server instance for connection
+    Preferences prefs = Preferences.userRoot().node("org/phoebus/pv/acsys");
+    if ( prefs != null )
+    {
+      String dpmServerRequest = prefs.get("dpmServer",dpmServerDefault);
+      if ( dpmServerRequest != null )
+      {
+        if ( dpmServerRequest.length() > 0 )  { dpmServer = dpmServerRequest;}
+        else { dpmServer = null;}
+      }
+    }
+    
     try
     {
-      dpmList = DPMListTCP.open("/dpmtest");
+      if ( dpmServer == null )
+      {
+	logger.log(Level.CONFIG,"Using default DPM server");
+	dpmList = DPMListTCP.open();
+      }
+      else
+      {
+	logger.log(Level.CONFIG,"Using specified DPM server "+dpmServer);
+	dpmList = DPMListTCP.open("/"+dpmServer);
+      }
     }
     catch ( IOException e )
     {
