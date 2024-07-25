@@ -1031,7 +1031,7 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>Text Entry_1</name>
-    <pv_name>acsys://G:AMANDA</pv_name>
+    <pv_name>acsys://G:AMANDA.SETTING</pv_name>
     <x>344</x>
     <y>58</y>
     <width>90</width>
