@@ -18,7 +18,9 @@ import java.util.logging.Level;
 import java.time.Instant;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.io.File;
 import java.io.IOException;
+import javax.security.auth.login.LoginException;
 
 // Using JOptionPane to confirm settings, not sure if this is the right place to
 //  do graphics operations...
@@ -194,7 +196,18 @@ public class ACsys_PV extends PV implements ACsys_PVListener
       logger.log(Level.WARNING,"Settings Enable request with role "+role);
       if ( role != null )
       {
-	ACsys_PVConn.enableSettings(role);
+	try
+        {
+	  // This method declares throwing 3 types of exceptions, but inside it catches
+	  // all of them.   How do we know if things worked ok or not?
+	  ACsys_PVConn.enableSettings(role);
+	}
+	catch ( Exception e)
+	{
+	  JOptionPane.showMessageDialog(null, e.toString(),
+					  "Error Connecting for ACsys Settings",
+					  JOptionPane.ERROR_MESSAGE);
+	}
         logger.log(Level.WARNING,"Settings Enabled with role "+role);
       }
       else
@@ -209,8 +222,8 @@ public class ACsys_PV extends PV implements ACsys_PVListener
       logger.log(Level.INFO,"Launching ACsys display of "+device);
       if ( device != null )
       {
-	//ACsys_PVConn.enableSettings(role);
-	  //ApplicationLauncherService.openFile("file:/scratch/badgett/phoebus-fnal/examples/z_acltst.bob");
+	  File file = new File("/scratch/badgett/phoebus-fnal/examples/z_acltst.bob");
+	  //ApplicationLauncherService.openFile(file, false,null);
 	  logger.log(Level.WARNING,"Launched ACsys display of "+device);
       }
       else
@@ -294,13 +307,13 @@ public class ACsys_PV extends PV implements ACsys_PVListener
     {
       case 0: // .ANALOG.STATUS
 	analogStatusLast = analogStatus;
-	analogStatus =  ((Double)value).intValue();
+	analogStatus =  ((Number)value).intValue();
 	updateAlarm();
       break;
 
       case 1: // .DIGITAL.STATUS
 	digitalStatusLast = digitalStatus;
-        digitalStatus = ((Double)value).intValue();
+        digitalStatus = ((Number)value).intValue();
 	updateAlarm();
       break;
 
@@ -319,26 +332,26 @@ public class ACsys_PV extends PV implements ACsys_PVListener
       break;
 
       case 4: // .SETTING.MIN
-         min = ((Double)value).doubleValue();
+         min = ((Number)value).doubleValue();
 	 max = controlRange.getMaximum();
          controlRange = Range.of(min,max);
       break;
 
       case 5: // .SETTING.MAX
 	 min = controlRange.getMinimum();
-	 max = ((Double)value).doubleValue();
+	 max = ((Number)value).doubleValue();
  	 controlRange = Range.of(min,max);
       break;
 
       case 6: // .READING.MIN
-         min = ((Double)value).doubleValue();
+         min = ((Number)value).doubleValue();
 	 max = displayRange.getMaximum();
          displayRange = Range.of(min,max);
       break;
 
       case 7: // .READING.MAX
 	 min = displayRange.getMinimum();
-	 max = ((Double)value).doubleValue();
+	 max = ((Number)value).doubleValue();
  	 displayRange = Range.of(min,max);
       break;
 
