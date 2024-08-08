@@ -318,7 +318,7 @@ public class ACsys_PV extends PV implements ACsys_PVListener
       break;
 
       case 2: // .ANALOG.MIN
-         min = ((Double)value).doubleValue();
+         min = ((Number)value).doubleValue();
 	 max = alarmRange.getMaximum();
          alarmRange = Range.of(min,max);
 	 warningRange = Range.of(min,max);
@@ -326,7 +326,7 @@ public class ACsys_PV extends PV implements ACsys_PVListener
 
       case 3: // .ANALOG.MAX
 	 min = alarmRange.getMinimum();
-	 max = ((Double)value).doubleValue();
+	 max = ((Number)value).doubleValue();
  	 alarmRange = Range.of(min,max);
 	 warningRange = Range.of(min,max);
       break;
