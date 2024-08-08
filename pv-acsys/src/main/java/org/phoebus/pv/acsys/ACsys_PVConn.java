@@ -35,6 +35,7 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
+import javax.security.auth.login.LoginException;
 
 // ACsys/DPM classes
 import gov.fnal.controls.service.proto.DPM;
@@ -244,16 +245,9 @@ public class ACsys_PVConn implements DPMDataHandler
     }
   }
 
-  public static void enableSettings(String role)
+  public static void enableSettings(String role) throws Exception 
   {
-    try 
-    {
-      instance.dpmList.enableSettings(role);
-    }
-    catch (Exception e)
-    {
-      logger.log(Level.WARNING,"Unable to enable settings",e);
-    }
+    instance.dpmList.enableSettings(role);
   }
 
   public void handle(DPM.Reply.DeviceInfo devInfo[], DPM.Reply.ApplySettings m)
