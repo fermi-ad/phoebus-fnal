@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2024-07-16 17:17:53 by badgett-->
+<!--Saved on 2024-08-22 13:52:15 by badgett-->
 <display version="2.0.0">
   <name>Z:ACLTST Display</name>
   <width>1200</width>
@@ -241,20 +241,22 @@
     <pv_name>acsys://Z:ACLTST.STATUS.RAW</pv_name>
     <x>100</x>
     <y>240</y>
+    <width>150</width>
     <format>4</format>
+    <precision>8</precision>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_14</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/0</pv_name>
-    <x>510</x>
-    <y>100</y>
+    <x>505</x>
+    <y>130</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_15</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/0</pv_name>
-    <x>694</x>
-    <y>100</y>
+    <x>689</x>
+    <y>130</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
@@ -269,8 +271,8 @@
   <widget type="label" version="2.0.0">
     <name>Label_17</name>
     <text>Digital Basic Status, Detailed List</text>
-    <x>570</x>
-    <y>70</y>
+    <x>565</x>
+    <y>100</y>
     <width>350</width>
     <font>
       <font name="Default Bold" family="Liberation Sans" style="BOLD" size="14.0">
@@ -281,22 +283,22 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_16</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/16</pv_name>
-    <x>795</x>
-    <y>100</y>
+    <x>790</x>
+    <y>130</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_17</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/16</pv_name>
-    <x>979</x>
-    <y>100</y>
+    <x>974</x>
+    <y>130</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_18</name>
     <text>16</text>
-    <x>770</x>
-    <y>100</y>
+    <x>765</x>
+    <y>130</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -304,15 +306,15 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_18</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/1</pv_name>
-    <x>510</x>
-    <y>120</y>
+    <x>505</x>
+    <y>150</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_19</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/1</pv_name>
-    <x>694</x>
-    <y>120</y>
+    <x>689</x>
+    <y>150</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
@@ -327,22 +329,22 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_20</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/17</pv_name>
-    <x>795</x>
-    <y>120</y>
+    <x>790</x>
+    <y>150</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_21</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/17</pv_name>
-    <x>979</x>
-    <y>120</y>
+    <x>974</x>
+    <y>150</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_20</name>
     <text>17</text>
-    <x>770</x>
-    <y>120</y>
+    <x>765</x>
+    <y>150</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -350,15 +352,15 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_22</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/2</pv_name>
-    <x>510</x>
-    <y>140</y>
+    <x>505</x>
+    <y>170</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_23</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/2</pv_name>
-    <x>694</x>
-    <y>140</y>
+    <x>689</x>
+    <y>170</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
@@ -373,15 +375,15 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_24</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/3</pv_name>
-    <x>510</x>
-    <y>160</y>
+    <x>505</x>
+    <y>190</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_25</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/3</pv_name>
-    <x>694</x>
-    <y>160</y>
+    <x>689</x>
+    <y>190</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
@@ -396,15 +398,15 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_34</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/4</pv_name>
-    <x>510</x>
-    <y>185</y>
+    <x>505</x>
+    <y>215</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_35</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/4</pv_name>
-    <x>694</x>
-    <y>185</y>
+    <x>689</x>
+    <y>215</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
@@ -419,15 +421,15 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_36</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/5</pv_name>
-    <x>510</x>
-    <y>205</y>
+    <x>505</x>
+    <y>235</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_37</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/5</pv_name>
-    <x>694</x>
-    <y>205</y>
+    <x>689</x>
+    <y>235</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
@@ -442,15 +444,15 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_38</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/6</pv_name>
-    <x>510</x>
-    <y>225</y>
+    <x>505</x>
+    <y>255</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_39</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/6</pv_name>
-    <x>694</x>
-    <y>225</y>
+    <x>689</x>
+    <y>255</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
@@ -465,15 +467,15 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_40</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/7</pv_name>
-    <x>510</x>
-    <y>245</y>
+    <x>505</x>
+    <y>275</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_41</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/7</pv_name>
-    <x>694</x>
-    <y>245</y>
+    <x>689</x>
+    <y>275</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
@@ -488,15 +490,15 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_42</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/8</pv_name>
-    <x>510</x>
-    <y>269</y>
+    <x>505</x>
+    <y>299</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_43</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/8</pv_name>
-    <x>694</x>
-    <y>269</y>
+    <x>689</x>
+    <y>299</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
@@ -511,15 +513,15 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_44</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/9</pv_name>
-    <x>510</x>
-    <y>289</y>
+    <x>505</x>
+    <y>319</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_45</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/9</pv_name>
-    <x>694</x>
-    <y>289</y>
+    <x>689</x>
+    <y>319</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
@@ -534,15 +536,15 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_46</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/10</pv_name>
-    <x>510</x>
-    <y>309</y>
+    <x>505</x>
+    <y>339</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_47</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/10</pv_name>
-    <x>694</x>
-    <y>309</y>
+    <x>689</x>
+    <y>339</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
@@ -557,15 +559,15 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_48</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/11</pv_name>
-    <x>510</x>
-    <y>329</y>
+    <x>505</x>
+    <y>359</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_49</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/11</pv_name>
-    <x>694</x>
-    <y>329</y>
+    <x>689</x>
+    <y>359</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
@@ -580,15 +582,15 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_50</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/12</pv_name>
-    <x>510</x>
-    <y>354</y>
+    <x>505</x>
+    <y>384</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_51</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/12</pv_name>
-    <x>694</x>
-    <y>354</y>
+    <x>689</x>
+    <y>384</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
@@ -603,15 +605,15 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_52</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/13</pv_name>
-    <x>510</x>
-    <y>374</y>
+    <x>505</x>
+    <y>404</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_53</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/13</pv_name>
-    <x>694</x>
-    <y>374</y>
+    <x>689</x>
+    <y>404</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
@@ -626,15 +628,15 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_54</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/14</pv_name>
-    <x>510</x>
-    <y>394</y>
+    <x>505</x>
+    <y>424</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_55</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/14</pv_name>
-    <x>694</x>
-    <y>394</y>
+    <x>689</x>
+    <y>424</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
@@ -649,15 +651,15 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_56</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/15</pv_name>
-    <x>510</x>
-    <y>414</y>
+    <x>505</x>
+    <y>444</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_57</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/15</pv_name>
-    <x>694</x>
-    <y>414</y>
+    <x>689</x>
+    <y>444</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
@@ -672,8 +674,8 @@
   <widget type="label" version="2.0.0">
     <name>Label_23</name>
     <text>19</text>
-    <x>770</x>
-    <y>160</y>
+    <x>765</x>
+    <y>190</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -681,22 +683,22 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_26</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/18</pv_name>
-    <x>795</x>
-    <y>140</y>
+    <x>790</x>
+    <y>170</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_27</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/18</pv_name>
-    <x>979</x>
-    <y>140</y>
+    <x>974</x>
+    <y>170</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_24</name>
     <text>18</text>
-    <x>770</x>
-    <y>140</y>
+    <x>765</x>
+    <y>170</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -704,22 +706,22 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_28</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/19</pv_name>
-    <x>795</x>
-    <y>160</y>
+    <x>790</x>
+    <y>190</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_29</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/19</pv_name>
-    <x>979</x>
-    <y>160</y>
+    <x>974</x>
+    <y>190</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_25</name>
     <text>23</text>
-    <x>770</x>
-    <y>245</y>
+    <x>765</x>
+    <y>275</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -727,22 +729,22 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_30</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/22</pv_name>
-    <x>795</x>
-    <y>225</y>
+    <x>790</x>
+    <y>255</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_31</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/22</pv_name>
-    <x>979</x>
-    <y>225</y>
+    <x>974</x>
+    <y>255</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_26</name>
     <text>22</text>
-    <x>770</x>
-    <y>225</y>
+    <x>765</x>
+    <y>255</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -750,36 +752,36 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_32</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/23</pv_name>
-    <x>795</x>
-    <y>245</y>
+    <x>790</x>
+    <y>275</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_33</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/23</pv_name>
-    <x>979</x>
-    <y>245</y>
+    <x>974</x>
+    <y>275</y>
     <width>51</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_58</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/20</pv_name>
-    <x>795</x>
-    <y>185</y>
+    <x>790</x>
+    <y>215</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_59</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/20</pv_name>
-    <x>979</x>
-    <y>185</y>
+    <x>974</x>
+    <y>215</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_39</name>
     <text>20</text>
-    <x>770</x>
-    <y>185</y>
+    <x>765</x>
+    <y>215</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -787,22 +789,22 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_60</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/21</pv_name>
-    <x>795</x>
-    <y>205</y>
+    <x>790</x>
+    <y>235</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_61</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/21</pv_name>
-    <x>979</x>
-    <y>205</y>
+    <x>974</x>
+    <y>235</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_40</name>
     <text>21</text>
-    <x>770</x>
-    <y>205</y>
+    <x>765</x>
+    <y>235</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -810,8 +812,8 @@
   <widget type="label" version="2.0.0">
     <name>Label_41</name>
     <text>27</text>
-    <x>770</x>
-    <y>330</y>
+    <x>765</x>
+    <y>360</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -819,22 +821,22 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_62</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/26</pv_name>
-    <x>795</x>
-    <y>310</y>
+    <x>790</x>
+    <y>340</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_63</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/26</pv_name>
-    <x>979</x>
-    <y>310</y>
+    <x>974</x>
+    <y>340</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_42</name>
     <text>26</text>
-    <x>770</x>
-    <y>310</y>
+    <x>765</x>
+    <y>340</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -842,36 +844,36 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_64</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/27</pv_name>
-    <x>795</x>
-    <y>330</y>
+    <x>790</x>
+    <y>360</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_65</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/27</pv_name>
-    <x>979</x>
-    <y>330</y>
+    <x>974</x>
+    <y>360</y>
     <width>51</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_66</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/24</pv_name>
-    <x>795</x>
-    <y>270</y>
+    <x>790</x>
+    <y>300</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_67</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/24</pv_name>
-    <x>979</x>
-    <y>270</y>
+    <x>974</x>
+    <y>300</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_43</name>
     <text>24</text>
-    <x>770</x>
-    <y>270</y>
+    <x>765</x>
+    <y>300</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -879,22 +881,22 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_68</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/25</pv_name>
-    <x>795</x>
-    <y>290</y>
+    <x>790</x>
+    <y>320</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_69</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/25</pv_name>
-    <x>979</x>
-    <y>290</y>
+    <x>974</x>
+    <y>320</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_44</name>
     <text>25</text>
-    <x>770</x>
-    <y>290</y>
+    <x>765</x>
+    <y>320</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -902,8 +904,8 @@
   <widget type="label" version="2.0.0">
     <name>Label_45</name>
     <text>31</text>
-    <x>770</x>
-    <y>414</y>
+    <x>765</x>
+    <y>444</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -911,22 +913,22 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_70</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/26</pv_name>
-    <x>795</x>
-    <y>394</y>
+    <x>790</x>
+    <y>424</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_71</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/26</pv_name>
-    <x>979</x>
-    <y>394</y>
+    <x>974</x>
+    <y>424</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_46</name>
     <text>30</text>
-    <x>770</x>
-    <y>394</y>
+    <x>765</x>
+    <y>424</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -934,36 +936,36 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_72</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/31</pv_name>
-    <x>795</x>
-    <y>414</y>
+    <x>790</x>
+    <y>444</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_73</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/31</pv_name>
-    <x>979</x>
-    <y>414</y>
+    <x>974</x>
+    <y>444</y>
     <width>51</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_74</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/28</pv_name>
-    <x>795</x>
-    <y>354</y>
+    <x>790</x>
+    <y>384</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_75</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/28</pv_name>
-    <x>979</x>
-    <y>354</y>
+    <x>974</x>
+    <y>384</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_47</name>
     <text>28</text>
-    <x>770</x>
-    <y>354</y>
+    <x>765</x>
+    <y>384</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -971,22 +973,22 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_76</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_NAMES/29</pv_name>
-    <x>795</x>
-    <y>374</y>
+    <x>790</x>
+    <y>404</y>
     <width>170</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_77</name>
     <pv_name>acsys://Z:ACLTST.STATUS.BIT_VALUES/29</pv_name>
-    <x>979</x>
-    <y>374</y>
+    <x>974</x>
+    <y>404</y>
     <width>51</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_48</name>
     <text>29</text>
-    <x>770</x>
-    <y>374</y>
+    <x>765</x>
+    <y>404</y>
     <width>20</width>
     <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
@@ -1008,7 +1010,7 @@
   <widget type="label" version="2.0.0">
     <name>Label_50</name>
     <text>Setting</text>
-    <x>264</x>
+    <x>240</x>
     <y>58</y>
     <width>80</width>
   </widget>
@@ -1026,14 +1028,159 @@
     <y>414</y>
     <width>150</width>
     <height>20</height>
-    <show_confirm_dialog>true</show_confirm_dialog>
     <confirm_message>Are you sure you want to enable ACsys settings?</confirm_message>
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>Text Entry_1</name>
     <pv_name>acsys://Z:ACLTST.SETTING</pv_name>
-    <x>344</x>
+    <x>300</x>
     <y>58</y>
     <width>90</width>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_51</name>
+    <text>Control
+Value</text>
+    <x>410</x>
+    <y>34</y>
+    <width>80</width>
+    <height>68</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Text Entry_2</name>
+    <pv_name>acsys://Z:ACLTST.CONTROL.RAW</pv_name>
+    <x>480</x>
+    <y>58</y>
+    <width>90</width>
+    <format>4</format>
+    <precision>8</precision>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Text Entry</name>
+    <pv_name>acsys://Z:ACLTST.ANALOG_ALARM.ALARM_ENABLE</pv_name>
+    <x>360</x>
+    <y>130</y>
+    <width>90</width>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_52</name>
+    <text>(write-only)</text>
+    <x>486</x>
+    <y>79</y>
+    <width>80</width>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button_1</name>
+    <actions>
+      <action type="write_pv">
+        <pv_name>$(pv_name)</pv_name>
+        <value>on</value>
+        <description>WritePV</description>
+      </action>
+    </actions>
+    <pv_name>acsys://Z:ACLTST.CONTROL</pv_name>
+    <text>On</text>
+    <x>666</x>
+    <y>59</y>
+    <width>30</width>
+    <height>20</height>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button_2</name>
+    <actions>
+      <action type="write_pv">
+        <pv_name>$(pv_name)</pv_name>
+        <value>off</value>
+        <description>WritePV</description>
+      </action>
+    </actions>
+    <pv_name>acsys://Z:ACLTST.CONTROL</pv_name>
+    <text>Off</text>
+    <x>710</x>
+    <y>59</y>
+    <width>30</width>
+    <height>20</height>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button_3</name>
+    <actions>
+      <action type="write_pv">
+        <pv_name>$(pv_name)</pv_name>
+        <value>Negative</value>
+        <description>WritePV</description>
+      </action>
+    </actions>
+    <pv_name>acsys://Z:ACLTST.CONTROL</pv_name>
+    <text>Neg</text>
+    <x>820</x>
+    <y>59</y>
+    <width>30</width>
+    <height>20</height>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button_4</name>
+    <actions>
+      <action type="write_pv">
+        <pv_name>$(pv_name)</pv_name>
+        <value>Positive</value>
+        <description>WritePV</description>
+      </action>
+    </actions>
+    <pv_name>acsys://Z:ACLTST.CONTROL</pv_name>
+    <text>Pos+</text>
+    <x>777</x>
+    <y>59</y>
+    <width>30</width>
+    <height>20</height>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button_5</name>
+    <actions>
+      <action type="write_pv">
+        <pv_name>$(pv_name)</pv_name>
+        <value>Ramp</value>
+        <description>WritePV</description>
+      </action>
+    </actions>
+    <pv_name>acsys://Z:ACLTST.CONTROL</pv_name>
+    <text>Ramp</text>
+    <x>879</x>
+    <y>59</y>
+    <width>50</width>
+    <height>20</height>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button_6</name>
+    <actions>
+      <action type="write_pv">
+        <pv_name>$(pv_name)</pv_name>
+        <value>DC</value>
+        <description>WritePV</description>
+      </action>
+    </actions>
+    <pv_name>acsys://Z:ACLTST.CONTROL</pv_name>
+    <text>DC</text>
+    <x>955</x>
+    <y>59</y>
+    <width>48</width>
+    <height>20</height>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button_7</name>
+    <actions>
+      <action type="write_pv">
+        <pv_name>$(pv_name)</pv_name>
+        <value>Reset</value>
+        <description>WritePV</description>
+      </action>
+    </actions>
+    <pv_name>acsys://Z:ACLTST.CONTROL</pv_name>
+    <text>Reset</text>
+    <x>588</x>
+    <y>58</y>
+    <width>50</width>
+    <height>20</height>
   </widget>
 </display>
