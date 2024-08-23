@@ -108,21 +108,33 @@ public class ACsys_PVConn implements DPMDataHandler
 	logger.log(Level.WARNING,requestsByIndex.toString());
 	return;
       }
-
+      logger.log(Level.FINER,"applySettings "+pv.fullName+" is Object Type "+newValue.getClass().getName()+
+		 " value "+newValue.toString());
       if ( newValue instanceof Double )
       {
 	double setting = ((Double)newValue).doubleValue();
-	logger.log(Level.FINE,"Device "+pv.fullName+" refId "+pv.dpmIndex+" adding setting of "+
+	logger.log(Level.FINE,"Device "+pv.fullName+" Double refId "+pv.dpmIndex+" adding setting of "+
 		   setting);
 	dpmList.addSetting(pv.dpmIndex, setting);
       }
       else if ( newValue instanceof String )
       {	
-	logger.log(Level.FINE,"Device "+pv.fullName+" refId "+pv.dpmIndex+" adding setting of "+
+	logger.log(Level.FINE,"Device "+pv.fullName+"  String refId "+pv.dpmIndex+" adding setting of "+
 		   (String)newValue);
 	dpmList.addSetting(pv.dpmIndex,(String)newValue);
       }
+      else if ( newValue instanceof Long )
+      {	
+	logger.log(Level.FINE,"Device "+pv.fullName+" Long refId "+pv.dpmIndex+" adding setting of "+
+		   (Long)newValue);
 
+	// Ass/u/me this is a CONTROL setting of 2 bytes (should we support 4 bytes?) 
+	long newLong =  ((Long)newValue).longValue();
+	byte [] newData = new byte [2];
+	for ( int i=0; i<newData.length; i++)  {  newData[i] = (byte)(( newLong >> i*8 ) & 0xFF);}
+	dpmList.addSetting(pv.dpmIndex,newData);
+      }
+      
       try
       {
 	// Settings must already be enabled at this point for this to work
@@ -404,7 +416,7 @@ public class ACsys_PVConn implements DPMDataHandler
       for (int i=0; i<r.data.length && i<8; i++)
       {
         long bValue = ((long)r.data[i])&0xFF;
-        value |= ( bValue << i*4);
+        value |= ( bValue << i*8);
       }  
 
       Long lValue = Long.valueOf(value);
