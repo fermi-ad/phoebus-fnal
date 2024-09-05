@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Saved on 2024-09-04 16:15:51 by badgett-->
+<display version="2.0.0">
+  <name>Display</name>
+  <width>190</width>
+  <height>30</height>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button</name>
+    <actions>
+      <action type="open_display">
+        <file>acsys_launch.bob</file>
+        <macros>
+          <acsys_device>${acsys_device}</acsys_device>
+        </macros>
+        <target>window</target>
+        <description>Open Display</description>
+      </action>
+    </actions>
+    <pv_name>loc://acsys_device</pv_name>
+    <width>190</width>
+    <scripts>
+      <script file="EmbeddedPy">
+        <text><![CDATA[# Embedded python script
+from org.csstudio.display.builder.runtime.script import PVUtil, ScriptUtil
+print 'Hello'
+# widget.setPropertyValue('text', PVUtil.getString(pvs[0]))
+
+device = PVUtil.getString(pvs[0])
+print device
+
+widget.getPropertyValue("macros").add("acsys_device",device)
+]]></text>
+        <pv_name>loc://acsys_device</pv_name>
+      </script>
+    </scripts>
+    <tooltip>$(actions)</tooltip>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+</display>
