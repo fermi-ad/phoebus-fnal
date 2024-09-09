@@ -18,7 +18,7 @@ A full build will include at least 2GB of disk space, so find an appropriate are
 
 ```
   ssh -fN -D 1080 outback
-  export HTTPS_PROXY='socks5://localhost:1080'
+  # export HTTPS_PROXY='socks5://localhost:1080'  # Don't do both
 ```
    You will be automatically returned to your build node after a brief login to outland.  This needs to be done only once until the ssh session crashes or your server reboots.  This tunnel enables the use of the *proxychains* prefix command seen below.  
 
@@ -37,7 +37,7 @@ Currently we are using Phoebus production version 4.7.3
 
 ### Select JDK 21 [recommended]
 ```
-   export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-21.0.3.0.9-1.el9.alma.1.x86_64
+   export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
    export PATH=${JAVA_HOME}/bin:${PATH}
 ```
    Type _javac --version_ to make sure you really picked it up JDK 21 [important!]
