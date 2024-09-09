@@ -4,8 +4,8 @@
   
   <groupId>org.phoebus</groupId>
   <artifactId>fnal</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>FNAL phoebus accl product</name>
+  <version>4.7.3-42</version>
+  <name>FNAL Phoebus Product</name>
   <packaging>pom</packaging>
 
   <properties>
@@ -15,6 +15,7 @@
 
     <!-- Update when phoebus version is changed -->
     <phoebus.version>4.7.3</phoebus.version>
+    <fnal.phoebus.version>42</fnal.phoebus.version>
   </properties>
 
   <build>
@@ -42,6 +43,6 @@
     <module>pv-acsys</module>
     <module>product-fnal</module>
     <module>alarm-server-fnal</module>
-
   </modules>
+
 </project>
