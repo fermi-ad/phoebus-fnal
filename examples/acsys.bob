@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Saved on 2024-09-03 13:30:58 by badgett-->
+<display version="2.0.0">
+  <name>Display</name>
+  <widget type="textentry" version="3.0.0">
+    <name>Text Entry</name>
+    <pv_name>loc://acsys_device&lt;VString&gt;</pv_name>
+    <x>80</x>
+    <y>380</y>
+    <width>150</width>
+  </widget>
+  <widget type="embedded" version="2.0.0">
+    <name>Embedded Display</name>
+    <file>acsys_button.bob</file>
+    <x>70</x>
+    <y>260</y>
+    <width>190</width>
+    <height>30</height>
+    <resize>2</resize>
+    <scripts>
+      <script file="EmbeddedPy">
+        <text><![CDATA[from org.csstudio.display.builder.runtime.script import PVUtil, ScriptUtil
+
+device = PVUtil.getString(pvs[0])
+logger = ScriptUtil.getLogger()
+logger.info(device)
+
+widget.getPropertyValue("macros").add("acsys_device", device)
+
+widget.setPropertyValue("file", "")
+widget.setPropertyValue("file", "acsys_button.bob")
+]]></text>
+        <pv_name>loc://file_path</pv_name>
+      </script>
+    </scripts>
+  </widget>
+</display>

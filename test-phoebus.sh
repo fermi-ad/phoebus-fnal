@@ -10,11 +10,10 @@ export JAVA_HOME=/usr/lib/jvm/jre-21-openjdk
 export PATH="$JAVA_HOME/bin:$PATH"
 
 echo $TOP
-V="4.7.3"
 
 # figure out the path to the product jar
 if [[ -z "${PHOEBUS_JAR}" ]]; then
-  PHOEBUS_JAR=${TOP}/product-fnal/target/fnal-product-${V}.jar
+  PHOEBUS_JAR=${TOP}/product-fnal/target/fnal-product-*.jar
 fi
 echo $PHOEBUS_JAR
 

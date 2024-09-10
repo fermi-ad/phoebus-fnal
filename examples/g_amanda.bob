@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2024-08-06 14:06:19 by badgett-->
+<!--Saved on 2024-09-04 16:15:54 by badgett-->
 <display version="2.0.0">
   <name>G:AMANDA Display</name>
   <width>1200</width>
@@ -263,7 +263,6 @@
     <x>485</x>
     <y>100</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="label" version="2.0.0">
@@ -298,7 +297,6 @@
     <x>770</x>
     <y>100</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -321,7 +319,6 @@
     <x>485</x>
     <y>120</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -344,7 +341,6 @@
     <x>770</x>
     <y>120</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -367,7 +363,6 @@
     <x>485</x>
     <y>140</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -390,7 +385,6 @@
     <x>485</x>
     <y>160</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -413,7 +407,6 @@
     <x>485</x>
     <y>185</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -436,7 +429,6 @@
     <x>485</x>
     <y>205</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -459,7 +451,6 @@
     <x>485</x>
     <y>225</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -482,7 +473,6 @@
     <x>485</x>
     <y>245</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -505,7 +495,6 @@
     <x>485</x>
     <y>269</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -528,7 +517,6 @@
     <x>485</x>
     <y>289</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -551,7 +539,6 @@
     <x>485</x>
     <y>309</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -574,7 +561,6 @@
     <x>485</x>
     <y>329</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -597,7 +583,6 @@
     <x>485</x>
     <y>354</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -620,7 +605,6 @@
     <x>485</x>
     <y>374</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -643,7 +627,6 @@
     <x>485</x>
     <y>394</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -666,7 +649,6 @@
     <x>485</x>
     <y>414</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="label" version="2.0.0">
@@ -675,7 +657,6 @@
     <x>770</x>
     <y>160</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -698,7 +679,6 @@
     <x>770</x>
     <y>140</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -721,7 +701,6 @@
     <x>770</x>
     <y>245</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -744,7 +723,6 @@
     <x>770</x>
     <y>225</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -781,7 +759,6 @@
     <x>770</x>
     <y>185</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -804,7 +781,6 @@
     <x>770</x>
     <y>205</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="label" version="2.0.0">
@@ -813,7 +789,6 @@
     <x>770</x>
     <y>330</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -836,7 +811,6 @@
     <x>770</x>
     <y>310</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -873,7 +847,6 @@
     <x>770</x>
     <y>270</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -896,7 +869,6 @@
     <x>770</x>
     <y>290</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="label" version="2.0.0">
@@ -905,7 +877,6 @@
     <x>770</x>
     <y>414</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -928,7 +899,6 @@
     <x>770</x>
     <y>394</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -965,7 +935,6 @@
     <x>770</x>
     <y>354</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -988,7 +957,6 @@
     <x>770</x>
     <y>374</y>
     <width>20</width>
-    <visible>false</visible>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1049,24 +1017,35 @@
     <x>20</x>
     <y>470</y>
   </widget>
-  <widget type="action_button" version="3.0.0">
-    <name>Action Button_1</name>
-    <actions>
-      <action type="open_display">
-        <file>acsys_launch.bob</file>
-        <macros>
-          <acsys_device>M:OUTTMP</acsys_device>
-        </macros>
-        <target>tab</target>
-        <description>Open Display</description>
-      </action>
-    </actions>
-    <pv_name>loc://acsys_device&lt;VString&gt;</pv_name>
+  <widget type="embedded" version="2.0.0">
+    <name>Embedded Display</name>
+    <macros>
+      <acsys_device>M:OUTTMP</acsys_device>
+    </macros>
+    <file>acsys_button.bob</file>
     <x>320</x>
     <y>470</y>
-    <width>150</width>
-    <height>20</height>
-    <tooltip>$(actions)</tooltip>
-    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <width>190</width>
+    <height>30</height>
+    <resize>2</resize>
+    <scripts>
+      <script file="EmbeddedPy">
+        <text><![CDATA[# Embedded python script
+from org.csstudio.display.builder.runtime.script import PVUtil, ScriptUtil
+print 'Hello'
+
+device = PVUtil.getString(pvs[0])
+print device
+
+widget.getPropertyValue("macros").add("acsys_device",device)
+
+#widget.setPropertyValue("file","")
+#widget.SetPropertyValue("file","acsys_button.bob")
+#widget.setPropertyValue("acsys_device",device)
+
+# widget.setPropertyValue('text', PVUtil.getString(pvs[0]))]]></text>
+        <pv_name>loc://acsys_device</pv_name>
+      </script>
+    </scripts>
   </widget>
 </display>
