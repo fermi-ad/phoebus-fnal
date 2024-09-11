@@ -5,14 +5,24 @@ Phoebus (https://github.com/ControlSystemStudio/phoebus) product for FNAL.
 - Set of install and build scripts to setup FNAL-phoebus product on the FNAL controls/internal n/w.
 - For production settings and configuration files, see **epics-controls/Config/CSS/Phoebus**
 
+## Running Phoebus
+Our Fermilab specific Phoebus is available on all Linux **clx** nodes and can run on **cns** Windows nodes by installing **Xpra**
+Steps:
+1. **ssh* to outland or outback, including the **-C** ssh arguement for compression
+2. Make sure X11 forwarding is enabled
+3. Type **launch auto** to be directed to clx node selected for you
+4. Type **phoebus_remote** to launch Phoebus
+One can also launch Phoebus directly with the **/usr/local/epics/Config/CSS/Phoebus/run-phoebus.sh** script
+
 ## Build Requirements
 - Java/JDK 17 or later, with full JDK distribution including *javac* compiler.  Recommended JDK 21
 - mvn maven 3.8.6 or later
 - Access to https://github.com
+- Building the package is __only__ necessary for developers of Phoebus source code.
   
 ## Install and Build phoebus-fnal
 
-A full build will include at least 2GB of disk space, so find an appropriate area.  The instructions below were run on node _vclx4_ in a private directory on the **/scratch** disk partition.
+A full build will include at least 2GB of disk space, so find an appropriate area.  The instructions below were run on node _vclx4_ in a private directory on the **/scratch** disk partition.  
 
 ### If you are building inside the AD network set up an ssh tunnel to the outside world from your build node:
 
