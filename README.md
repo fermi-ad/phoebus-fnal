@@ -7,11 +7,13 @@ Phoebus (https://github.com/ControlSystemStudio/phoebus) product for FNAL.
 
 ## Running Phoebus
 Our Fermilab specific Phoebus is available on all Linux **clx** nodes and can run on **cns** Windows nodes by installing **Xpra**
+
 Steps:
-1. **ssh* to outland or outback, including the **-C** ssh arguement for compression
+1. **ssh** to outland or outback, including the **-C** ssh arguement for compression (important)
 2. Make sure X11 forwarding is enabled
-3. Type **launch auto** to be directed to clx node selected for you
-4. Type **phoebus_remote** to launch Phoebus
+3. Type **launch auto** to be directed to a **clx** node selected for you
+4. Type **phoebus_remote** to launch **Phoebus**
+
 One can also launch Phoebus directly with the **/usr/local/epics/Config/CSS/Phoebus/run-phoebus.sh** script
 
 ## Build Requirements
