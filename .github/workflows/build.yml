@@ -11,6 +11,8 @@ on:
 jobs:
   build:
     runs-on: [ ubuntu-latest ]
+    env:
+      PHOEBUS_RELEASE: v4.7.3
 
     steps:
     - uses: actions/checkout@v4
@@ -27,7 +29,7 @@ jobs:
       with:
         repository: ControlSystemStudio/phoebus.git
         path: lib/phoebus
-        ref: v4.7.3
+        ref: ${{ env.PHOEBUS_RELEASE}}
 
     - name: Build phoebus fnal product
       run: mvn clean install --batch-mode  -DskipTests=true -Ddocs=lib/phoebus/docs
@@ -36,3 +38,62 @@ jobs:
       with:
         name: phoebus-fnal
         path: .
+
+  deploy-containers:
+    runs-on: [ ubuntu-latest ]
+    if: github.event_name != 'pull_request'
+
+    steps:
+    - name: Download phoebus build directory
+      uses: actions/download-artifact@v2
+      with:
+        name: phoebus-build-dir
+        path: .
+
+    - name: Log in to Docker Registry
+      uses: docker/login-action@v3
+      with:
+        registry: adregistry.fnal.gov
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+
+    # Docker metadata for multiple containers
+    - name: Docker metadata for containers
+      id: container-metadata
+      uses: docker/metadata-action@v5
+      with:
+        images: |
+          adregistry.fnal.gov/epics/alarm-logger
+          adregistry.fnal.gov/epics/alarm-server
+          adregistry.fnal.gov/epics/save-and-restore
+        tags: |
+          type=edge
+          type=raw,value=latest,enable={{is_default_branch}}
+          type=raw,value=${{ env.PHOEBUS_RELEASE }}_${{ github.run_number }}
+
+    - name: Build Alarm Logger container
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: containers/Dockerfile.alarmlogger
+        push: true
+        tags: adregistry.fnal.gov/epics/alarm-logger
+        labels: ${{ steps.container-metadata.outputs.labels }}
+
+    - name: Build Alarm Server container
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: containers/Dockerfile.alarmserver
+        push: true
+        tags: adregistry.fnal.gov/epics/alarm-server
+        labels: ${{ steps.container-metadata.outputs.labels }}
+
+    - name: Build Save and Restore container
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: containers/Dockerfile.saveandrestore
+        push: true
+        tags: adregistry.fnal.gov/epics/save-and-restore
+        labels: ${{ steps.container-metadata.outputs.labels }}

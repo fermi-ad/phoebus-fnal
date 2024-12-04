@@ -1,0 +1,8 @@
+FROM openjdk:23-slim as alarm-server
+
+ADD lib/phoebus/services/alarm-server/target/service-alarm-server-*.jar /alarm-server/service-alarm-server-*.jar
+ADD lib/phoebus/services/alarm-server/target/lib/ /alarm-server/lib/
+WORKDIR /alarm-server
+ENV JDK_JAVA_OPTIONS=-Djava.security.manager=allow
+ENTRYPOINT ["java", "-jar", "/alarm-server/service-alarm-server-*.jar"]
+CMD ["-help"]
