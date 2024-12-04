@@ -46,7 +46,7 @@ jobs:
 
     steps:
     - name: Download phoebus build directory
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: phoebus-build-dir
         path: .
