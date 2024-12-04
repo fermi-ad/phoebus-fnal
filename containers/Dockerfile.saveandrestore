@@ -1,0 +1,10 @@
+# =================================
+# Fnal build target "save and restore"
+# =================================
+FROM openjdk:23-slim as save-and-restore
+ADD lib/phoebus/services/save-and-restore/target/service-save-and-restore-*.jar  /save-and-restore/service-save-and-restore-*.jar
+
+WORKDIR /save-and-restore
+ENTRYPOINT ["java", "-jar", "/save-and-restore/service-save-and-restore-*.jar"]
+CMD ["-help"]
+

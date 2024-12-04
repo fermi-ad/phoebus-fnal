@@ -1,0 +1,6 @@
+FROM openjdk:23-slim as alarm-logger
+ADD lib/phoebus/services/alarm-logger/target/*.jar  /alarm-logger/service-alarm-logger-*.jar
+
+WORKDIR /alarm-logger
+ENTRYPOINT ["java", "-jar", "/alarm-logger/service-alarm-logger-*.jar"]
+CMD ["-help"]
