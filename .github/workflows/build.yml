@@ -41,6 +41,7 @@ jobs:
 
   deploy-containers:
     runs-on: [ ubuntu-latest ]
+    needs:  [ build ]
     if: github.event_name != 'pull_request'
 
     steps:
@@ -57,7 +58,6 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
 
-    # Docker metadata for multiple containers
     - name: Docker metadata for containers
       id: container-metadata
       uses: docker/metadata-action@v5
