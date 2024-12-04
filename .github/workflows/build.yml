@@ -48,7 +48,7 @@ jobs:
     - name: Download phoebus build directory
       uses: actions/download-artifact@v4
       with:
-        name: phoebus-build-dir
+        name: phoebus-fnal
         path: .
 
     - name: Log in to Docker Registry
