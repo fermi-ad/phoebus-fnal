@@ -94,5 +94,5 @@ jobs:
         context: .
         file: containers/Dockerfile.saveandrestore
         push: true
-        tags: adregistry.fnal.gov/epics/save-and-:${{ env.PHOEBUS_RELEASE }}_${{ github.run_number }}
+        tags: adregistry.fnal.gov/epics/save-and-restore:${{ env.PHOEBUS_RELEASE }}_${{ github.run_number }}
         labels: ${{ steps.container-metadata.outputs.labels }}
