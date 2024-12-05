@@ -7,12 +7,12 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
+env:
+  PHOEBUS_RELEASE: v4.7.3
 
 jobs:
   build:
     runs-on: [ ubuntu-latest ]
-    env:
-      PHOEBUS_RELEASE: v4.7.3
 
     steps:
     - uses: actions/checkout@v4
