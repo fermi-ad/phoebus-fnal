@@ -1,11 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>core-pv-acsys</artifactId>
-  <version>4.7.3-42</version>
+  <version>5.0.0-57</version>
+
   <parent>
     <groupId>org.phoebus</groupId>
     <artifactId>core</artifactId>
-    <version>4.7.3</version>
+    <version>5.0.0</version>
   </parent>
   <dependencies>
 
@@ -32,13 +33,13 @@
     <dependency>
       <groupId>org.phoebus</groupId>
       <artifactId>core-pv</artifactId>
-      <version>4.7.3</version>
+      <version>5.0.0</version>
     </dependency>
 
     <dependency>
       <groupId>org.phoebus</groupId>
       <artifactId>core-framework</artifactId>
-      <version>4.7.3</version>
+      <version>5.0.0</version>
     </dependency>
 
     <dependency>
