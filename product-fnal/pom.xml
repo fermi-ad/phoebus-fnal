@@ -3,14 +3,15 @@
   <modelVersion>4.0.0</modelVersion>
   
   <groupId>org.phoebus</groupId>
-  <version>4.7.3-42</version>
+  <version>5.0.0-57</version>
   <artifactId>fnal-product</artifactId>
   <name>FNAL Phoebus Product</name>
+  
 
   <parent>
     <groupId>org.phoebus</groupId>
     <artifactId>fnal</artifactId>
-    <version>4.7.3-42</version>
+    <version>5.0.0-57</version>
   </parent>
 
   <properties>
@@ -22,34 +23,34 @@
     <dependency>
       <groupId>org.phoebus</groupId>
       <artifactId>product</artifactId>
-      <version>4.7.3</version>
+      <version>${phoebus.version}</version>
     </dependency>
     <dependency>
       <groupId>org.phoebus</groupId>
       <artifactId>app-trends-rich-adapters</artifactId>
-      <version>4.7.3</version>
+      <version>${phoebus.version}</version>
     </dependency>
     <dependency>
       <groupId>org.phoebus</groupId>
       <artifactId>app-utility-preference-manager</artifactId>
-      <version>4.7.3</version>
+      <version>${phoebus.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.phoebus</groupId>
       <artifactId>app-logbook-olog-client-es</artifactId>
-      <version>4.7.3</version>
+      <version>${phoebus.version}</version>
     </dependency>
     <dependency>
       <groupId>org.phoebus</groupId>
       <artifactId>app-logbook-olog-ui</artifactId>
-      <version>4.7.3</version>
+      <version>${phoebus.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.phoebus</groupId>
       <artifactId>core-pv-acsys</artifactId>
-      <version>4.7.3-42</version>
+      <version>${phoebus.version}-57</version>
     </dependency>
 
     <dependency>
