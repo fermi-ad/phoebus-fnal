@@ -173,9 +173,8 @@ public class ACsys_PVConn implements DPMDataHandler
       pvListByName.remove(pv);
       if ( pvListByName.size() <= 0 )
       {
-	requestsByName.remove(deviceNameIndexed);
-	logger.log(Level.FINE,"Removed device "+deviceNameIndexed+" "
-		   +pv.dpmIndex+" from requestByIndex");
+	      requestsByName.remove(deviceNameIndexed);
+	      logger.log(Level.FINE,"Removed device "+deviceNameIndexed+" " +pv.dpmIndex+" from requestByIndex");
       }
     }
   }
@@ -280,8 +279,7 @@ public class ACsys_PVConn implements DPMDataHandler
     pvList.forEach( (pv)->
     {
       // use lamba expression here for string concat
-      logger.log(Level.FINE, "Device "+pv.fullName+ " ref_id "+ devInfo.ref_id+
-		 " " +s.data);
+      logger.log(Level.FINE, "DPM Reply Device "+pv.fullName+ " ref_id "+ devInfo.ref_id+" " +s.data);    
       pv.notify(s.data,s.timestamp);
     });
   }
@@ -312,7 +310,7 @@ public class ACsys_PVConn implements DPMDataHandler
     pvList.forEach( (pv)->
     {    
       pv.notify(s.on,s.timestamp);
-      logger.log(Level.FINE,
+      logger.log(Level.FINER,
 		 "Device BasicStatus "+pv.fullName+ " ref_id "+ devInfo.ref_id+
 		 " " +s.on+" "+s.ready);
     });
@@ -334,7 +332,7 @@ public class ACsys_PVConn implements DPMDataHandler
       {
 	pv.notify(s.status,s.timestamp);
       }
-      logger.log(Level.FINE,
+      logger.log(Level.FINER,
 		 "Device Status "+pv.fullName+ " ref_id "+ s.ref_id+
 		 " " +s.status);
     });
@@ -348,7 +346,7 @@ public class ACsys_PVConn implements DPMDataHandler
     pvList.forEach( (pv)->
     {
       pv.notify(a.alarm_status,a.timestamp);
-      logger.log(Level.FINE,
+      logger.log(Level.FINER,
 		 "Device AnalogAlarm "+pv.fullName+ " ref_id "+ a.ref_id+
 		 " " +a.alarm_enable+" "+a.alarm_status); 
     });
@@ -361,7 +359,7 @@ public class ACsys_PVConn implements DPMDataHandler
 
     pvList.forEach( (pv)->
     {    
-      logger.log(Level.FINE,
+      logger.log(Level.FINER,
 		 "Device DigitalAlarm "+pv.deviceName+ " " +
 		 " ref_id "+ a.ref_id+" " +a.alarm_enable+" "+a.alarm_status);
       pv.notify(a.alarm_status,a.timestamp);
@@ -375,7 +373,7 @@ public class ACsys_PVConn implements DPMDataHandler
 
     pvList.forEach( (pv)->
     {
-      logger.log(Level.FINE,
+      logger.log(Level.FINER,
 	       "Device Text "+pv.fullName+ " ref_id "+ t.ref_id+
 	       " " +t.data);
       pv.notify(t.data,t.timestamp);
