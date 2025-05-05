@@ -99,13 +99,14 @@ public class ACsys_PV extends PV implements ACsys_PVListener
   //
   public static ACsys_PV fetchDevice(String name, String base_name)
   {
-    logger.log(Level.FINE, "Look for device "+name);
-    ACsys_PV pv = devices.get(name);
+    logger.log(Level.FINER, "Look for device "+name);
+    String key = base_name;
+    ACsys_PV pv = devices.get(key);
     if ( pv == null )
     {
-      logger.log(Level.FINE, "Did not find device "+name+", creating a new PV object");
+      logger.log(Level.INFO , "Did not find device "+key+", creating a new PV object");
       pv = new ACsys_PV(name,base_name);
-      devices.put(base_name,pv); // If an array, we must retain the index
+      devices.put(key ,pv); // If an array, we must retain the index
                                  // after the slash 
     }
     return(pv);
@@ -117,7 +118,7 @@ public class ACsys_PV extends PV implements ACsys_PVListener
     super(name);
     fullName = name;
 
-    StringTokenizer t = new StringTokenizer(base_name,"/");
+    StringTokenizer t = new StringTokenizer(base_name,"/");   // update from "/"
     deviceName = t.nextToken(); // Should be DRF2 request without the optional array index
 
     // Very special virtual device to enable ACsys settings
@@ -129,6 +130,9 @@ public class ACsys_PV extends PV implements ACsys_PVListener
         settingsPV = this;
       }
     }
+
+    logger.log(Level.FINER, "ACsys_PV "+name+" base_name="+base_name+" dev="+deviceName);
+
 
     // Optional, index to an array
     if ( t.hasMoreTokens() ) { index = Integer.parseInt(t.nextToken());} 
@@ -164,11 +168,11 @@ public class ACsys_PV extends PV implements ACsys_PVListener
       logger.log(Level.CONFIG,"Adding requests for regular device request "+deviceName);
       for (int i=0; i<dpmFields.length; i++)
       {
-	String baseName = deviceName+dpmFields[i];
+	      String baseName = deviceName+dpmFields[i];
         logger.log(Level.CONFIG,"Adding dpmFields request  "+baseName+" " +i);
-	ACsys_PV pvNew = fetchDevice(ACsys_PVFactory.TYPE+"://"+baseName, baseName);
-	pvNew.dpmFieldsIndex = i;
-	pvNew.addACsys_PVListener(this);
+	      ACsys_PV pvNew = fetchDevice(ACsys_PVFactory.TYPE+"://"+baseName, baseName);
+	      pvNew.dpmFieldsIndex = i;
+	      pvNew.addACsys_PVListener(this);
       }
     }
 

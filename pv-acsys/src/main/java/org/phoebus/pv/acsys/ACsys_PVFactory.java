@@ -10,7 +10,7 @@ package org.phoebus.pv.acsys;
 
 import org.phoebus.pv.PV;
 import org.phoebus.pv.PVFactory;
-import org.phoebus.pv.acsys.ACsys_PV;
+//import org.phoebus.pv.acsys.ACsys_PV;
 
 /** ACsys implementation of org.phoebus.pv.PVFactory.
  *  @author William Badgett
@@ -29,6 +29,7 @@ public class ACsys_PVFactory implements PVFactory
   @Override
   public PV createPV(String name, String base_name) throws Exception
   {
+    System.out.println("ACsys_PVFactory.createPV() name=" + name + " base_name=" + base_name);
     return ACsys_PV.fetchDevice(name,base_name);
   }
 }
