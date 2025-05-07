@@ -8,8 +8,25 @@
     <artifactId>core</artifactId>
     <version>5.0.0</version>
   </parent>
-  <dependencies>
 
+  <repositories>
+  <!-- GitHub Packages -->
+  <repository>
+    <id>github</id>
+    <name>GitHub Packages</name>
+    <url>https://maven.pkg.github.com/fermi-ad</url>
+  </repository>
+
+  <!-- Maven Central -->
+  <repository>
+    <id>central</id>
+    <name>Maven Central</name>
+    <url>https://repo.maven.apache.org/maven2</url>
+  </repository>
+
+</repositories>
+
+  <dependencies>
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-all</artifactId>
@@ -48,4 +65,13 @@
       <version>PR75819</version>
     </dependency>
   </dependencies>
+
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/fermi-ad/phoebus-fnal</url>
+        </repository>
+    </distributionManagement>
+
 </project>
