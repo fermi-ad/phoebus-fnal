@@ -136,11 +136,7 @@ This documentation uses the ACsys plugin as an example on how to include new sou
   >**NOTE** 
   The phoebus framework is Maven-centric and external dependencies
   defined in the pox.xml can be downloaded.
-  The 'dependencies/install-jar' directory allows adding dependencies that 
-  cannot be downloaded.
-  See more information at: 
-  https://github.com/ControlSystemStudio/phoebus/tree/master/dependencies
-
+ 
 
 ## Useful links
 - [Example of Phoebus product](https://github.com/ControlSystemStudio/phoebus/tree/master/phoebus-product)
