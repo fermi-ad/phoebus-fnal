@@ -14,7 +14,7 @@
   <repository>
     <id>github</id>
     <name>GitHub Packages</name>
-    <url>https://maven.pkg.github.com/fermi-ad</url>
+    <url>https://maven.pkg.github.com/fermi-ad/phoebus-fnal</url>
   </repository>
 
   <!-- Maven Central -->
