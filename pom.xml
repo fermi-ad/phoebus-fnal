@@ -17,7 +17,21 @@
     <phoebus.version>5.0.0</phoebus.version>
     <fnal.phoebus.version>${phoebus.version}-57</fnal.phoebus.version>
   </properties>
+  <repositories>
+  <!-- GitHub Packages -->
+  <repository>
+    <id>github</id>
+    <name>GitHub Packages</name>
+    <url>https://maven.pkg.github.com/fermi-ad</url>
+  </repository>
 
+  <!-- Maven Central -->
+  <repository>
+    <id>central</id>
+    <name>Maven Central</name>
+    <url>https://repo.maven.apache.org/maven2</url>
+  </repository>
+  </repositories>
   <build>
     <plugins>
       <plugin>
@@ -38,7 +52,6 @@
   </build>
 
   <modules>
-    <module>dependencies</module>
     <module>lib/phoebus</module>
     <module>pv-acsys</module>
     <module>product-fnal</module>
