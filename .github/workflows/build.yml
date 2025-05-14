@@ -29,6 +29,20 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
 
+    - name: Set up Maven settings for GitHub Packages
+      run: |
+        mkdir -p ~/.m2
+        cat > ~/.m2/settings.xml <<EOF
+        <settings>
+          <servers>
+            <server>
+              <id>github</id>
+              <username>${{ github.actor }}</username>
+              <password>${{ secrets.GITHUB_TOKEN }}</password>
+            </server>
+          </servers>
+        </settings>
+        EOF
 
     - name: Checkout phoebus repo
       uses: actions/checkout@v4
@@ -36,6 +50,7 @@ jobs:
         repository: ControlSystemStudio/phoebus.git
         path: lib/phoebus
         ref: ${{ env.PHOEBUS_RELEASE}}
+
 
     - name: Build phoebus fnal product
       run: mvn clean install --batch-mode  -DskipTests=true -Ddocs=lib/phoebus/docs
