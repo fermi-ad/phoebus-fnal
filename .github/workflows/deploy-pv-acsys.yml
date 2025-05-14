@@ -18,7 +18,21 @@ jobs:
       with:
         java-version: '21'
         distribution: 'temurin'
-
+    - name: Set up Maven settings for GitHub Packages
+      run: |
+        mkdir -p ~/.m2
+        cat > ~/.m2/settings.xml <<EOF
+        <settings>
+          <servers>
+            <server>
+              <id>github</id>
+              <username>${{ github.actor }}</username>
+              <password>${{ secrets.GITHUB_TOKEN }}</password>
+            </server>
+          </servers>
+        </settings>
+        EOF
+  
     - name: Deploy pv-acsys jar
       run: mvn clean deploy
       working-directory: ./pv-acsys
