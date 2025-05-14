@@ -5,6 +5,7 @@ on:
     branches: [ "main" ]
     paths:
       - 'pv-acsys/**'
+      - '.github/workflows/deploy-pv-acsys.yml'
 
 permissions:
   contents: read
