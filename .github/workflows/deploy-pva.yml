@@ -1,0 +1,43 @@
+name: Deploy pva package
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'pva/**'
+      - '.github/workflows/deploy-pva.yml'
+
+permissions:
+  contents: read
+  packages: write
+  
+jobs:
+  build:
+    runs-on: [ ubuntu-latest ]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+    - name: Set up Maven settings for GitHub Packages
+      run: |
+        mkdir -p ~/.m2
+        cat > ~/.m2/settings.xml <<EOF
+        <settings>
+          <servers>
+            <server>
+              <id>github</id>
+              <username>${{ github.actor }}</username>
+              <password>${{ secrets.GITHUB_TOKEN }}</password>
+            </server>
+          </servers>
+        </settings>
+        EOF
+  
+    - name: Deploy pva jar
+      run: mvn clean deploy
+      working-directory: ./pva
