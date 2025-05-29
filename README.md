@@ -52,7 +52,7 @@ Currently we are using Phoebus production version v5.0.0
    export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
    export PATH=${JAVA_HOME}/bin:${PATH}
 ```
-   Type _javac --version_ to make sure you really picked it up JDK 21 [important!]
+   Type _javac -version_ to make sure you really picked it up JDK 21 [important!]
 
 ### From the root phoebus-fnal directory build with maven:
 ```
