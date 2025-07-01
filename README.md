@@ -52,7 +52,57 @@ Currently we are using Phoebus production version v5.0.0
    export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
    export PATH=${JAVA_HOME}/bin:${PATH}
 ```
-   Type _javac --version_ to make sure you really picked it up JDK 21 [important!]
+   Type _javac -version_ to make sure you really picked it up JDK 21 [important!]
+
+### GitHub Packages Authentication
+
+When building, Maven needs to authenticate with GitHub Packages to download dependencies. This requires a [GitHub Personal Access Token (PAT)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with `read:packages` scopes.
+
+You can configure Maven to use your PAT by adding a `<server>` entry to your `~/.m2/settings.xml` file.
+
+1. Create a Personal Access Token (PAT)
+2. Configure Maven's `settings.xml`:
+   * If you don't have a `~/.m2/settings.xml` file, create one.
+   * Add the following relevant fields, replacing `USERNAME` and `TOKEN` with your actual GitHub username and the PAT you just generated.
+
+```xml
+   <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  
+    <activeProfiles>
+      <activeProfile>github</activeProfile>
+    </activeProfiles>
+  
+    <profiles>
+      <profile>
+        <id>github</id>
+        <repositories>
+          <repository>
+            <id>central</id>
+            <url>https://repo1.maven.org/maven2</url>
+          </repository>
+          <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/OWNER/REPOSITORY</url>
+            <snapshots>
+              <enabled>true</enabled>
+            </snapshots>
+          </repository>
+        </repositories>
+      </profile>
+    </profiles>
+  
+    <servers>
+      <server>
+        <id>github</id>
+        <username>USERNAME</username>
+        <password>TOKEN</password>
+      </server>
+    </servers>
+  </settings>
+```
 
 ### From the root phoebus-fnal directory build with maven:
 ```
