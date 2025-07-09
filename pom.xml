@@ -59,5 +59,11 @@
       <module>pva</module>
   </modules>
 
-
+  <modules>
+    <module>lib/phoebus</module>
+    <module>pv-acsys</module>
+    <module>product-fnal</module>
+    <module>scan-server-fnal</module>
+      <module>pva</module>
+  </modules>
 </project>
