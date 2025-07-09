@@ -173,7 +173,7 @@ This documentation uses the ACsys plugin as an example on how to include new sou
     org.phoebus.pv.acsys.ACsys_PVFactory
     ```
 
-3. Optional: add dependencies to `product/pom.xml`. 
+4. Optional: add dependencies to `product/pom.xml`. 
    Example to include ACsys DPM library:
    ```
     <dependency>
