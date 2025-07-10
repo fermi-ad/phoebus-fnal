@@ -94,7 +94,7 @@
             <configuration>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>org.csstudio.scan.server.ScanServer</mainClass>
+                  <mainClass>org.csstudio.scan.server.ScanServerInstance</mainClass>
                 </transformer>
               </transformers>
               <filters>
