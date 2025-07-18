@@ -360,11 +360,11 @@ public class ACsys_PV extends PV implements ACsys_PVListener
       break;
 
       case 8: // .UNITS
-        units = (String)value;
+        if ( value instanceof String ) { units = (String)value;}
       break;
 
       case 9: // .DESCRIPTION
-	description = (String)value;
+	if ( value instanceof String ) { description = (String)value;}
       break;
 
     }
