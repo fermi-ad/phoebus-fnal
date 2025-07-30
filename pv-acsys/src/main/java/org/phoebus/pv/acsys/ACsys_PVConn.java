@@ -389,7 +389,9 @@ public class ACsys_PVConn implements DPMDataHandler
     for ( int i =0 ; i<t.data.length; i++)
     { logger.log(Level.FINER, i+ " " + t.data[i]); }
 
-    pvList.forEach( (pv)->
+    System.out.println("\r\n using separate pvListCopy ... ");
+    ArrayList<ACsys_PV> pvListCopy = new ArrayList<>(pvList);  // added by zyuan, from pvList
+    pvListCopy.forEach( (pv)->
     {
       int index = 0;
       logger.log(Level.FINER, "Notifying "+pv.toString());
