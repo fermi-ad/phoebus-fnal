@@ -1,0 +1,13 @@
+FROM openjdk:23-slim as scan-server
+
+# to source epicsENV
+RUN apt-get update && \
+    apt-get install -y bash && \
+    rm -rf /var/lib/apt/lists/*
+
+ADD scan-server-fnal/target/fnal-scan-server*.jar /scan-server/fnal-scan-server.jar
+
+EXPOSE 4810
+
+CMD ["java", "-jar", "/scan-server/fnal-scan-server.jar", "-help"]
+
