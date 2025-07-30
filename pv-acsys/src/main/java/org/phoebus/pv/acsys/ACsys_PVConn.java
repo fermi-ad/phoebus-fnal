@@ -390,21 +390,22 @@ public class ACsys_PVConn implements DPMDataHandler
     { logger.log(Level.FINER, i+ " " + t.data[i]); }
 
     System.out.println("\r\n using separate pvListCopy ... ");
-    ArrayList<ACsys_PV> pvListCopy = new ArrayList<>(pvList);  // added by zyuan, from pvList
-    synchronized (pvListCopy) // make sure pvListCopy is not modified by other threads
-    {
-      pvListCopy.forEach( (pv)->
-      {
-         int index = 0;
-         logger.log(Level.FINER, "Notifying "+pv.toString());
-		 
-         // We cannot serve whole arrays (yet?)
-         // Does that even make sense in a widget context?
-         if ( pv.index >= 0 ) { index = pv.index;} 
-         if ( index < t.data.length ) { pv.notify(t.data[index],t.timestamp); }
-         else                         { pv.notify(new String(),0);}
-         });
+    ArrayList<ACsys_PV> pvListCopy;
+    synchronized (pvList) {
+      pvListCopy = new ArrayList<>(pvList);  // added by zyuan, from pvList
     }
+    
+    pvListCopy.forEach( (pv)->
+    {
+      int index = 0;
+      logger.log(Level.FINER, "Notifying "+pv.toString());
+		 
+      // We cannot serve whole arrays (yet?)
+      // Does that even make sense in a widget context?
+      if ( pv.index >= 0 ) { index = pv.index;} 
+      if ( index < t.data.length ) { pv.notify(t.data[index],t.timestamp); }
+      else                         { pv.notify(new String(),0);}
+      });
   }
   public void handle(DPM.Reply.DeviceInfo devInfo, DPM.Reply.Raw r)
   {
