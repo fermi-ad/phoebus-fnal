@@ -88,11 +88,12 @@ jobs:
           adregistry.fnal.gov/epics/alarm-logger
           adregistry.fnal.gov/epics/alarm-server
           adregistry.fnal.gov/epics/save-and-restore
+          adregistry.fnal.gov/epics/scan-server
         tags: |
           type=raw,value=${{ env.IMAGE_VERSION }}
 
     - name: Build Alarm Logger container
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         context: .
         file: containers/Dockerfile.alarmlogger
@@ -101,19 +102,28 @@ jobs:
         labels: ${{ steps.container-metadata.outputs.labels }}
 
     - name: Build Alarm Server container
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         context: .
         file: containers/Dockerfile.alarmserver
         push: true
         tags: adregistry.fnal.gov/epics/alarm-server:${{ env.PHOEBUS_RELEASE }}_${{ github.run_number }}
         labels: ${{ steps.container-metadata.outputs.labels }}
-
+  
     - name: Build Save and Restore container
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         context: .
         file: containers/Dockerfile.saveandrestore
         push: true
         tags: adregistry.fnal.gov/epics/save-and-restore:${{ env.PHOEBUS_RELEASE }}_${{ github.run_number }}
+        labels: ${{ steps.container-metadata.outputs.labels }}
+
+    - name: Build Save and Restore container
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        file: containers/Dockerfile.scanserver
+        push: true
+        tags: adregistry.fnal.gov/epics/scan-server:${{ env.PHOEBUS_RELEASE }}_${{ github.run_number }}
         labels: ${{ steps.container-metadata.outputs.labels }}
