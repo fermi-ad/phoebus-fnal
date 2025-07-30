@@ -391,19 +391,21 @@ public class ACsys_PVConn implements DPMDataHandler
 
     System.out.println("\r\n using separate pvListCopy ... ");
     ArrayList<ACsys_PV> pvListCopy = new ArrayList<>(pvList);  // added by zyuan, from pvList
-    pvListCopy.forEach( (pv)->
+    synchronized (pvListCopy) // make sure pvListCopy is not modified by other threads
     {
-      int index = 0;
-      logger.log(Level.FINER, "Notifying "+pv.toString());
+      pvListCopy.forEach( (pv)->
+      {
+         int index = 0;
+         logger.log(Level.FINER, "Notifying "+pv.toString());
 		 
-      // We cannot serve whole arrays (yet?)
-      // Does that even make sense in a widget context?
-      if ( pv.index >= 0 ) { index = pv.index;} 
-      if ( index < t.data.length ) { pv.notify(t.data[index],t.timestamp); }
-      else                         { pv.notify(new String(),0);}
-    });
+         // We cannot serve whole arrays (yet?)
+         // Does that even make sense in a widget context?
+         if ( pv.index >= 0 ) { index = pv.index;} 
+         if ( index < t.data.length ) { pv.notify(t.data[index],t.timestamp); }
+         else                         { pv.notify(new String(),0);}
+         });
+    }
   }
-
   public void handle(DPM.Reply.DeviceInfo devInfo, DPM.Reply.Raw r)
   {
     ArrayList<ACsys_PV> pvList = requestsByIndex.get(r.ref_id);
