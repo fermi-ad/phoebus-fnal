@@ -52,7 +52,7 @@
   </build>
 
   <modules>
-    <module>lib/phoebus</module>
+    <module>lib/phoebus/dependencies</module>
     <module>pv-acsys</module>
     <module>product-fnal</module>
     <module>alarm-server-fnal</module>
