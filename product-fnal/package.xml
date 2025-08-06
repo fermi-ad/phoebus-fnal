@@ -22,6 +22,7 @@
       <outputDirectory>./</outputDirectory>
       <includes>
         <include>*.jar</include>
+        <include>site_splash.png</include>
       </includes>
     </fileSet>
     <fileSet>

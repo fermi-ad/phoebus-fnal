@@ -8,14 +8,14 @@
   </parent>
   
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>fnal-alarm-server</artifactId>
+  <artifactId>fnal-scan-server</artifactId>
   <version>${fnal.phoebus.version}</version>
   <packaging>jar</packaging>
 
   <dependencies>
     <dependency>
       <groupId>org.phoebus</groupId>
-      <artifactId>service-alarm-server</artifactId>
+      <artifactId>service-scan-server</artifactId>
       <version>${phoebus.version}</version>
     </dependency>
     <dependency>
@@ -56,7 +56,7 @@
     </dependency>
     <dependency>
       <groupId>org.phoebus</groupId>
-      <artifactId>app-alarm-model</artifactId>
+      <artifactId>app-scan-model</artifactId>
       <version>${phoebus.version}</version>
     </dependency>
     <dependency> 
@@ -94,7 +94,7 @@
             <configuration>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>org.phoebus.applications.alarm.server.AlarmServerMain</mainClass>
+                  <mainClass>org.csstudio.scan.server.ScanServerInstance</mainClass>
                 </transformer>
               </transformers>
               <filters>
