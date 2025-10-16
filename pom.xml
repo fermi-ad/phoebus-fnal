@@ -15,7 +15,7 @@
 
     <!-- Update when phoebus version is changed -->
     <phoebus.version>5.0.2</phoebus.version>
-    <fnal.phoebus.version>${phoebus.version}-73</fnal.phoebus.version>
+    <fnal.phoebus.version>${phoebus.version}-85</fnal.phoebus.version>
   </properties>
   <repositories>
   <!-- GitHub Packages -->
