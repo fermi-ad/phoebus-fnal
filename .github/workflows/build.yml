@@ -62,7 +62,7 @@ jobs:
 
     - uses: actions/upload-artifact@v4
       with:
-        name: phoebus-fnal ${{ matrix.os }}
+        name: phoebus-fnal-${{ matrix.os }}
         path: .
 
   deploy-containers:
@@ -75,7 +75,7 @@ jobs:
     - name: Download phoebus build directory
       uses: actions/download-artifact@v4
       with:
-        name: phoebus-fnal
+        name: phoebus-fnal-ubuntu-latest
         path: .
 
     - name: Log in to Docker Registry
