@@ -58,7 +58,6 @@
     <module>alarm-server-fnal</module>
     <module>scan-app-fnal</module>
     <module>scan-server-fnal</module>
-    <module>pva</module>
   </modules>
 
 </project>
