@@ -36,16 +36,16 @@
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.6.2</version>
+        <version>3.11.0</version>
         <configuration>
-          <source>11</source>
-          <target>11</target>
+          <source>21</source>
+          <target>21</target>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.20</version>
+        <version>3.2.5</version>
       </plugin>
     </plugins>
 
@@ -53,7 +53,7 @@
 
   <modules>
     <module>lib/phoebus</module>
-    <module>pv-acsys</module>
+    <module>acnet-setting</module>
     <module>product-fnal</module>
     <module>alarm-server-fnal</module>
     <module>scan-server-fnal</module>
