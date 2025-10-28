@@ -62,7 +62,7 @@
     <dependency>
       <groupId>org.phoebus</groupId>
       <artifactId>acnet-setting</artifactId>
-      <version>${fnal.phoebus.version}</version>
+      <version>${project.version}</version>
     </dependency>
   </dependencies>
 
