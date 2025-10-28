@@ -4,7 +4,7 @@
   
   <groupId>org.phoebus</groupId>
   <artifactId>fnal</artifactId>
-  <version>5.0.2-73</version>
+  <version>5.0.2-85</version>
   <name>FNAL Phoebus Product</name>
   <packaging>pom</packaging>
 
@@ -15,7 +15,7 @@
 
     <!-- Update when phoebus version is changed -->
     <phoebus.version>5.0.2</phoebus.version>
-    <fnal.phoebus.version>${phoebus.version}-73</fnal.phoebus.version>
+    <fnal.phoebus.version>${phoebus.version}-85</fnal.phoebus.version>
   </properties>
   <repositories>
   <!-- GitHub Packages -->
@@ -56,8 +56,8 @@
     <module>acnet-setting</module>
     <module>product-fnal</module>
     <module>alarm-server-fnal</module>
+    <module>scan-app-fnal</module>
     <module>scan-server-fnal</module>
-    <module>pva</module>
   </modules>
 
 </project>

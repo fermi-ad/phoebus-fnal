@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   
   <groupId>org.phoebus</groupId>
-  <version>5.0.2-73</version>
+  <version>${fnal.phoebus.version}</version>
   <artifactId>fnal-product</artifactId>
   <name>FNAL Phoebus Product</name>
   
@@ -11,7 +11,7 @@
   <parent>
     <groupId>org.phoebus</groupId>
     <artifactId>fnal</artifactId>
-    <version>5.0.2-73</version>
+    <version>5.0.2-85</version>
   </parent>
 
   <properties>
@@ -50,7 +50,7 @@
     <dependency>
       <groupId>org.phoebus</groupId>
       <artifactId>core-pv-acsys</artifactId>
-      <version>${phoebus.version}-73</version>
+      <version>${fnal.phoebus.version}</version>
     </dependency>
 
     <dependency>
