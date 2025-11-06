@@ -1,4 +1,4 @@
-FROM eclipse-temurin:23-alpine as alarm-server
+FROM amazoncorretto:23-alpine  as alarm-server
 
 ADD lib/phoebus/services/alarm-server/target/service-alarm-server-*.jar /alarm-server/service-alarm-server-*.jar
 ADD lib/phoebus/services/alarm-server/target/lib/ /alarm-server/lib/

@@ -1,7 +1,7 @@
 # =================================
 # Fnal build target "save and restore"
 # =================================
-FROM eclipse-temurin:23-alpine as save-and-restore
+FROM amazoncorretto:23-alpine  as save-and-restore
 ADD lib/phoebus/services/save-and-restore/target/service-save-and-restore-*.jar  /save-and-restore/service-save-and-restore-*.jar
 
 WORKDIR /save-and-restore
