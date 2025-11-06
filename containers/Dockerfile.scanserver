@@ -1,4 +1,4 @@
-FROM openjdk:23-slim as scan-server
+FROM eclipse-temurin:23-alpine as scan-server
 
 # to source epicsENV
 RUN apt-get update && \

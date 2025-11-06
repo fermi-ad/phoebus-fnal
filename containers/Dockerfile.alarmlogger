@@ -1,4 +1,4 @@
-FROM openjdk:23-slim as alarm-logger
+FROM eclipse-temurin:23-alpine as alarm-logger
 ADD lib/phoebus/services/alarm-logger/target/*.jar  /alarm-logger/service-alarm-logger-*.jar
 
 WORKDIR /alarm-logger
