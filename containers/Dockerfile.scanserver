@@ -1,9 +1,7 @@
 FROM amazoncorretto:23-alpine  as scan-server
 
 # to source epicsENV
-RUN apt-get update && \
-    apt-get install -y bash && \
-    rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache bash
 
 ADD scan-server-fnal/target/fnal-scan-server*.jar /scan-server/fnal-scan-server.jar
 
