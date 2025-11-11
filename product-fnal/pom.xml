@@ -64,7 +64,15 @@
       <artifactId>acnet-setting</artifactId>
       <version>${project.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.phoebus</groupId>
+      <artifactId>app-scan-ui</artifactId>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
+
+
 
   <build>
     <plugins>
