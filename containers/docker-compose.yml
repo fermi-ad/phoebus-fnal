@@ -1,0 +1,50 @@
+version: '3.8'
+
+# Required ports for FNAL controls network:
+# =========================================
+# EPICS Channel Access (CA):
+#   - 5064/udp, 5064/tcp  : CA server port
+#   - 5065/udp            : CA repeater port
+#   - 6710-6740/udp       : Custom CA ports (per settings.ini address list)
+#
+# EPICS PVAccess (PVA):
+#   - 5075/udp            : PVA broadcast/search port
+#   - 5076/tcp            : PVA server port (default)
+#
+# Backend Services:
+#   - 9092/tcp   : Kafka (alarm server at acsys-services.fnal.gov)
+#   - 17668/tcp  : Archiver (archiver1.fnal.gov)
+#   - 443/tcp    : HTTPS services (ad-services.fnal.gov - ChannelFinder, Save/Restore, Alarm Logger)
+#
+# Multicast (if needed):
+#   - 239.128.1.6 : EPICS CA multicast group
+#
+# In order to run you need to set the xhost in your host machine
+# Allow X11 access (run once)
+#   xhost +local:docker
+
+
+services:
+  phoebus:
+    image: phoebus-fnal:latest
+    container_name: phoebus-fnal
+    # X11 forwarding for GUI display
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      # X11 socket for display
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      # Optional: Mount local config directory for custom settings
+      - ./config:/opt/phoebus/config:ro
+      # Optional: Mount a directory for user data persistence
+      - phoebus-data:/home/phoebus
+    # Network mode host can help with X11 and EPICS networking
+    network_mode: host
+    # For better X11 compatibility
+    ipc: host
+    # Security options for X11
+    security_opt:
+      - seccomp:unconfined
+
+volumes:
+  phoebus-data:
