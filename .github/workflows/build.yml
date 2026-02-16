@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 env:
-  PHOEBUS_RELEASE: v5.0.0
+  PHOEBUS_RELEASE: v5.0.2
 
 jobs:
   build:
