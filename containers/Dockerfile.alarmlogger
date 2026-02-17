@@ -1,6 +1,12 @@
 FROM amazoncorretto:23-alpine as alarm-logger
-ADD lib/phoebus/services/alarm-logger/target/*.jar  /alarm-logger/service-alarm-logger-*.jar
+
+RUN addgroup -g 10001 epics && \
+    adduser -D -u 10001 -G epics -s /bin/sh epics
 
 WORKDIR /alarm-logger
-ENTRYPOINT ["java", "-jar", "/alarm-logger/service-alarm-logger-*.jar"]
+COPY --chown=epics:epics lib/phoebus/services/alarm-logger/target/*.jar ./service-alarm-logger.jar
+
+USER epics
+
+ENTRYPOINT ["java", "-jar", "/alarm-logger/service-alarm-logger.jar"]
 CMD ["-help"]
