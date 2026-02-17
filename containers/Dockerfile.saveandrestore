@@ -1,10 +1,13 @@
-# =================================
-# Fnal build target "save and restore"
-# =================================
 FROM amazoncorretto:23-alpine  as save-and-restore
-ADD lib/phoebus/services/save-and-restore/target/service-save-and-restore-*.jar  /save-and-restore/service-save-and-restore-*.jar
+
+RUN addgroup -g 10001 epics && \
+    adduser -D -u 10001 -G epics -s /bin/sh epics
 
 WORKDIR /save-and-restore
-ENTRYPOINT ["java", "-jar", "/save-and-restore/service-save-and-restore-*.jar"]
+ADD lib/phoebus/services/save-and-restore/target/service-save-and-restore-*.jar  /save-and-restore/service-save-and-restore.jar
+
+USER epics
+
+ENTRYPOINT ["java", "-jar", "/save-and-restore/service-save-and-restore.jar"]
 CMD ["-help"]
 

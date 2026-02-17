@@ -1,8 +1,14 @@
 FROM amazoncorretto:23-alpine  as alarm-server
 
-ADD lib/phoebus/services/alarm-server/target/service-alarm-server-*.jar /alarm-server/service-alarm-server-*.jar
-ADD lib/phoebus/services/alarm-server/target/lib/ /alarm-server/lib/
+RUN addgroup -g 10001 epics && \
+    adduser -D -u 10001 -G epics -s /bin/sh epics
+
 WORKDIR /alarm-server
+COPY --chown=epics:epics  alarm-server-fnal/target/fnal-alarm-server-*.jar ./service-alarm-server.jar
+ADD lib/phoebus/services/alarm-server/target/lib/ ./lib/
+
+USER epics
+
 ENV JDK_JAVA_OPTIONS=-Djava.security.manager=allow
-ENTRYPOINT ["java", "-jar", "/alarm-server/service-alarm-server-*.jar"]
+ENTRYPOINT ["java", "-jar", "/alarm-server/service-alarm-server.jar"]
 CMD ["-help"]

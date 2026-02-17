@@ -1,10 +1,15 @@
 FROM amazoncorretto:23-alpine  as scan-server
 
-# to source epicsENV
+# to source epicsNetwork
 RUN apk add --no-cache bash
 
-ADD scan-server-fnal/target/fnal-scan-server*.jar /scan-server/fnal-scan-server.jar
+RUN addgroup -g 10001 epics && \
+    adduser -D -u 10001 -G epics -s /bin/sh epics
 
+
+WORKDIR /scan-server
+COPY --chown=epics:epics  scan-server-fnal/target/fnal-scan-server*.jar /scan-server/fnal-scan-server.jar
+USER epics
 EXPOSE 4810
 
 CMD ["java", "-jar", "/scan-server/fnal-scan-server.jar", "-help"]
