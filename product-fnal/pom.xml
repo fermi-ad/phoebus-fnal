@@ -20,6 +20,14 @@
   </properties>
 
   <dependencies>
+    <!-- byte-monitor-labels must appear BEFORE product to shadow ByteMonitorWidget,
+         ByteMonitorRepresentation, and Messages from app-display-model /
+         app-display-representation-javafx with FNAL patched versions -->
+    <dependency>
+      <groupId>org.phoebus</groupId>
+      <artifactId>byte-monitor-labels</artifactId>
+      <version>${project.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.phoebus</groupId>
       <artifactId>product</artifactId>

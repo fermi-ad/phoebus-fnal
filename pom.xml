@@ -54,6 +54,7 @@
   <modules>
     <module>lib/phoebus</module>
     <module>acnet-setting</module>
+    <module>byte-monitor-labels</module>
     <module>product-fnal</module>
     <module>alarm-server-fnal</module>
     <module>scan-app-fnal</module>
