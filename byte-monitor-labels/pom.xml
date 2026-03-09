@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.phoebus</groupId>
+        <artifactId>fnal</artifactId>
+        <version>5.0.2-85</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>byte-monitor-labels</artifactId>
+    <name>byte-monitor-labels</name>
+    <description>
+        FNAL patch for ByteMonitor widget: adds per-LED ON/OFF text labels inside each LED circle.
+        Provides patched ByteMonitorWidget (propOffLabel/propOnLabel properties) and
+        ByteMonitorRepresentation (labels centered inside LEDs, per-bit state).
+        Also patches Messages.java to add WidgetProperties_ShowWarnings required by LinearMeterWidget.
+        This module shadows the corresponding classes from app-display-model and
+        app-display-representation-javafx and must appear first on the product classpath.
+    </description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.phoebus</groupId>
+            <artifactId>app-display-model</artifactId>
+            <version>${phoebus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.phoebus</groupId>
+            <artifactId>app-display-representation-javafx</artifactId>
+            <version>${phoebus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.phoebus</groupId>
+            <artifactId>core-ui</artifactId>
+            <version>${phoebus.version}</version>
+        </dependency>
+    </dependencies>
+</project>
