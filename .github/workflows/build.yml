@@ -64,6 +64,7 @@ jobs:
       with:
         name: phoebus-fnal-${{ matrix.os }}
         path: .
+        if: github.event_name != 'pull_request'
 
   deploy-containers:
     runs-on: [ ubuntu-latest ]
