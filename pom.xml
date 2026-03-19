@@ -18,11 +18,18 @@
     <fnal.phoebus.version>${phoebus.version}-85</fnal.phoebus.version>
   </properties>
   <repositories>
-  <!-- GitHub Packages -->
+  <!-- GitHub Packages — phoebus-fnal -->
   <repository>
     <id>github</id>
     <name>GitHub Packages</name>
     <url>https://maven.pkg.github.com/fermi-ad/phoebus-fnal</url>
+  </repository>
+
+  <!-- GitHub Packages — fermi-controls-auth -->
+  <repository>
+    <id>github-fermi-auth</id>
+    <name>GitHub Packages fermi-controls-auth</name>
+    <url>https://maven.pkg.github.com/fermi-ad/java-keycloak-auth</url>
   </repository>
 
   <!-- Maven Central -->

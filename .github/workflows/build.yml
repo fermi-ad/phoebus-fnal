@@ -46,6 +46,11 @@ jobs:
               <username>${{ github.actor }}</username>
               <password>${{ secrets.GITHUB_TOKEN }}</password>
             </server>
+            <server>
+              <id>github-fermi-auth</id>
+              <username>${{ github.actor }}</username>
+              <password>${{ secrets.FERMIAUTH }}</password>
+            </server>
           </servers>
         </settings>
         EOF
