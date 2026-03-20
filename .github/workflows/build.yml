@@ -76,6 +76,7 @@ jobs:
           config/
           lib/phoebus/services/alarm-logger/target/*.jar 
           alarm-server-fnal/target/fnal-alarm-server-*.jar
+          lib/phoebus/services/alarm-server/target/lib/*.jar
           lib/phoebus/services/save-and-restore/target/service-save-and-restore-*.jar
           scan-server-fnal/target/fnal-scan-server*.jar
       if: github.event_name != 'pull_request'
