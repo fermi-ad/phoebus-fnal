@@ -1,4 +1,4 @@
-FROM amazoncorretto:23-alpine  as alarm-server
+FROM amazoncorretto:23-alpine AS alarm-server
 
 RUN addgroup -g 10001 epics && \
     adduser -D -u 10001 -G epics -s /bin/sh epics

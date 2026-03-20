@@ -26,10 +26,10 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - name: Set up JDK 21
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v5
       with:
         java-version: '21'
         distribution: 'temurin'
@@ -56,7 +56,7 @@ jobs:
         EOF
 
     - name: Checkout phoebus repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         repository: ControlSystemStudio/phoebus.git
         path: lib/phoebus
@@ -65,11 +65,20 @@ jobs:
     - name: Build phoebus fnal product
       run: mvn clean install --batch-mode  -DskipTests=true -Ddocs=lib/phoebus/docs
 
-    - uses: actions/upload-artifact@v4
+    # The Phoebus application only requires the config and product-fnal/target folders.
+    # The services JAR files are used in the deploy-containers job.
+    # In the future, it may be worth separating the jobs for building the services and the Phoebus application.
+    - uses: actions/upload-artifact@v7
       with:
         name: phoebus-fnal-${{ matrix.os }}
-        path: .
-        if: github.event_name != 'pull_request'
+        path: |
+          product-fnal/target
+          config/
+          lib/phoebus/services/alarm-logger/target/*.jar 
+          alarm-server-fnal/target/fnal-alarm-server-*.jar
+          lib/phoebus/services/save-and-restore/target/service-save-and-restore-*.jar
+          scan-server-fnal/target/fnal-scan-server*.jar
+      if: github.event_name != 'pull_request'
 
   deploy-containers:
     runs-on: [ ubuntu-latest ]
@@ -79,13 +88,13 @@ jobs:
 
     steps:
     - name: Download phoebus build directory
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: phoebus-fnal-ubuntu-latest
         path: .
 
     - name: Log in to Docker Registry
-      uses: docker/login-action@v3
+      uses: docker/login-action@v4
       with:
         registry: adregistry.fnal.gov
         username: ${{ secrets.REGISTRY_USERNAME }}
@@ -93,7 +102,7 @@ jobs:
 
     - name: Docker metadata for containers
       id: container-metadata
-      uses: docker/metadata-action@v5
+      uses: docker/metadata-action@v6
       with:
         images: |
           adregistry.fnal.gov/epics/alarm-logger
@@ -104,7 +113,7 @@ jobs:
           type=raw,value=${{ env.IMAGE_VERSION }}
 
     - name: Build Alarm Logger container
-      uses: docker/build-push-action@v6
+      uses: docker/build-push-action@v7
       with:
         context: .
         file: containers/Dockerfile.alarmlogger
@@ -113,7 +122,7 @@ jobs:
         labels: ${{ steps.container-metadata.outputs.labels }}
 
     - name: Build Alarm Server container
-      uses: docker/build-push-action@v6
+      uses: docker/build-push-action@v7
       with:
         context: .
         file: containers/Dockerfile.alarmserver
@@ -122,7 +131,7 @@ jobs:
         labels: ${{ steps.container-metadata.outputs.labels }}
   
     - name: Build Save and Restore container
-      uses: docker/build-push-action@v6
+      uses: docker/build-push-action@v7
       with:
         context: .
         file: containers/Dockerfile.saveandrestore
@@ -130,8 +139,8 @@ jobs:
         tags: adregistry.fnal.gov/epics/save-and-restore:${{ env.PHOEBUS_RELEASE }}_${{ github.run_number }}
         labels: ${{ steps.container-metadata.outputs.labels }}
 
-    - name: Build Save and Restore container
-      uses: docker/build-push-action@v6
+    - name: Build scan server container
+      uses: docker/build-push-action@v7
       with:
         context: .
         file: containers/Dockerfile.scanserver
