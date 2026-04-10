@@ -203,6 +203,7 @@ public class Messages
                          WidgetProperties_GridStepX,
                          WidgetProperties_GridStepY,
                          WidgetProperties_GridVisible,
+                         WidgetProperties_AutoZoomToFitAll,
                          WidgetProperties_Height,
                          WidgetProperties_HeightPVName,
                          WidgetProperties_HighlightBar,

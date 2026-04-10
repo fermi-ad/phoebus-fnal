@@ -37,5 +37,8 @@
             <artifactId>core-ui</artifactId>
             <version>${phoebus.version}</version>
         </dependency>
+
+
+
     </dependencies>
 </project>

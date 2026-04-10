@@ -46,6 +46,12 @@
 
     <dependency>
       <groupId>org.phoebus</groupId>
+      <artifactId>app-credentials-management</artifactId>
+      <version>${phoebus.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.phoebus</groupId>
       <artifactId>app-logbook-olog-client-es</artifactId>
       <version>${phoebus.version}</version>
     </dependency>
