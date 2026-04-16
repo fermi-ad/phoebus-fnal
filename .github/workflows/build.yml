@@ -52,6 +52,24 @@ jobs:
               <password>${{ secrets.GITHUB_TOKEN }}</password>
             </server>
           </servers>
+          <profiles>
+            <profile>
+              <id>github-packages</id>
+              <repositories>
+                <repository>
+                  <id>github</id>
+                  <url>https://maven.pkg.github.com/fermi-ad/phoebus-fnal</url>
+                </repository>
+                <repository>
+                  <id>github-fermi-auth</id>
+                  <url>https://maven.pkg.github.com/fermi-ad/java-keycloak-auth</url>
+                </repository>
+              </repositories>
+            </profile>
+          </profiles>
+          <activeProfiles>
+            <activeProfile>github-packages</activeProfile>
+          </activeProfiles>
         </settings>
         EOF
 
