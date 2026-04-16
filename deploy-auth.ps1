@@ -42,8 +42,8 @@ if ($FullBuild -or !(Test-Path $productLib)) {
 # ── Step 4: copy both JARs into product lib ───────────────────────────────────
 Write-Host "`n==> Deploying JARs to $productLib ..." -ForegroundColor Cyan
 
-Copy-Item "$fermiAuthDir\target\fermi-controls-auth-1.0.0.jar" "$productLib\" -Force
-Write-Host "  Copied fermi-controls-auth-1.0.0.jar"
+Copy-Item "$fermiAuthDir\target\fermi-controls-auth-1.0.1.jar" "$productLib\" -Force
+Write-Host "  Copied fermi-controls-auth-1.0.1.jar"
 
 Copy-Item "$phoebusDir\acnet-setting\target\acnet-setting-5.0.2-85.jar" "$productLib\" -Force
 Write-Host "  Copied acnet-setting-5.0.2-85.jar"
