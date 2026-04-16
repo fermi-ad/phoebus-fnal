@@ -1,4 +1,4 @@
-FROM amazoncorretto:23-alpine  as scan-server
+FROM amazoncorretto:23-alpine AS  scan-server
 
 # to source epicsNetwork
 RUN apk add --no-cache bash
