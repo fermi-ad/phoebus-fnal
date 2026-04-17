@@ -5,10 +5,7 @@
  *******************************************************************************/
 package org.phoebus.app.utility.acnet;
 
-import org.phoebus.security.authorization.ServiceAuthenticationProvider;
 import org.phoebus.security.store.SecureStore;
-import org.phoebus.security.tokens.AuthenticationScope;
-import org.phoebus.security.tokens.ScopedAuthenticationToken;
 
 import javax.security.auth.Subject;
 import javax.security.auth.callback.Callback;
@@ -25,27 +22,33 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * {@link ServiceAuthenticationProvider} implementation for Fermilab Kerberos authentication.
+ * Fermilab Kerberos authentication provider.
  *
- * <p>This provider adds a "Kerberos" row to the Phoebus Credential Manager dialog.
- * Credentials (principal + password) are authenticated against the Fermilab Kerberos KDC
- * via JAAS {@code Krb5LoginModule} and persisted in the Phoebus {@link SecureStore}.
+ * <p>Authenticates against the Fermilab Kerberos KDC via JAAS {@code Krb5LoginModule}
+ * and persists credentials in the Phoebus {@link SecureStore} using plain string keys
+ * (avoids dependency on {@code AuthenticationScope} enum from upstream phoebus).
  *
- * @author FNAL 
+ * @author FNAL
  */
-public class KerberosAuthenticationProvider implements ServiceAuthenticationProvider {
+public class KerberosAuthenticationProvider {
 
     private static final Logger logger = Logger.getLogger(KerberosAuthenticationProvider.class.getName());
+
+    /** SecureStore tag keys for Kerberos credentials */
+    public static final String KERBEROS_USERNAME_TAG = "kerberos.username";
+    public static final String KERBEROS_PASSWORD_TAG = "kerberos.password";
 
     /** Kerberos realm used at Fermilab */
     private static final String KERBEROS_REALM = "FNAL.GOV";
 
-    @Override
-    public AuthenticationScope getAuthenticationScope() {
-        return AuthenticationScope.KERBEROS;
-    }
-
-    @Override
+    /**
+     * Authenticates the user against Fermilab Kerberos KDC and saves
+     * credentials to the Phoebus SecureStore.
+     *
+     * @param username Kerberos username (with or without @FNAL.GOV)
+     * @param password Kerberos password
+     * @throws RuntimeException if authentication fails
+     */
     public void authenticate(String username, String password) {
         final String principal = username.contains("@") ? username : username + "@" + KERBEROS_REALM;
 
@@ -71,7 +74,8 @@ public class KerberosAuthenticationProvider implements ServiceAuthenticationProv
 
             try {
                 SecureStore store = new SecureStore();
-                store.setScopedAuthentication(new ScopedAuthenticationToken(AuthenticationScope.KERBEROS, username, password));
+                store.set(KERBEROS_USERNAME_TAG, username);
+                store.set(KERBEROS_PASSWORD_TAG, password);
                 logger.info("Kerberos credentials saved to SecureStore for user: " + username);
             } catch (Exception storeEx) {
                 logger.log(Level.WARNING, "Kerberos login succeeded but could not save to SecureStore", storeEx);
@@ -83,14 +87,28 @@ public class KerberosAuthenticationProvider implements ServiceAuthenticationProv
         }
     }
 
-    @Override
-    public void logout(String token) {
+    /**
+     * Clears saved Kerberos credentials from the SecureStore.
+     */
+    public void logout() {
         try {
             SecureStore store = new SecureStore();
-            store.setScopedAuthentication(new ScopedAuthenticationToken(AuthenticationScope.KERBEROS, null, null));
+            store.delete(KERBEROS_USERNAME_TAG);
+            store.delete(KERBEROS_PASSWORD_TAG);
             logger.info("Kerberos credentials cleared from SecureStore");
         } catch (Exception e) {
             logger.log(Level.WARNING, "Failed to clear Kerberos credentials from SecureStore", e);
+        }
+    }
+
+    /**
+     * Retrieves the saved Kerberos username from the SecureStore, or null if not logged in.
+     */
+    public String getSavedUsername() {
+        try {
+            return new SecureStore().get(KERBEROS_USERNAME_TAG);
+        } catch (Exception e) {
+            return null;
         }
     }
 
