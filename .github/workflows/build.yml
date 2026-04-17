@@ -83,6 +83,12 @@ jobs:
         path: lib/phoebus
         ref: ${{ env.PHOEBUS_RELEASE}}
 
+    - name: Patch AuthenticationScope - add KERBEROS
+      shell: bash
+      run: |
+        sed -i 's/SAVE_AND_RESTORE("save-and-restore");/SAVE_AND_RESTORE("save-and-restore"),\n    KERBEROS("kerberos");/' \
+          lib/phoebus/core/security/src/main/java/org/phoebus/security/tokens/AuthenticationScope.java
+
     - name: Build phoebus fnal product
       run: mvn clean install --batch-mode  -DskipTests=true -Ddocs=lib/phoebus/docs
 
