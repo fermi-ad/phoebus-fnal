@@ -84,10 +84,20 @@ jobs:
         ref: ${{ env.PHOEBUS_RELEASE}}
 
     - name: Patch AuthenticationScope - add KERBEROS
-      shell: bash
+      shell: python
       run: |
-        sed -i 's/SAVE_AND_RESTORE("save-and-restore");/SAVE_AND_RESTORE("save-and-restore"),\n    KERBEROS("kerberos");/' \
-          lib/phoebus/core/security/src/main/java/org/phoebus/security/tokens/AuthenticationScope.java
+        import pathlib
+        f = pathlib.Path("lib/phoebus/core/security/src/main/java/org/phoebus/security/tokens/AuthenticationScope.java")
+        txt = f.read_text(encoding="utf-8")
+        if "KERBEROS" not in txt:
+            txt = txt.replace(
+                'SAVE_AND_RESTORE("save-and-restore");',
+                'SAVE_AND_RESTORE("save-and-restore"),\n    KERBEROS("kerberos");'
+            )
+            f.write_text(txt, encoding="utf-8")
+            print("Patched: KERBEROS added")
+        else:
+            print("Already patched, skipping")
 
     - name: Build phoebus fnal product
       run: mvn clean install --batch-mode  -DskipTests=true -Ddocs=lib/phoebus/docs
