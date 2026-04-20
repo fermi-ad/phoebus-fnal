@@ -24,6 +24,9 @@ jobs:
         os: ["ubuntu-latest", "windows-latest"]
     
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+      packages: read
 
     steps:
     - uses: actions/checkout@v6
@@ -52,6 +55,24 @@ jobs:
               <password>${{ secrets.FERMIAUTH }}</password>
             </server>
           </servers>
+          <profiles>
+            <profile>
+              <id>github-packages</id>
+              <repositories>
+                <repository>
+                  <id>github</id>
+                  <url>https://maven.pkg.github.com/fermi-ad/phoebus-fnal</url>
+                </repository>
+                <repository>
+                  <id>github-fermi-auth</id>
+                  <url>https://maven.pkg.github.com/fermi-ad/java-keycloak-auth</url>
+                </repository>
+              </repositories>
+            </profile>
+          </profiles>
+          <activeProfiles>
+            <activeProfile>github-packages</activeProfile>
+          </activeProfiles>
         </settings>
         EOF
 
