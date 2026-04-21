@@ -36,7 +36,7 @@
         <dependency>
             <groupId>gov.fnal.controls</groupId>
             <artifactId>fermi-controls-auth</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
             <exclusions>
                 <!-- Exclude logback — Phoebus uses slf4j-jdk14, having both causes SLF4J deadlock -->
                 <exclusion>
