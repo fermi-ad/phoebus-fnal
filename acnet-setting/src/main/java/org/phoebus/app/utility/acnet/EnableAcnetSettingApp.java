@@ -9,6 +9,7 @@ package org.phoebus.app.utility.acnet;
 
 import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
@@ -17,9 +18,19 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.phoebus.applications.credentialsmanagement.CredentialsManagementStage;
 import org.phoebus.framework.spi.AppDescriptor;
 import org.phoebus.framework.spi.AppInstance;
+import org.phoebus.security.authorization.ServiceAuthenticationProvider;
+import org.phoebus.security.store.SecureStore;
+import org.phoebus.security.tokens.AuthenticationScope;
+import org.phoebus.security.tokens.ScopedAuthenticationToken;
 import org.phoebus.ui.javafx.ImageCache;
+
+import java.util.List;
+import java.util.ServiceLoader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * AppDescriptor for enabling ACNET setting.
@@ -29,6 +40,8 @@ import org.phoebus.ui.javafx.ImageCache;
  */
 public class EnableAcnetSettingApp implements AppDescriptor
 {
+    private static final Logger logger = Logger.getLogger(EnableAcnetSettingApp.class.getName());
+
     public static final String DISPLAY_NAME = "Enable Acnet Setting";
     public static final String NAME = "enableSetting";
     public static final Image icon = ImageCache.getImage(EnableAcnetSettingApp.class, "/icons/acnet-setting-16.png");
@@ -51,11 +64,89 @@ public class EnableAcnetSettingApp implements AppDescriptor
     @Override
     public AppInstance create()
     {
-        Platform.runLater(this::showDialog);
+        Platform.runLater(this::checkCredentialsThenShow);
         return null;
     }
 
-    private void showDialog()
+    /**
+     * Step 1 — Check Kerberos credential status via SecureStore.
+     * <ul>
+     *   <li>Token present → go straight to the duration picker.</li>
+     *   <li>No token → open the Phoebus Credentials Management dialog (modal)
+     *       so the user can log in with Kerberos, then re-check:
+     *       success → show picker, still no token → show error message.</li>
+     * </ul>
+     */
+    private void checkCredentialsThenShow()
+    {
+        if (isKerberosLoggedIn())
+        {
+            showDurationDialog();
+        }
+        else
+        {
+            // Open the standard Phoebus credential manager (modal) — Kerberos tab will be shown
+            // because KerberosAuthenticationProvider is registered via ServiceLoader
+            try
+            {
+                List<ServiceAuthenticationProvider> providers =
+                        ServiceLoader.load(ServiceAuthenticationProvider.class)
+                                     .stream()
+                                     .map(ServiceLoader.Provider::get)
+                                     .collect(java.util.stream.Collectors.toList());
+                SecureStore store = new SecureStore();
+                CredentialsManagementStage stage = new CredentialsManagementStage(providers, store);
+                // After the modal closes, re-check credentials
+                stage.setOnHidden(e -> {
+                    if (isKerberosLoggedIn())
+                    {
+                        showDurationDialog();
+                    }
+                    else
+                    {
+                        Alert err = new Alert(Alert.AlertType.WARNING);
+                        err.setTitle("ACNET Settings");
+                        err.setHeaderText("Kerberos login required");
+                        err.setContentText(
+                                "No Kerberos credentials found.\n" +
+                                "Please log in with your FNAL Kerberos account\n" +
+                                "to enable ACNET settings.");
+                        err.showAndWait();
+                    }
+                });
+                stage.showAndWait();
+            }
+            catch (Exception ex)
+            {
+                logger.log(Level.SEVERE, "Failed to open credentials manager", ex);
+                Alert err = new Alert(Alert.AlertType.ERROR);
+                err.setTitle("ACNET Settings");
+                err.setHeaderText("Cannot open login dialog");
+                err.setContentText(ex.getMessage());
+                err.showAndWait();
+            }
+        }
+    }
+
+    /** @return true if a valid Kerberos token exists in the SecureStore. */
+    private boolean isKerberosLoggedIn()
+    {
+        try
+        {
+            SecureStore store = new SecureStore();
+            AuthenticationScope scope = AuthenticationScope.fromString("kerberos");
+            if (scope == null) scope = AuthenticationScope.LOGBOOK;
+            ScopedAuthenticationToken token = store.getScopedAuthenticationToken(scope);
+            return token != null && token.getUsername() != null && !token.getUsername().isBlank();
+        }
+        catch (Exception ex)
+        {
+            logger.log(Level.WARNING, "Could not read SecureStore for Kerberos check", ex);
+            return false;
+        }
+    }
+
+    private void showDurationDialog()
     {
         final SettingEnableService svc = SettingEnableService.getInstance();
 

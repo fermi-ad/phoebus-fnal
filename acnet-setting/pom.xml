@@ -39,6 +39,12 @@
             <version>5.0.0</version>
         </dependency>
         <dependency>
+            <groupId>org.phoebus</groupId>
+            <artifactId>app-credentials-management</artifactId>
+            <version>${phoebus.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>gov.fnal.controls</groupId>
             <artifactId>fermi-controls-auth</artifactId>
             <version>1.0.1</version>
