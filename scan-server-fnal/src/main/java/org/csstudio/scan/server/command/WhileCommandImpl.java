@@ -31,6 +31,7 @@ import org.csstudio.scan.server.MacroContext;
 import org.csstudio.scan.server.ScanCommandImpl;
 import org.csstudio.scan.server.ScanCommandImplTool;
 import org.csstudio.scan.server.ScanContext;
+import org.csstudio.scan.server.ScanServerInstance;
 import org.csstudio.scan.server.SimulationContext;
 import org.csstudio.scan.server.condition.NumericValueCondition;
 import org.csstudio.scan.server.condition.TextValueCondition;
@@ -181,7 +182,7 @@ public class WhileCommandImpl extends ScanCommandImpl<WhileCommand>
             {
                 final Device ref_device = context.getDevice(
                         context.getMacros().resolveMacros(((PVReference) desired).getPVName()));
-                number = VTypeHelper.toDouble(ref_device.read(NumericValueCondition.value_check_timeout));
+                number = VTypeHelper.toDouble(ref_device.read(ScanServerInstance.getScanConfig().getReadTimeout()));
             }
             else
                 number = ((Number)desired).doubleValue();
@@ -212,7 +213,7 @@ public class WhileCommandImpl extends ScanCommandImpl<WhileCommand>
                 final Device ref_device = context.getDevice(
                         context.getMacros().resolveMacros(((PVReference) desired).getPVName()));
                 final double ref_value = VTypeHelper.toDouble(
-                        ref_device.read(NumericValueCondition.value_check_timeout));
+                        ref_device.read(ScanServerInstance.getScanConfig().getReadTimeout()));
                 final NumericValueCondition condit1 = new NumericValueCondition(device, command.getComparison(),
                                                   ref_value, command.getTolerance(), Duration.ZERO);
                 condit1.fetchInitialValue();
