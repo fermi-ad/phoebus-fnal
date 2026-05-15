@@ -33,6 +33,8 @@ import org.csstudio.scan.server.condition.NumericValueCondition;
 import org.csstudio.scan.server.condition.TextValueCondition;
 import org.csstudio.scan.server.device.Device;
 import org.csstudio.scan.server.internal.JythonSupport;
+import org.csstudio.scan.util.PVReference;
+import org.phoebus.core.vtypes.VTypeHelper;
 
 /** Command that performs 'if'
  *  @author Kay Kasemir
@@ -77,6 +79,10 @@ public class IfCommandImpl extends ScanCommandImpl<IfCommand>
         final String device_name = command.getDeviceName();
         final Set<String> device_names = new HashSet<>();
         device_names.add(macros.resolveMacros(device_name));
+        // If desired_value is a PV reference, that PV also needs to be opened
+        final Object desired = command.getDesiredValue();
+        if (desired instanceof PVReference)
+            device_names.add(macros.resolveMacros(((PVReference) desired).getPVName()));
         for (ScanCommandImpl<?> command : implementation)
         {
             final String[] names = command.getDeviceNames(macros);
@@ -110,6 +116,18 @@ public class IfCommandImpl extends ScanCommandImpl<IfCommand>
             final double number = ((Number)desired).doubleValue();
             final NumericValueCondition condition = new NumericValueCondition(device, command.getComparison(),
                                                   number, command.getTolerance(), Duration.ZERO);
+            condition.fetchInitialValue();
+            is_condition_met = condition.isConditionMet();
+        }
+        else if (desired instanceof PVReference)
+        {
+            // Read the referenced PV's current value at runtime and compare numerically
+            final Device ref_device = context.getDevice(
+                    context.getMacros().resolveMacros(((PVReference) desired).getPVName()));
+            final double ref_value = VTypeHelper.toDouble(
+                    ref_device.read(NumericValueCondition.value_check_timeout));
+            final NumericValueCondition condition = new NumericValueCondition(device, command.getComparison(),
+                                                  ref_value, command.getTolerance(), Duration.ZERO);
             condition.fetchInitialValue();
             is_condition_met = condition.isConditionMet();
         }

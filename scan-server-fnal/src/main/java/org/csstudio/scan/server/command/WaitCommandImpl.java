@@ -29,6 +29,7 @@ import org.csstudio.scan.server.condition.TextValueCondition;
 import org.csstudio.scan.server.device.Device;
 import org.csstudio.scan.server.device.SimulatedDevice;
 import org.csstudio.scan.server.internal.JythonSupport;
+import org.csstudio.scan.util.PVReference;
 import org.phoebus.core.vtypes.VTypeHelper;
 import org.phoebus.util.time.SecondsParser;
 import org.phoebus.util.time.TimeDuration;
@@ -59,7 +60,13 @@ public class WaitCommandImpl extends ScanCommandImpl<WaitCommand>
     @Override
     public String[] getDeviceNames(final MacroContext macros) throws Exception
     {
-        return new String[] { macros.resolveMacros(command.getDeviceName()) };
+        final java.util.Set<String> names = new java.util.HashSet<>();
+        names.add(macros.resolveMacros(command.getDeviceName()));
+        // If desired_value is a PV reference, that PV also needs to be opened
+        final Object desired = command.getDesiredValue();
+        if (desired instanceof PVReference)
+            names.add(macros.resolveMacros(((PVReference) desired).getPVName()));
+        return names.toArray(new String[names.size()]);
     }
 
     /** {@inheritDoc} */
@@ -124,6 +131,16 @@ public class WaitCommandImpl extends ScanCommandImpl<WaitCommand>
             final double number = ((Number)desired).doubleValue();
             condition = new NumericValueCondition(device, command.getComparison(),
                     number, command.getTolerance(), timeout);
+        }
+        else if (desired instanceof PVReference)
+        {
+            // Read the referenced PV's current value at runtime and compare numerically
+            final Device ref_device = context.getDevice(
+                    context.getMacros().resolveMacros(((PVReference) desired).getPVName()));
+            final double ref_value = VTypeHelper.toDouble(
+                    ref_device.read(NumericValueCondition.value_check_timeout));
+            condition = new NumericValueCondition(device, command.getComparison(),
+                    ref_value, command.getTolerance(), timeout);
         }
         else
             condition = new TextValueCondition(device, command.getComparison(), desired.toString(), timeout);

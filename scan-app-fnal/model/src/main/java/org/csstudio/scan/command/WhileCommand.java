@@ -240,10 +240,8 @@ public class WhileCommand extends ScanCommandWithBody
         command_element.appendChild(element);
 
         element = dom.createElement("value");
-        if (desired_value instanceof String)
-            element.appendChild(dom.createTextNode('"' + (String)desired_value + '"'));
-        else
-            element.appendChild(dom.createTextNode(desired_value.toString()));
+        // Quoted: literal String; unquoted: Double or PVReference (PV name)
+        element.appendChild(dom.createTextNode(StringOrDouble.quote(desired_value)));
         command_element.appendChild(element);
 
         element = dom.createElement("comparison");
