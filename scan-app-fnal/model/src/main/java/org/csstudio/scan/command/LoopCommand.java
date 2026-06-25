@@ -129,9 +129,9 @@ public class LoopCommand extends ScanCommandWithBody
     protected void configureProperties(final List<ScanCommandProperty> properties)
     {
         properties.add(ScanCommandProperty.DEVICE_NAME);
-        properties.add(new ScanCommandProperty("start", "Initial Value", Double.class));
-        properties.add(new ScanCommandProperty("end", "Final Value", Double.class));
-        properties.add(new ScanCommandProperty("step_size", "Step Size", Double.class));
+        properties.add(new ScanCommandProperty("start", "Initial Value", Object.class));
+        properties.add(new ScanCommandProperty("end", "Final Value", Object.class));
+        properties.add(new ScanCommandProperty("step_size", "Step Size", Object.class));
         properties.add(ScanCommandProperty.COMPLETION);
         properties.add(ScanCommandProperty.WAIT);
         properties.add(ScanCommandProperty.READBACK);
