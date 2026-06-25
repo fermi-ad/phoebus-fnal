@@ -33,6 +33,23 @@
             <artifactId>core-pv-acsys</artifactId>
             <version>${phoebus.version}-73</version>
         </dependency>
+        <!-- Pulls in our patched WritablePVWidget (with setGlobalWriteEnabled) -->
+        <dependency>
+            <groupId>org.phoebus</groupId>
+            <artifactId>byte-monitor-labels</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.phoebus</groupId>
+            <artifactId>app-display-model</artifactId>
+            <version>5.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.phoebus</groupId>
+            <artifactId>app-credentials-management</artifactId>
+            <version>${phoebus.version}</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>gov.fnal.controls</groupId>
             <artifactId>fermi-controls-auth</artifactId>

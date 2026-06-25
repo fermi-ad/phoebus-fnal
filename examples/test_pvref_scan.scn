@@ -1,0 +1,114 @@
+<commands>
+
+  <!-- Set threshold PV to 50 -->
+  <set>
+    <device>loc://threshold(0)</device>
+    <value>50.0</value>
+    <completion>false</completion>
+    <wait>false</wait>
+  </set>
+
+  <!-- Set sensor PV to 75 (above threshold) -->
+  <set>
+    <device>loc://sensor(0)</device>
+    <value>75.0</value>
+    <completion>false</completion>
+    <wait>false</wait>
+  </set>
+
+  <!-- Reset result PV to 0 -->
+  <set>
+    <device>loc://result(0)</device>
+    <value>0.0</value>
+    <completion>false</completion>
+    <wait>false</wait>
+  </set>
+
+  <!-- TEST 1: If sensor(75) ABOVE threshold(50) -> set result=1 -->
+  <if>
+    <device>loc://sensor(0)</device>
+    <value>loc://threshold(0)</value>
+    <comparison>ABOVE</comparison>
+    <tolerance>0.1</tolerance>
+    <body>
+      <set>
+        <device>loc://result(0)</device>
+        <value>1.0</value>
+        <completion>false</completion>
+        <wait>false</wait>
+      </set>
+    </body>
+  </if>
+
+  <!-- TEST 2: Wait until sensor >= threshold (already true, should return immediately) -->
+  <wait>
+    <device>loc://sensor(0)</device>
+    <value>loc://threshold(0)</value>
+    <comparison>AT_LEAST</comparison>
+    <tolerance>0.1</tolerance>
+    <timeout>5.0</timeout>
+  </wait>
+
+  <!-- TEST 3: While - loop while while_flag > while_limit (PVRef), body sets flag=0 to exit -->
+  <set>
+    <device>loc://while_flag(0)</device>
+    <value>1.0</value>
+    <completion>false</completion>
+    <wait>false</wait>
+  </set>
+  <set>
+    <device>loc://while_limit(0)</device>
+    <value>0.0</value>
+    <completion>false</completion>
+    <wait>false</wait>
+  </set>
+  <while>
+    <device>loc://while_flag(0)</device>
+    <value>loc://while_limit(0)</value>
+    <comparison>ABOVE</comparison>
+    <tolerance>0.1</tolerance>
+    <body>
+      <!-- Set flag to 0 so while exits after 1 iteration -->
+      <set>
+        <device>loc://while_flag(0)</device>
+        <value>0.0</value>
+        <completion>false</completion>
+        <wait>false</wait>
+      </set>
+      <set>
+        <device>loc://while_result(0)</device>
+        <value>42.0</value>
+        <completion>false</completion>
+        <wait>false</wait>
+      </set>
+    </body>
+  </while>
+
+  <!-- TEST 4: Loop - set start/end from PVs, step is literal 1.0 -->
+  <set>
+    <device>loc://loop_start(0)</device>
+    <value>1.0</value>
+    <completion>false</completion>
+    <wait>false</wait>
+  </set>
+  <set>
+    <device>loc://loop_end(0)</device>
+    <value>3.0</value>
+    <completion>false</completion>
+    <wait>false</wait>
+  </set>
+  <loop>
+    <device>loc://motor(0)</device>
+    <start>loc://loop_start(0)</start>
+    <end>loc://loop_end(0)</end>
+    <step>1.0</step>
+    <completion>false</completion>
+    <wait>false</wait>
+    <body>
+      <log>
+        <devices>loc://motor(0)</devices>
+      </log>
+    </body>
+  </loop>
+
+</commands>
