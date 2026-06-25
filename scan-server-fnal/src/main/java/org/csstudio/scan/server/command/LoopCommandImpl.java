@@ -268,8 +268,12 @@ public class LoopCommandImpl extends ScanCommandImpl<LoopCommand>
             executeStep(context, device, condition, readback, start + i * step);
             // check if inside the loop, the device was set to a value that ends the loop
             final VType value = device.read();
-            if (((VDouble)value).getValue() > resolvedEnd) // there isn't a tolerance
-                break;
+            if (reverse)
+                if (((VDouble)value).getValue() < resolvedEnd) // there isn't a tolerance
+                    break;
+            else
+                if (((VDouble)value).getValue() > resolvedEnd) // there isn't a tolerance
+                    break;
         }
     }
 
