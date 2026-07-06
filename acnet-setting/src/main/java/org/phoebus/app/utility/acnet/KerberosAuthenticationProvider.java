@@ -53,6 +53,8 @@ public class KerberosAuthenticationProvider implements ServiceAuthenticationProv
 
     @Override
     public void authenticate(String username, String password) {
+        if (username == null || username.isBlank())
+            throw new IllegalArgumentException("Username must not be empty");
         final String principal = username.contains("@") ? username : username + "@" + KERBEROS_REALM;
 
         try {
