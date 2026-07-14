@@ -297,7 +297,6 @@ public class Messages
                          WidgetProperties_ShowScale,
                          WidgetProperties_ShowUnits,
                          WidgetProperties_ShowValue,
-                         WidgetProperties_ShowWarnings,
                          WidgetProperties_Skin,
                          WidgetProperties_Square,
                          WidgetProperties_StartFromZero,
