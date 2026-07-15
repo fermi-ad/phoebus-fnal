@@ -67,6 +67,8 @@ public class ByteMonitorRepresentation extends RegionBaseRepresentation<Pane, By
 
     private volatile Shape[] leds = null;
     private volatile Label[] labels = null;
+    // zyuan: separate label array for static <labels> text when beside the circle
+    private volatile Label[] beside_labels = null;
 
     /** Was there ever any transformation applied to the jfx_node?
     *
@@ -137,11 +139,24 @@ public class ByteMonitorRepresentation extends RegionBaseRepresentation<Pane, By
             rad = led_h/2;
         }
         double x = 0.0, y = 0.0;
+        final double[] lbl_x = new double[save_bits];
+        final double[] lbl_y = new double[save_bits];
+        final double[] lbl_w = new double[save_bits];
+        final double[] lbl_h = new double[save_bits];
         
         // zyuan: Get label configuration once outside the loop
         final String off_label = model_widget.propOffLabel().getValue();
         final String on_label = model_widget.propOnLabel().getValue();
         final boolean use_dynamic_labels = !off_label.isEmpty() || !on_label.isEmpty();
+        // Static <labels> go beside the circle; dynamic on/off labels go inside it.
+        // These are independent: both can be set simultaneously.
+        final boolean labels_beside = model_widget.propLabels().size() > 0 && !save_sq;
+        // When both are set, beside_labels_arr holds the static beside-labels separately
+        final Label[] beside_labels_arr = (labels_beside && use_dynamic_labels) ? new Label[save_bits] : null;
+        final double[] blbl_x = labels_beside && use_dynamic_labels ? new double[save_bits] : null;
+        final double[] blbl_y = labels_beside && use_dynamic_labels ? new double[save_bits] : null;
+        final double[] blbl_w = labels_beside && use_dynamic_labels ? new double[save_bits] : null;
+        final double[] blbl_h = labels_beside && use_dynamic_labels ? new double[save_bits] : null;
         
         for (int i = 0; i < save_bits; i++)
         {
@@ -151,7 +166,9 @@ public class ByteMonitorRepresentation extends RegionBaseRepresentation<Pane, By
             label.setFont(text_font);
             label.setTextFill(text_color);
             label.setManaged(false);
-            label.setAlignment(Pos.CENTER);
+            // When only static labels: text goes beside (CENTER_LEFT).
+            // When dynamic labels (with or without static beside): text goes inside circle (CENTER).
+            label.setAlignment((labels_beside && !use_dynamic_labels) ? Pos.CENTER_LEFT : Pos.CENTER);
             label.setTextAlignment(TextAlignment.CENTER);
             label.setWrapText(true);
             label.setVisible(true);
@@ -183,19 +200,113 @@ public class ByteMonitorRepresentation extends RegionBaseRepresentation<Pane, By
             }
             else
             {
-                // zyuan: use min dimension so circle fits in cell and is centered
                 final double circle_r = Math.min(led_w, led_h) / 2;
                 final Ellipse ell = new Ellipse();
-                ell.setCenterX(x + led_w / 2);
-                ell.setCenterY(y + led_h / 2);
+                if (labels_beside && !horizontal)
+                {
+                    // Vertical layout: anchor circle to left edge; label will be to the right
+                    ell.setCenterX(x + circle_r);
+                    ell.setCenterY(y + led_h / 2);
+                }
+                else if (labels_beside)
+                {
+                    // Horizontal layout: anchor circle to top edge; label will be below
+                    ell.setCenterX(x + led_w / 2);
+                    ell.setCenterY(y + circle_r);
+                }
+                else
+                {
+                    // Dynamic on/off labels or no labels: circle centered in full cell
+                    ell.setCenterX(x + led_w / 2);
+                    ell.setCenterY(y + led_h / 2);
+                }
                 ell.setRadiusX(circle_r);
                 ell.setRadiusY(circle_r);
                 led = ell;
             }
-            // zyuan: relocate only here; resize called after adding to pane
+            // Compute label bounds for labels[i]:
+            //   - static-only beside: text beside the circle
+            //   - dynamic (on/off): text overlaid on the circle area
+            //   - both: dynamic label on circle, beside_labels_arr[i] gets the beside text (below)
+            if (labels_beside && !use_dynamic_labels && !horizontal)
+            {
+                // Static label beside circle, vertical layout
+                final double circle_side = Math.min(led_w, led_h);
+                lbl_x[i] = x + circle_side + gap;
+                lbl_y[i] = y;
+                lbl_w[i] = led_w - circle_side - gap;
+                lbl_h[i] = led_h;
+            }
+            else if (labels_beside && !use_dynamic_labels)
+            {
+                // Static label beside circle, horizontal layout
+                final double circle_side = Math.min(led_w, led_h);
+                lbl_x[i] = x;
+                lbl_y[i] = y + circle_side + gap;
+                lbl_w[i] = led_w;
+                lbl_h[i] = led_h - circle_side - gap;
+            }
+            else if (labels_beside && use_dynamic_labels && !horizontal)
+            {
+                // Dynamic label overlaid on circle (left portion), vertical layout
+                final double circle_side = Math.min(led_w, led_h);
+                lbl_x[i] = x;
+                lbl_y[i] = y;
+                lbl_w[i] = circle_side;
+                lbl_h[i] = led_h;
+            }
+            else if (labels_beside && use_dynamic_labels)
+            {
+                // Dynamic label overlaid on circle (top portion), horizontal layout
+                final double circle_side = Math.min(led_w, led_h);
+                lbl_x[i] = x;
+                lbl_y[i] = y;
+                lbl_w[i] = led_w;
+                lbl_h[i] = circle_side;
+            }
+            else
+            {
+                lbl_x[i] = x;
+                lbl_y[i] = y;
+                lbl_w[i] = led_w;
+                lbl_h[i] = led_h;
+            }
+            // Create the beside-label when both static and dynamic labels are set
+            if (beside_labels_arr != null)
+            {
+                final Label blabel = new Label();
+                blabel.setFont(text_font);
+                blabel.setTextFill(text_color);
+                blabel.setManaged(false);
+                blabel.setAlignment(Pos.CENTER_LEFT);
+                blabel.setWrapText(true);
+                blabel.setVisible(true);
+                blabel.setOpacity(1.0);
+                final int lbl_index = bitReverse ? i : save_bits - i - 1;
+                if (lbl_index < model_widget.propLabels().size())
+                    blabel.setText(model_widget.propLabels().getElement(lbl_index).getValue());
+                if (!horizontal)
+                {
+                    final double circle_side = Math.min(led_w, led_h);
+                    blbl_x[i] = x + circle_side + gap;
+                    blbl_y[i] = y;
+                    blbl_w[i] = led_w - circle_side - gap;
+                    blbl_h[i] = led_h;
+                }
+                else
+                {
+                    final double circle_side = Math.min(led_w, led_h);
+                    blbl_x[i] = x;
+                    blbl_y[i] = y + circle_side + gap;
+                    blbl_w[i] = led_w;
+                    blbl_h[i] = led_h - circle_side - gap;
+                }
+                blabel.relocate(blbl_x[i], blbl_y[i]);
+                beside_labels_arr[i] = blabel;
+            }
             if (was_ever_transformed)
                 label.getTransforms().clear();
-            label.relocate(x, y);
+            label.relocate(lbl_x[i], lbl_y[i]);
             led.getStyleClass().add("led");
             led.setManaged(false);
             if (save_colorVals != null && i < save_colorVals.length)
@@ -208,15 +319,31 @@ public class ByteMonitorRepresentation extends RegionBaseRepresentation<Pane, By
         }
         this.leds = leds;
         this.labels = labels;
+        this.beside_labels = beside_labels_arr;
         pane.getChildren().setAll(leds);
-        for (Label label : labels)
+        for (int i = 0; i < labels.length; i++)
         {
+            final Label label = labels[i];
             if (label != null)
             {
                 pane.getChildren().add(label);
                 label.toFront();
-                label.resize(led_w, led_h);
+                label.resize(lbl_w[i], lbl_h[i]);
                 label.layout();
+            }
+        }
+        if (beside_labels_arr != null)
+        {
+            for (int i = 0; i < beside_labels_arr.length; i++)
+            {
+                final Label blabel = beside_labels_arr[i];
+                if (blabel != null)
+                {
+                    pane.getChildren().add(blabel);
+                    blabel.toFront();
+                    blabel.resize(blbl_w[i], blbl_h[i]);
+                    blabel.layout();
+                }
             }
         }
         pane.layout();
