@@ -28,7 +28,7 @@ import java.util.logging.Level;
 
 import org.csstudio.display.builder.model.*;
 import org.csstudio.display.builder.model.properties.PredefinedColorMaps;
-import org.csstudio.display.builder.model.properties.WidgetColor;
+import org.phoebus.ui.color.WidgetColor;
 import org.csstudio.display.builder.representation.ToolkitRepresentation;
 import org.csstudio.display.builder.representation.javafx.widgets.JFXBaseRepresentation;
 import org.csstudio.javafx.rtplot.ColorMappingFunction;
