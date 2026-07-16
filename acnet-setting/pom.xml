@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.phoebus</groupId>
         <artifactId>fnal</artifactId>
-        <version>5.0.2-85</version>
+        <version>5.0.5-85</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -31,7 +31,7 @@
         <dependency>
             <groupId>org.phoebus</groupId>
             <artifactId>core-pv-acsys</artifactId>
-            <version>${phoebus.version}-73</version>
+            <version>${fnal.phoebus.version}</version>
         </dependency>
         <!-- Pulls in our patched WritablePVWidget (with setGlobalWriteEnabled) -->
         <dependency>

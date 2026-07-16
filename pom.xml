@@ -4,7 +4,7 @@
   
   <groupId>org.phoebus</groupId>
   <artifactId>fnal</artifactId>
-  <version>5.0.2-85</version>
+  <version>5.0.5-85</version>
   <name>FNAL Phoebus Product</name>
   <packaging>pom</packaging>
 
@@ -14,7 +14,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <!-- Update when phoebus version is changed -->
-    <phoebus.version>5.0.2</phoebus.version>
+    <phoebus.version>5.0.5</phoebus.version>
     <fnal.phoebus.version>${phoebus.version}-85</fnal.phoebus.version>
   </properties>
   <repositories>
