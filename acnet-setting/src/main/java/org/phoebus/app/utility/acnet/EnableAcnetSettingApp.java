@@ -134,8 +134,11 @@ public class EnableAcnetSettingApp implements AppDescriptor
         try
         {
             SecureStore store = new SecureStore();
-            AuthenticationScope scope = AuthenticationScope.fromString("kerberos");
-            if (scope == null) scope = AuthenticationScope.LOGBOOK;
+            // In Phoebus 5.0.5, AuthenticationScope is an interface; construct inline for "kerberos"
+            AuthenticationScope scope = new AuthenticationScope() {
+                @Override public String getScope() { return "kerberos"; }
+                @Override public String getDisplayName() { return "Kerberos"; }
+            };
             ScopedAuthenticationToken token = store.getScopedAuthenticationToken(scope);
             return token != null && token.getUsername() != null && !token.getUsername().isBlank();
         }

@@ -5,6 +5,7 @@
  *******************************************************************************/
 package org.phoebus.app.utility.acnet;
 
+import org.phoebus.security.authorization.AuthenticationStatus;
 import org.phoebus.security.authorization.ServiceAuthenticationProvider;
 import org.phoebus.security.store.SecureStore;
 import org.phoebus.security.tokens.AuthenticationScope;
@@ -41,18 +42,18 @@ public class KerberosAuthenticationProvider implements ServiceAuthenticationProv
 
     /**
      * Returns the AuthenticationScope for Kerberos.
-     * Uses AuthenticationScope.fromString() so it works with any phoebus version
-     * that has "kerberos" registered, and falls back to LOGBOOK as a safe default
-     * if not present (avoids hard dependency on AuthenticationScope.KERBEROS enum constant).
+     * In Phoebus 5.0.5, AuthenticationScope is an interface; create an inline implementation.
      */
     @Override
     public AuthenticationScope getAuthenticationScope() {
-        AuthenticationScope scope = AuthenticationScope.fromString("kerberos");
-        return scope != null ? scope : AuthenticationScope.LOGBOOK;
+        return new AuthenticationScope() {
+            @Override public String getScope() { return "kerberos"; }
+            @Override public String getDisplayName() { return "Kerberos"; }
+        };
     }
 
     @Override
-    public void authenticate(String username, String password) {
+    public AuthenticationStatus authenticate(String username, String password) {
         final String principal = username.contains("@") ? username : username + "@" + KERBEROS_REALM;
 
         try {
@@ -82,15 +83,16 @@ public class KerberosAuthenticationProvider implements ServiceAuthenticationProv
             } catch (Exception storeEx) {
                 logger.log(Level.WARNING, "Kerberos login succeeded but could not save to SecureStore", storeEx);
             }
+            return AuthenticationStatus.AUTHENTICATED;
 
         } catch (Exception e) {
             logger.log(Level.WARNING, "Kerberos authentication failed for principal: " + principal + " — " + e.getMessage());
-            throw new RuntimeException("Kerberos authentication failed for " + principal + ": " + e.getMessage(), e);
+            return AuthenticationStatus.BAD_CREDENTIALS;
         }
     }
 
     @Override
-    public void logout(String token) {
+    public void logout() {
         try {
             SecureStore store = new SecureStore();
             store.setScopedAuthentication(new ScopedAuthenticationToken(getAuthenticationScope(), null, null));
