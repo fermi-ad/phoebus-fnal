@@ -12,6 +12,7 @@ import static org.csstudio.display.builder.model.properties.CommonWidgetProperti
 import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.Consumer;
 
 import org.csstudio.display.builder.model.WidgetProperty;
 
@@ -40,6 +41,22 @@ public class WritablePVWidget extends PVWidget
     private static final CopyOnWriteArrayList<WeakReference<WritablePVWidget>> ALL_INSTANCES =
             new CopyOnWriteArrayList<>();
 
+    /** Callbacks for non-PVWidget writables (e.g. TableWidget) that also need the global gate. */
+    private static final CopyOnWriteArrayList<WeakReference<Consumer<Boolean>>> GATE_LISTENERS =
+            new CopyOnWriteArrayList<>();
+
+    /**
+     * Register a callback invoked whenever the global write-enable state changes.
+     * The registry holds only a weak reference so callers must keep a strong
+     * reference to {@code listener} for as long as the widget is alive.
+     *
+     * @param listener called with {@code true} to enable, {@code false} to disable
+     */
+    public static void addGateListener(final Consumer<Boolean> listener)
+    {
+        GATE_LISTENERS.add(new WeakReference<>(listener));
+    }
+
     /**
      * Enable or disable writing on ALL live writable widgets.
      * <p>Called by {@code SettingEnableService} when the operator
@@ -58,11 +75,22 @@ public class WritablePVWidget extends PVWidget
             final WidgetProperty<Boolean> prop = widget.pv_writable;
             if (prop != null)
             {
+                // Local/simulated PVs are not subject to the global write gate
+                final String pvName = widget.propPVName().getValue();
+                if (pvName.startsWith("loc://") || pvName.startsWith("sim://"))
+                    return false;
                 // Raise applyingGlobal so the listener does NOT overwrite pvActuallyWritable
                 widget.applyingGlobal = true;
                 try { prop.setValue(enabled && widget.pvActuallyWritable); }
                 finally { widget.applyingGlobal = false; }
             }
+            return false;
+        });
+        // Notify other gated writables (e.g. TableWidget)
+        GATE_LISTENERS.removeIf(ref -> {
+            final Consumer<Boolean> listener = ref.get();
+            if (listener == null) return true;  // GC'd — remove
+            listener.accept(enabled);
             return false;
         });
     }
@@ -115,6 +143,10 @@ public class WritablePVWidget extends PVWidget
             if (applyingGlobal) return;   // setGlobalWriteEnabled driving — don't touch pvActuallyWritable
             final boolean want = Boolean.TRUE.equals(runtimeWants);
             pvActuallyWritable = want;         // remember PV's true writability
+            // Local/simulated PVs bypass the global gate — always pass through
+            final String pvName = propPVName().getValue();
+            if (pvName.startsWith("loc://") || pvName.startsWith("sim://"))
+                return;
             final boolean effective = want && globalWriteEnabled;
             if (effective != want)
             {

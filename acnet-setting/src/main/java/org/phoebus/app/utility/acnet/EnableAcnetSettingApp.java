@@ -42,7 +42,7 @@ public class EnableAcnetSettingApp implements AppDescriptor
 {
     private static final Logger logger = Logger.getLogger(EnableAcnetSettingApp.class.getName());
 
-    public static final String DISPLAY_NAME = "Enable Acnet Setting";
+    public static final String DISPLAY_NAME = "Enable Setting";
     public static final String NAME = "enableSetting";
     public static final Image icon = ImageCache.getImage(EnableAcnetSettingApp.class, "/icons/acnet-setting-16.png");
 
