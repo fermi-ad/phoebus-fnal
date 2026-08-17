@@ -10,8 +10,7 @@ package org.phoebus.app.utility.acnet;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import org.csstudio.display.builder.model.widgets.WritablePVWidget;
-import org.phoebus.pv.PV;
-import org.phoebus.pv.PVPool;
+import org.phoebus.pv.acsys.ACsys_PVConn;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -21,7 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Singleton service that manages the ACNET setting enable/disable state.
+ * Singleton service that manages the setting enable/disable state.
  * <p>
  * Writes {@code 1} to the enable PV when settings are enabled and
  * schedules an automatic write of {@code 0} after the chosen duration.
@@ -31,7 +30,6 @@ import java.util.logging.Logger;
 public class SettingEnableService
 {
     private static final Logger logger = Logger.getLogger(SettingEnableService.class.getName());
-    private static final String ENABLE_SETTINGS_PV = "acsys://enableSettings";
 
     /** Sentinel value meaning "never expire". */
     public static final long DURATION_FOREVER = -1L;
@@ -48,10 +46,10 @@ public class SettingEnableService
                 return t;
             });
 
-    /** Separate executor for PV writes so blocking I/O never stalls the timer. */
-    private final java.util.concurrent.ExecutorService pvWriter =
+    /** Background executor for DPM calls so blocking I/O never stalls the UI. */
+    private final java.util.concurrent.ExecutorService dpmCaller =
             Executors.newSingleThreadExecutor(r -> {
-                Thread t = new Thread(r, "SettingEnablePVWriter");
+                Thread t = new Thread(r, "SettingEnableDPMCaller");
                 t.setDaemon(true);
                 return t;
             });
@@ -74,13 +72,14 @@ public class SettingEnableService
      * Enable settings for the given duration.
      *
      * @param durationMinutes minutes until auto-disable, or {@link #DURATION_FOREVER}
+     * @param role            ACSys role to pass to DPM (e.g. Kerberos username)
      */
-    public void enable(long durationMinutes)
+    public void enable(long durationMinutes, String role)
     {
         // Cancel any running expiry timer
         cancelExpiryTask();
 
-        // Enable widgets immediately — don't wait for PV write to succeed
+        // Enable widgets immediately — don't wait for DPM call to succeed
         enabled = true;
         WritablePVWidget.setGlobalWriteEnabled(true);
 
@@ -97,8 +96,26 @@ public class SettingEnableService
                     TimeUnit.MINUTES);
         }
 
-        // Write to PV in background (best-effort — failures are logged but don't block UI)
-        writePV(1, () -> logger.log(Level.FINE, "Enable PV write acknowledged."));
+        // Call DPM directly on a background thread — no Swing dialogs needed
+        dpmCaller.execute(() -> {
+            try
+            {
+                ACsys_PVConn.enableSettings(role);
+                logger.log(Level.INFO, "ACSys settings enabled with role: " + role);
+            }
+            catch (Exception e)
+            {
+                logger.log(Level.SEVERE, "Failed to enable ACSys settings with role: " + role, e);
+                final String msg = e.getMessage();
+                Platform.runLater(() -> {
+                    Alert err = new Alert(Alert.AlertType.ERROR);
+                    err.setTitle("Enable Settings Error");
+                    err.setHeaderText("Failed to enable ACSys settings");
+                    err.setContentText(msg);
+                    err.show();
+                });
+            }
+        });
     }
 
     /** Immediately disable settings (e.g. called by timer or manual action). */
@@ -130,9 +147,6 @@ public class SettingEnableService
         enabled = false;
         expiresAt = -1L;
 
-        // Write to PV in background (best-effort)
-        writePV(0, () -> logger.log(Level.FINE, "Disable PV write acknowledged."));
-
         // Property listener updates JavaFX nodes — must run on FX thread.
         // disableInternal() may be called from the scheduler thread (timer expiry),
         // so always marshal onto the FX thread here.
@@ -140,9 +154,9 @@ public class SettingEnableService
             WritablePVWidget.setGlobalWriteEnabled(false);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("ACNET Settings");
+            alert.setTitle("Enable Settings");
             alert.setHeaderText("Settings disabled");
-            alert.setContentText("The ACNET setting enable period has expired.\n"
+            alert.setContentText("The setting enable period has expired.\n"
                     + "All writable widgets are now locked.");
             alert.show();
         });
@@ -155,40 +169,5 @@ public class SettingEnableService
             expiryTask.cancel(false);
             expiryTask = null;
         }
-    }
-
-    /**
-     * Writes {@code value} to the enable PV asynchronously, then runs
-     * {@code onSuccess} on the scheduler thread.
-     */
-    private void writePV(int value, Runnable onSuccess)
-    {
-        pvWriter.execute(() -> {
-            PV pv = null;
-            try
-            {
-                pv = PVPool.getPV(ENABLE_SETTINGS_PV);
-                Thread.sleep(500); // brief wait for connection
-                pv.asyncWrite(value);
-                onSuccess.run();
-            }
-            catch (Exception e)
-            {
-                logger.log(Level.SEVERE, "Failed to write " + value
-                        + " to " + ENABLE_SETTINGS_PV, e);
-                final String msg = e.getMessage();
-                Platform.runLater(() -> {
-                    Alert err = new Alert(Alert.AlertType.ERROR);
-                    err.setTitle("ACNET Settings Error");
-                    err.setHeaderText("Failed to write enable PV");
-                    err.setContentText(msg);
-                    err.show();
-                });
-            }
-            finally
-            {
-                if (pv != null) PVPool.releasePV(pv);
-            }
-        });
     }
 }

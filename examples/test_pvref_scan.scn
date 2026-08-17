@@ -85,6 +85,7 @@
   </while>
 
   <!-- TEST 4: Loop - set start/end from PVs, step is literal 1.0 -->
+  <!-- Exercises PVReference path in setStart/setEnd via readXML -->
   <set>
     <device>loc://loop_start(0)</device>
     <value>1.0</value>
@@ -105,6 +106,91 @@
     <completion>false</completion>
     <wait>false</wait>
     <body>
+      <log>
+        <devices>loc://motor(0)</devices>
+      </log>
+    </body>
+  </loop>
+
+  <!-- TEST 5: Loop - start/end/step are literal Double values -->
+  <!-- Exercises Double path in setStart/setEnd via readXML.                  -->
+  <!-- Also reproduces the property type mismatch that caused:                -->
+  <!--   "Unknown property ID end with value type java.lang.Double"           -->
+  <!-- when the UI property editor called setProperty("end", Double) with     -->
+  <!-- the old Double.class property registration.                            -->
+  <loop>
+    <device>loc://motor(0)</device>
+    <start>1.0</start>
+    <end>3.0</end>
+    <step>1.0</step>
+    <completion>false</completion>
+    <wait>false</wait>
+    <body>
+      <log>
+        <devices>loc://motor(0)</devices>
+      </log>
+    </body>
+  </loop>
+
+  <!-- TEST 6: Loop with negative increment (start > end, step < 0)          -->
+  <!-- Exercises the reverse=true branch in LoopCommandImpl.execute():        -->
+  <!--   start=1.0, end=3.0, step=-1.0 triggers reverse=true                 -->
+  <!--   (start <= end but step < 0 — direction mismatch).                   -->
+  <!-- The early-exit check uses  value < resolvedEnd  (i.e. < 3.0)          -->
+  <!-- instead of the old  value > resolvedEnd  which was incorrect for       -->
+  <!-- downward loops.                                                         -->
+  <loop>
+    <device>loc://motor(0)</device>
+    <start>1.0</start>
+    <end>3.0</end>
+    <step>-1.0</step>
+    <completion>false</completion>
+    <wait>false</wait>
+    <body>
+      <log>
+        <devices>loc://motor(0)</devices>
+      </log>
+    </body>
+  </loop>
+
+  <!-- TEST 7: Normal backward loop (start > end, step < 0, reverse=false)   -->
+  <!-- Exercises the reverse=false + negative-step path in execute():         -->
+  <!--   start=3.0, end=1.0, step=-1.0 → loops 3, 2, 1.                     -->
+  <!-- Body only logs, so early-break never fires; exits normally.            -->
+  <loop>
+    <device>loc://motor(0)</device>
+    <start>3.0</start>
+    <end>1.0</end>
+    <step>-1.0</step>
+    <completion>false</completion>
+    <wait>false</wait>
+    <body>
+      <log>
+        <devices>loc://motor(0)</devices>
+      </log>
+    </body>
+  </loop>
+
+  <!-- TEST 8: Early-break via body - backward loop, body sets motor below loopMin -->
+  <!-- start=3.0, end=1.0, step=-1.0 → would visit 3, 2, 1                  -->
+  <!-- Body sets motor=0.0 on first step → early-break fires after step 1.   -->
+  <!-- Without the fix (dangling else), break was never evaluated for         -->
+  <!-- reverse=false, so the loop continued incorrectly.                      -->
+  <loop>
+    <device>loc://motor(0)</device>
+    <start>3.0</start>
+    <end>1.0</end>
+    <step>-1.0</step>
+    <completion>false</completion>
+    <wait>false</wait>
+    <body>
+      <!-- Force motor below loopMin(1.0) to trigger early-break -->
+      <set>
+        <device>loc://motor(0)</device>
+        <value>0.0</value>
+        <completion>false</completion>
+        <wait>false</wait>
+      </set>
       <log>
         <devices>loc://motor(0)</devices>
       </log>

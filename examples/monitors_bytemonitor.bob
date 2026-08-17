@@ -37,6 +37,10 @@
     <y>169</y>
     <width>59</width>
     <height>26</height>
+    <font>
+      <font family="Liberation Sans" style="UNDERLINE" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_5</name>

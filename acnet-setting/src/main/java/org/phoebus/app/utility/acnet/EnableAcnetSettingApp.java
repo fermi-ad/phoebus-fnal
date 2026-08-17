@@ -105,12 +105,12 @@ public class EnableAcnetSettingApp implements AppDescriptor
                     else
                     {
                         Alert err = new Alert(Alert.AlertType.WARNING);
-                        err.setTitle("ACNET Settings");
+                        err.setTitle("Enable Settings");
                         err.setHeaderText("Kerberos login required");
                         err.setContentText(
                                 "No Kerberos credentials found.\n" +
                                 "Please log in with your FNAL Kerberos account\n" +
-                                "to enable ACNET settings.");
+                                "to enable settings.");
                         err.showAndWait();
                     }
                 });
@@ -120,7 +120,7 @@ public class EnableAcnetSettingApp implements AppDescriptor
             {
                 logger.log(Level.SEVERE, "Failed to open credentials manager", ex);
                 Alert err = new Alert(Alert.AlertType.ERROR);
-                err.setTitle("ACNET Settings");
+                err.setTitle("Enable Settings");
                 err.setHeaderText("Cannot open login dialog");
                 err.setContentText(ex.getMessage());
                 err.showAndWait();
@@ -154,7 +154,7 @@ public class EnableAcnetSettingApp implements AppDescriptor
         final SettingEnableService svc = SettingEnableService.getInstance();
 
         Dialog<String> dialog = new Dialog<>();
-        dialog.setTitle("ACNET Settings");
+        dialog.setTitle("Enable Settings");
         dialog.setHeaderText("Select setting duration:");
 
         ChoiceBox<String> durationBox = new ChoiceBox<>();
@@ -189,16 +189,41 @@ public class EnableAcnetSettingApp implements AppDescriptor
 
         dialog.showAndWait().ifPresent(choice -> {
             lastSelection = choice;   // remember for next time
+            final String role = getKerberosUsername();
             switch (choice)
             {
                 case "Disable":     svc.disable(); break;
-                case "5 minutes":   svc.enable(5L); break;
-                case "20 minutes":  svc.enable(20L); break;
-                case "1 hour":      svc.enable(60L); break;
-                case "5 hours":     svc.enable(300L); break;
-                case "Forever":     svc.enable(SettingEnableService.DURATION_FOREVER); break;
+                case "5 minutes":   svc.enable(5L, role); break;
+                case "20 minutes":  svc.enable(20L, role); break;
+                case "1 hour":      svc.enable(60L, role); break;
+                case "5 hours":     svc.enable(300L, role); break;
+                case "Forever":     svc.enable(SettingEnableService.DURATION_FOREVER, role); break;
             }
         });
+    }
+
+    /**
+     * Returns the Kerberos username stored in the SecureStore, or falls back to
+     * the OS username if no Kerberos token is available.
+     */
+    private String getKerberosUsername()
+    {
+        try
+        {
+            SecureStore store = new SecureStore();
+            AuthenticationScope scope = new AuthenticationScope() {
+                @Override public String getScope() { return "kerberos"; }
+                @Override public String getDisplayName() { return "Kerberos"; }
+            };
+            ScopedAuthenticationToken token = store.getScopedAuthenticationToken(scope);
+            if (token != null && token.getUsername() != null && !token.getUsername().isBlank())
+                return token.getUsername();
+        }
+        catch (Exception ex)
+        {
+            logger.log(Level.WARNING, "Could not read Kerberos username from SecureStore", ex);
+        }
+        return System.getProperty("user.name", "testing");
     }
 
     /** Format a second count into a human-readable string, e.g. "4h 59m 03s". */
