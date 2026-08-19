@@ -197,4 +197,65 @@
     </body>
   </loop>
 
+  <!-- TEST 9: If BELOW with tolerance - must NOT trigger within tolerance band -->
+  <!-- Bug: NumericValueCondition.isConditionMet() ignored 'tolerance' for all -->
+  <!-- comparisons except EQUALS, so "value < desired" with tolerance=1 would  -->
+  <!-- fire even when value (9.5) is within 1.0 of desired (10.0). Fixed so    -->
+  <!-- BELOW requires  value < desired - tolerance  (here: 9.5 < 9.0 = false). -->
+  <set>
+    <device>loc://belowtest(0)</device>
+    <value>9.5</value>
+    <completion>false</completion>
+    <wait>false</wait>
+  </set>
+  <set>
+    <device>loc://belowresult(0)</device>
+    <value>0.0</value>
+    <completion>false</completion>
+    <wait>false</wait>
+  </set>
+  <if>
+    <device>loc://belowtest(0)</device>
+    <value>10.0</value>
+    <comparison>BELOW</comparison>
+    <tolerance>1.0</tolerance>
+    <body>
+      <!-- Must NOT execute: 9.5 is within tolerance(1.0) of 10.0 -->
+      <set>
+        <device>loc://belowresult(0)</device>
+        <value>1.0</value>
+        <completion>false</completion>
+        <wait>false</wait>
+      </set>
+    </body>
+  </if>
+
+  <!-- TEST 10: If BELOW with tolerance - SHOULD trigger once past tolerance band -->
+  <!-- Confirms the fix still allows the condition to fire once the value      -->
+  <!-- clears the tolerance band: 8.0 < 10.0 - 1.0 = 9.0 -> true.              -->
+  <set>
+    <device>loc://belowtest(0)</device>
+    <value>8.0</value>
+    <completion>false</completion>
+    <wait>false</wait>
+  </set>
+  <if>
+    <device>loc://belowtest(0)</device>
+    <value>10.0</value>
+    <comparison>BELOW</comparison>
+    <tolerance>1.0</tolerance>
+    <body>
+      <!-- Should execute: 8.0 < 10.0 - 1.0 = 9.0 -->
+      <set>
+        <device>loc://belowresult(0)</device>
+        <value>2.0</value>
+        <completion>false</completion>
+        <wait>false</wait>
+      </set>
+    </body>
+  </if>
+  <!-- Expected final value of loc://belowresult(0): 2.0                       -->
+  <!-- (0.0 if TEST 9 incorrectly fired and TEST 10's set never ran/overwrote it,-->
+  <!--  or 1.0 if TEST 9 incorrectly fired and TEST 10 was skipped)             -->
+
 </commands>

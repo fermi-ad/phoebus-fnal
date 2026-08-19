@@ -350,7 +350,7 @@ public class WhileCommand extends ScanCommandWithBody
         buf.append("While '").append(device_name).append("' ")
             .append(comparison).append(" ");
         buf.append(StringOrDouble.quote(desired_value));
-        if (comparison == Comparison.EQUALS)
+        if (comparison != Comparison.IN  &&  comparison != Comparison.NOT_IN  &&  tolerance > 0.0)
             buf.append(" (+-").append(tolerance).append(")");
         return buf.toString();
     }
