@@ -9,9 +9,9 @@ package org.csstudio.scan.server.httpd;
 
 import org.csstudio.scan.server.ScanServer;
 import org.csstudio.scan.server.ScanServerInstance;
+import org.eclipse.jetty.ee8.servlet.DefaultServlet;
+import org.eclipse.jetty.ee8.servlet.ServletContextHandler;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.DefaultServlet;
-import org.eclipse.jetty.servlet.ServletContextHandler;
 
 /** Web server for {@link ScanServer} monitor/control
  *  @author Kay Kasemir
