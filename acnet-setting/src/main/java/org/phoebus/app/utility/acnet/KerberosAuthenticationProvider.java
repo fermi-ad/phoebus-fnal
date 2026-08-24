@@ -54,6 +54,10 @@ public class KerberosAuthenticationProvider implements ServiceAuthenticationProv
 
     @Override
     public AuthenticationStatus authenticate(String username, String password) {
+        if (username == null || username.isBlank()) {
+            logger.warning("Kerberos authentication failed: username must not be empty");
+            return AuthenticationStatus.BAD_CREDENTIALS;
+        }
         final String principal = username.contains("@") ? username : username + "@" + KERBEROS_REALM;
 
         try {

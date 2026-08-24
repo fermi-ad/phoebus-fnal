@@ -37,6 +37,11 @@
             <artifactId>core-ui</artifactId>
             <version>${phoebus.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.phoebus</groupId>
+            <artifactId>core-security</artifactId>
+            <version>${phoebus.version}</version>
+        </dependency>
 
 
 
