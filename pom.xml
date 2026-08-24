@@ -60,6 +60,7 @@
 
   <modules>
     <module>lib/phoebus</module>
+    <module>pv-acsys</module>
     <module>byte-monitor-labels</module>
     <module>acnet-setting</module>
     <module>product-fnal</module>
