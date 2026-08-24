@@ -258,4 +258,61 @@
   <!-- (0.0 if TEST 9 incorrectly fired and TEST 10's set never ran/overwrote it,-->
   <!--  or 1.0 if TEST 9 incorrectly fired and TEST 10 was skipped)             -->
 
+  <!-- TEST 11: While + If + Script(increment) - reproduces user-reported bug: -->
+  <!--   while 'test0' < 1000:                                                 -->
+  <!--     if 'test0' < 'test1':                                               -->
+  <!--       Script 'increment'('test0','1')                                   -->
+  <!--       Delay                                                             -->
+  <!-- User reported this "just increases test0 infinitely" instead of         -->
+  <!-- stopping once test0 reaches test1 (10). Before the Phase 2 tolerance    -->
+  <!-- fix, the If's BELOW check ignored tolerance, so it kept firing past     -->
+  <!-- the threshold. NOTE: the While's own limit here is set equal to the     -->
+  <!-- If's target (test1=10) instead of a much larger safety cap (as in the   -->
+  <!-- user's original 1000), because once the If permanently stops firing,    -->
+  <!-- nothing else advances test0 - a While limit far above the If's target   -->
+  <!-- would busy-loop (no delay) forever waiting for a value that will never  -->
+  <!-- arrive. This is a scan *design* consideration, not a code bug: if the   -->
+  <!-- While is meant to stop as soon as incrementing stops, its own condition -->
+  <!-- should track the same threshold as the inner If.                       -->
+  <set>
+    <device>loc://inctest0(0)</device>
+    <value>5.0</value>
+    <completion>false</completion>
+    <wait>false</wait>
+  </set>
+  <set>
+    <device>loc://inctest1(0)</device>
+    <value>10.0</value>
+    <completion>false</completion>
+    <wait>false</wait>
+  </set>
+  <while>
+    <device>loc://inctest0(0)</device>
+    <value>loc://inctest1(0)</value>
+    <comparison>BELOW</comparison>
+    <tolerance>0.1</tolerance>
+    <body>
+      <if>
+        <device>loc://inctest0(0)</device>
+        <value>loc://inctest1(0)</value>
+        <comparison>BELOW</comparison>
+        <tolerance>0.1</tolerance>
+        <body>
+          <script>
+            <path>Increment</path>
+            <arguments>
+              <argument>loc://inctest0(0)</argument>
+              <argument>1</argument>
+            </arguments>
+          </script>
+          <delay>
+            <seconds>0.05</seconds>
+          </delay>
+        </body>
+      </if>
+    </body>
+  </while>
+  <!-- Expected final value of loc://inctest0(0): 10.0                         -->
+  <!-- (bug reproduces if it instead overshoots past 10.0, e.g. reaching 11+)  -->
+
 </commands>
