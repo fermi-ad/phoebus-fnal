@@ -85,6 +85,7 @@
   </while>
 
   <!-- TEST 4: Loop - set start/end from PVs, step is literal 1.0 -->
+  <!-- Exercises PVReference path in setStart/setEnd via readXML -->
   <set>
     <device>loc://loop_start(0)</device>
     <value>1.0</value>
@@ -110,5 +111,208 @@
       </log>
     </body>
   </loop>
+
+  <!-- TEST 5: Loop - start/end/step are literal Double values -->
+  <!-- Exercises Double path in setStart/setEnd via readXML.                  -->
+  <!-- Also reproduces the property type mismatch that caused:                -->
+  <!--   "Unknown property ID end with value type java.lang.Double"           -->
+  <!-- when the UI property editor called setProperty("end", Double) with     -->
+  <!-- the old Double.class property registration.                            -->
+  <loop>
+    <device>loc://motor(0)</device>
+    <start>1.0</start>
+    <end>3.0</end>
+    <step>1.0</step>
+    <completion>false</completion>
+    <wait>false</wait>
+    <body>
+      <log>
+        <devices>loc://motor(0)</devices>
+      </log>
+    </body>
+  </loop>
+
+  <!-- TEST 6: Loop with negative increment (start > end, step < 0)          -->
+  <!-- Exercises the reverse=true branch in LoopCommandImpl.execute():        -->
+  <!--   start=1.0, end=3.0, step=-1.0 triggers reverse=true                 -->
+  <!--   (start <= end but step < 0 — direction mismatch).                   -->
+  <!-- The early-exit check uses  value < resolvedEnd  (i.e. < 3.0)          -->
+  <!-- instead of the old  value > resolvedEnd  which was incorrect for       -->
+  <!-- downward loops.                                                         -->
+  <loop>
+    <device>loc://motor(0)</device>
+    <start>1.0</start>
+    <end>3.0</end>
+    <step>-1.0</step>
+    <completion>false</completion>
+    <wait>false</wait>
+    <body>
+      <log>
+        <devices>loc://motor(0)</devices>
+      </log>
+    </body>
+  </loop>
+
+  <!-- TEST 7: Normal backward loop (start > end, step < 0, reverse=false)   -->
+  <!-- Exercises the reverse=false + negative-step path in execute():         -->
+  <!--   start=3.0, end=1.0, step=-1.0 → loops 3, 2, 1.                     -->
+  <!-- Body only logs, so early-break never fires; exits normally.            -->
+  <loop>
+    <device>loc://motor(0)</device>
+    <start>3.0</start>
+    <end>1.0</end>
+    <step>-1.0</step>
+    <completion>false</completion>
+    <wait>false</wait>
+    <body>
+      <log>
+        <devices>loc://motor(0)</devices>
+      </log>
+    </body>
+  </loop>
+
+  <!-- TEST 8: Early-break via body - backward loop, body sets motor below loopMin -->
+  <!-- start=3.0, end=1.0, step=-1.0 → would visit 3, 2, 1                  -->
+  <!-- Body sets motor=0.0 on first step → early-break fires after step 1.   -->
+  <!-- Without the fix (dangling else), break was never evaluated for         -->
+  <!-- reverse=false, so the loop continued incorrectly.                      -->
+  <loop>
+    <device>loc://motor(0)</device>
+    <start>3.0</start>
+    <end>1.0</end>
+    <step>-1.0</step>
+    <completion>false</completion>
+    <wait>false</wait>
+    <body>
+      <!-- Force motor below loopMin(1.0) to trigger early-break -->
+      <set>
+        <device>loc://motor(0)</device>
+        <value>0.0</value>
+        <completion>false</completion>
+        <wait>false</wait>
+      </set>
+      <log>
+        <devices>loc://motor(0)</devices>
+      </log>
+    </body>
+  </loop>
+
+  <!-- TEST 9: If BELOW with tolerance - must NOT trigger within tolerance band -->
+  <!-- Bug: NumericValueCondition.isConditionMet() ignored 'tolerance' for all -->
+  <!-- comparisons except EQUALS, so "value < desired" with tolerance=1 would  -->
+  <!-- fire even when value (9.5) is within 1.0 of desired (10.0). Fixed so    -->
+  <!-- BELOW requires  value < desired - tolerance  (here: 9.5 < 9.0 = false). -->
+  <set>
+    <device>loc://belowtest(0)</device>
+    <value>9.5</value>
+    <completion>false</completion>
+    <wait>false</wait>
+  </set>
+  <set>
+    <device>loc://belowresult(0)</device>
+    <value>0.0</value>
+    <completion>false</completion>
+    <wait>false</wait>
+  </set>
+  <if>
+    <device>loc://belowtest(0)</device>
+    <value>10.0</value>
+    <comparison>BELOW</comparison>
+    <tolerance>1.0</tolerance>
+    <body>
+      <!-- Must NOT execute: 9.5 is within tolerance(1.0) of 10.0 -->
+      <set>
+        <device>loc://belowresult(0)</device>
+        <value>1.0</value>
+        <completion>false</completion>
+        <wait>false</wait>
+      </set>
+    </body>
+  </if>
+
+  <!-- TEST 10: If BELOW with tolerance - SHOULD trigger once past tolerance band -->
+  <!-- Confirms the fix still allows the condition to fire once the value      -->
+  <!-- clears the tolerance band: 8.0 < 10.0 - 1.0 = 9.0 -> true.              -->
+  <set>
+    <device>loc://belowtest(0)</device>
+    <value>8.0</value>
+    <completion>false</completion>
+    <wait>false</wait>
+  </set>
+  <if>
+    <device>loc://belowtest(0)</device>
+    <value>10.0</value>
+    <comparison>BELOW</comparison>
+    <tolerance>1.0</tolerance>
+    <body>
+      <!-- Should execute: 8.0 < 10.0 - 1.0 = 9.0 -->
+      <set>
+        <device>loc://belowresult(0)</device>
+        <value>2.0</value>
+        <completion>false</completion>
+        <wait>false</wait>
+      </set>
+    </body>
+  </if>
+  <!-- Expected final value of loc://belowresult(0): 2.0                       -->
+  <!-- (0.0 if TEST 9 incorrectly fired and TEST 10's set never ran/overwrote it,-->
+  <!--  or 1.0 if TEST 9 incorrectly fired and TEST 10 was skipped)             -->
+
+  <!-- TEST 11: While + If + Script(increment) - reproduces user-reported bug: -->
+  <!--   while 'test0' < 1000:                                                 -->
+  <!--     if 'test0' < 'test1':                                               -->
+  <!--       Script 'increment'('test0','1')                                   -->
+  <!--       Delay                                                             -->
+  <!-- User reported this "just increases test0 infinitely" instead of         -->
+  <!-- stopping once test0 reaches test1 (10). Before the Phase 2 tolerance    -->
+  <!-- fix, the If's BELOW check ignored tolerance, so it kept firing past     -->
+  <!-- the threshold. NOTE: the While's own limit here is set equal to the     -->
+  <!-- If's target (test1=10) instead of a much larger safety cap (as in the   -->
+  <!-- user's original 1000), because once the If permanently stops firing,    -->
+  <!-- nothing else advances test0 - a While limit far above the If's target   -->
+  <!-- would busy-loop (no delay) forever waiting for a value that will never  -->
+  <!-- arrive. This is a scan *design* consideration, not a code bug: if the   -->
+  <!-- While is meant to stop as soon as incrementing stops, its own condition -->
+  <!-- should track the same threshold as the inner If.                       -->
+  <set>
+    <device>loc://inctest0(0)</device>
+    <value>5.0</value>
+    <completion>false</completion>
+    <wait>false</wait>
+  </set>
+  <set>
+    <device>loc://inctest1(0)</device>
+    <value>10.0</value>
+    <completion>false</completion>
+    <wait>false</wait>
+  </set>
+  <while>
+    <device>loc://inctest0(0)</device>
+    <value>loc://inctest1(0)</value>
+    <comparison>BELOW</comparison>
+    <tolerance>0.1</tolerance>
+    <body>
+      <if>
+        <device>loc://inctest0(0)</device>
+        <value>loc://inctest1(0)</value>
+        <comparison>BELOW</comparison>
+        <tolerance>0.1</tolerance>
+        <body>
+          <script>
+            <path>Increment</path>
+            <arguments>
+              <argument>loc://inctest0(0)</argument>
+              <argument>1</argument>
+            </arguments>
+          </script>
+          <delay>
+            <seconds>0.05</seconds>
+          </delay>
+        </body>
+      </if>
+    </body>
+  </while>
+  <!-- Expected final value of loc://inctest0(0): 10.0                         -->
+  <!-- (bug reproduces if it instead overshoots past 10.0, e.g. reaching 11+)  -->
 
 </commands>

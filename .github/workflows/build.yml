@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 env:
-  PHOEBUS_RELEASE: v5.0.2
+  PHOEBUS_RELEASE: v5.0.5
 
 jobs:
   build:
@@ -82,6 +82,16 @@ jobs:
         repository: ControlSystemStudio/phoebus.git
         path: lib/phoebus
         ref: ${{ env.PHOEBUS_RELEASE}}
+
+    # install-jars side-loads jars (e.g. org.epics:pbrawclient) into the local
+    # Maven repo via install-file. Those artifact coordinates aren't tied to any
+    # real reactor project, so the main reactor build has no guaranteed edge
+    # forcing install-jars to run before modules that transitively need them
+    # (e.g. byte-monitor-labels -> ... -> archive-reader -> pbrawclient).
+    # Run it explicitly first so the jars are always present in ~/.m2 before
+    # the full build starts.
+    - name: Pre-install local jar dependencies (pbrawclient, ojdbc8, ...)
+      run: mvn -f lib/phoebus/pom.xml -pl dependencies/install-jars -am install --batch-mode -DskipTests=true
 
     - name: Build phoebus fnal product
       run: mvn clean install --batch-mode  -DskipTests=true -Ddocs=lib/phoebus/docs

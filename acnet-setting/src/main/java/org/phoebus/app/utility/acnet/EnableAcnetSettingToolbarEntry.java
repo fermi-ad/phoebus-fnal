@@ -44,6 +44,6 @@ public class EnableAcnetSettingToolbarEntry implements ToolbarEntry
     @Override
     public String getId()
     {
-        return "Enable Acnet Setting";
+        return "Enable Setting";
     }
 }
