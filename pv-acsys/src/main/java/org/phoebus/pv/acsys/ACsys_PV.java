@@ -191,10 +191,9 @@ public class ACsys_PV extends PV implements ACsys_PVListener
   {
     if ( deviceName.equals("enableSettings") )
     {
-      // Role selection popup removed: role is now resolved automatically
-      // (Kerberos username via SecureStore, falling back to OS user name)
-      // by EnableAcnetSettingApp / SettingEnableService, which is the
-      // supported entry point for enabling settings.
+      // Role selection popup removed.
+      // This legacy PV now uses the current OS user name (System property "user.name")
+      // as the role when enabling settings via ACsys_PVConn.enableSettings().
       String defaultRole = System.getProperty("user.name");
       logger.log(Level.WARNING,"Enabling settings; user is "+defaultRole);
 
