@@ -98,7 +98,23 @@ public class LineRepresentation extends JFXBaseRepresentation<Group, LineWidget>
                 x2 = w;  y2 = h;
             }
 
-            final int arrows_val = model_widget.propArrows().getValue().ordinal();
+            final int arrows_val;
+            switch (model_widget.propArrows().getValue())
+            {
+            case FROM:
+                arrows_val = 1;
+                break;
+            case TO:
+                arrows_val = 2;
+                break;
+            case BOTH:
+                arrows_val = 3;
+                break;
+            case NONE:
+            default:
+                arrows_val = 0;
+                break;
+            }
             final int length = model_widget.propArrowLength().getValue();
             int i = 0;
             for (final Node child : jfx_node.getChildrenUnmodifiable())
