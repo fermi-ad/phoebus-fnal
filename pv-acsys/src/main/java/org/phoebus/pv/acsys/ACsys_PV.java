@@ -202,14 +202,15 @@ public class ACsys_PV extends PV implements ACsys_PVListener
 	// This method declares throwing 3 types of exceptions, but inside it catches
 	// all of them.   How do we know if things worked ok or not?
 	ACsys_PVConn.enableSettings(defaultRole);
+	logger.log(Level.WARNING,"Settings Enabled with role "+defaultRole);
       }
       catch ( Exception e)
       {
+	logger.log(Level.WARNING,"Settings NOT enabled with role "+defaultRole, e);
 	JOptionPane.showMessageDialog(null, e.toString(),
 					"Error Connecting for ACsys Settings",
 					JOptionPane.ERROR_MESSAGE);
       }
-      logger.log(Level.WARNING,"Settings Enabled with role "+defaultRole);
     }
     else if ( deviceName.equals("launchDisplay") )
     {
