@@ -84,6 +84,12 @@
       <artifactId>app-scan-ui</artifactId>
       <version>${project.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.phoebus</groupId>
+      <artifactId>line-widget</artifactId>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
 
 

@@ -191,32 +191,25 @@ public class ACsys_PV extends PV implements ACsys_PVListener
   {
     if ( deviceName.equals("enableSettings") )
     {
-      // Prompt for ACsys role in order to do settings
+      // Role selection popup removed.
+      // This legacy PV now uses the current OS user name (System property "user.name")
+      // as the role when enabling settings via ACsys_PVConn.enableSettings().
       String defaultRole = System.getProperty("user.name");
       logger.log(Level.WARNING,"Enabling settings; user is "+defaultRole);
 
-      String role = JOptionPane.showInputDialog("Role name for ACsys settings?",
-						"testing");
-      logger.log(Level.WARNING,"Settings Enable request with role "+role);
-      if ( role != null )
+      try
       {
-	try
-        {
-	  // This method declares throwing 3 types of exceptions, but inside it catches
-	  // all of them.   How do we know if things worked ok or not?
-	  ACsys_PVConn.enableSettings(role);
-	}
-	catch ( Exception e)
-	{
-	  JOptionPane.showMessageDialog(null, e.toString(),
-					  "Error Connecting for ACsys Settings",
-					  JOptionPane.ERROR_MESSAGE);
-	}
-        logger.log(Level.WARNING,"Settings Enabled with role "+role);
+	// This method declares throwing 3 types of exceptions, but inside it catches
+	// all of them.   How do we know if things worked ok or not?
+	ACsys_PVConn.enableSettings(defaultRole);
+	logger.log(Level.WARNING,"Settings Enabled with role "+defaultRole);
       }
-      else
+      catch ( Exception e)
       {
-        logger.log(Level.WARNING,"Settings Enable cancelled");
+	logger.log(Level.WARNING,"Settings NOT enabled with role "+defaultRole, e);
+	JOptionPane.showMessageDialog(null, e.toString(),
+					"Error Connecting for ACsys Settings",
+					JOptionPane.ERROR_MESSAGE);
       }
     }
     else if ( deviceName.equals("launchDisplay") )
