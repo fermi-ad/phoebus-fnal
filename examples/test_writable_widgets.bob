@@ -414,4 +414,14 @@
       </color>
     </foreground_color>
   </widget>
+  <widget type="fnal_line" version="2.0.0">
+    <name>Line_1</name>
+    <x>375</x>
+    <y>120</y>
+    <width>185</width>
+    <height>200</height>
+    <line_style>2</line_style>
+    <direction>1</direction>
+    <arrows>3</arrows>
+  </widget>
 </display>

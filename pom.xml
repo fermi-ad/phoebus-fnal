@@ -62,6 +62,7 @@
     <module>lib/phoebus</module>
     <module>pv-acsys</module>
     <module>byte-monitor-labels</module>
+    <module>line-widget</module>
     <module>acnet-setting</module>
     <module>product-fnal</module>
     <module>alarm-server-fnal</module>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.phoebus</groupId>
+        <artifactId>fnal</artifactId>
+        <version>5.0.5-85</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>line-widget</artifactId>
+    <name>line-widget</name>
+    <description>
+        FNAL Line widget for Phoebus displays: a simple two-endpoint straight-line connector,
+        easier to draw than Polyline (which requires manual multi-point editing after the
+        initial rubber-band drag). Dragging out the widget in the editor immediately draws a
+        diagonal line across the drawn rectangle; resizing the widget's bounding box moves the
+        line endpoints just like any other simple shape widget (Rectangle, Ellipse, ...).
+        Registers a brand new widget type ("fnal_line") via the standard WidgetsService /
+        WidgetRepresentationsService SPI, so it does not conflict with or shadow any existing
+        widget (see byte-monitor-labels for the shadowing pattern used when patching existing
+        widgets instead).
+    </description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.phoebus</groupId>
+            <artifactId>app-display-model</artifactId>
+            <version>${phoebus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.phoebus</groupId>
+            <artifactId>app-display-representation</artifactId>
+            <version>${phoebus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.phoebus</groupId>
+            <artifactId>app-display-representation-javafx</artifactId>
+            <version>${phoebus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.phoebus</groupId>
+            <artifactId>core-ui</artifactId>
+            <version>${phoebus.version}</version>
+        </dependency>
+    </dependencies>
+</project>
