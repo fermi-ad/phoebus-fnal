@@ -4,7 +4,7 @@
   
   <groupId>org.phoebus</groupId>
   <artifactId>fnal</artifactId>
-  <version>5.0.5-85</version>
+  <version>5.0.5-86</version>
   <name>FNAL Phoebus Product</name>
   <packaging>pom</packaging>
 
@@ -15,7 +15,7 @@
 
     <!-- Update when phoebus version is changed -->
     <phoebus.version>5.0.5</phoebus.version>
-    <fnal.phoebus.version>${phoebus.version}-85</fnal.phoebus.version>
+    <fnal.phoebus.version>${phoebus.version}-86</fnal.phoebus.version>
   </properties>
   <repositories>
   <!-- GitHub Packages — phoebus-fnal -->

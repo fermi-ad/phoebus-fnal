@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.phoebus</groupId>
     <artifactId>app-scan</artifactId>
-    <version>5.0.5-85</version>
+    <version>5.0.5-86</version>
   </parent>
   <artifactId>app-scan-model</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
