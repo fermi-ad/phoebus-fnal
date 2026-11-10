@@ -35,15 +35,20 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import javax.security.auth.login.LoginException;
 
 // ACsys/DPM classes
-import gov.fnal.controls.service.proto.DPM;
 import gov.fnal.controls.service.dpm.DPMList;
-import gov.fnal.controls.service.dpm.DPMListTCP;
+import gov.fnal.controls.service.dpm.DPMListFactory;
 import gov.fnal.controls.service.dpm.DPMDataHandler;
-import gov.fnal.controls.servers.dpm.SettingData;
-import gov.fnal.controls.acnet.AcnetErrors;
+import static gov.fnal.controls.service.dpm.DPMData.*;
+
+// Phoebus UI classes
+import org.phoebus.ui.dialog.ExceptionDetailsErrorDialog;
 
 
 /** ACsys device subscription handler
@@ -65,6 +70,10 @@ public class ACsys_PVConn implements DPMDataHandler
   public final static String dpmServerDefault = "dpmtest";
   protected DPMList dpmList; 
 
+  // Role/user name supplied to DPMListFactory-created DPMList.applySettings(); the new
+  // DPMList.enableSettings() no longer takes a role argument, so it is cached here instead.
+  protected volatile String settingsRole = System.getProperty("user.name");
+
   // For non-array request return types, the ArrayList here should only have one entry
   // For array requests, ScalarArray and TextArray, the ArrayList's could have many
   //   element entries, all of which can be serviced in one DPM reply
@@ -78,6 +87,21 @@ public class ACsys_PVConn implements DPMDataHandler
   protected long enableSettings = 0;
   protected long dpmIndex = 0; // Running DPM device index, never goes down
                                // when a listener/device is removed
+
+  // Watches the initial DPM connection attempt at startup. If no connection is ever
+  // established within the grace period, a single non-modal notification is shown
+  // (global/singleton scope - fires at most once for the life of this process).
+  // Not triggered by later, post-connect disconnects/reconnects.
+  private static final long INITIAL_CONNECT_WATCHDOG_SECONDS = 15;
+  private static final ScheduledExecutorService connectWatchdog =
+      Executors.newSingleThreadScheduledExecutor(r ->
+      {
+        Thread t = new Thread(r, "ACsys_PVConn-connect-watchdog");
+        t.setDaemon(true);
+        return t;
+      });
+  private static final AtomicBoolean connectionEstablished = new AtomicBoolean(false);
+  private static final AtomicBoolean connectionUnavailableNotified = new AtomicBoolean(false);
 
   public static void addListenerRequest(String requestName, ACsys_PV pv)
   {
@@ -138,7 +162,7 @@ public class ACsys_PVConn implements DPMDataHandler
       try
       {
 	// Settings must already be enabled at this point for this to work
-	dpmList.applySettings(this);
+	dpmList.applySettings(settingsRole, this);
 	logger.log(Level.FINE,"Device "+pv.fullName+" refId "+pv.dpmIndex+" setting of "+
 		   newValue.toString()+" has been applied");
       }
@@ -229,19 +253,50 @@ public class ACsys_PVConn implements DPMDataHandler
       if ( dpmServer == null )
       {
 	logger.log(Level.CONFIG,"Using default DPM server");
-	dpmList = DPMListTCP.open();
+	dpmList = DPMListFactory.open();
       }
       else
       {
+	// DPMListFactory has no single-arg "node name" opener like the old DPMListTCP.open(String);
+	// treat dpmServer as the DPM host name, using the standard DPM port/service seen in the
+	// production Host entries of gov.fnal.controls.service.dpm.pc.DPMTCPConnector.
 	logger.log(Level.CONFIG,"Using specified DPM server "+dpmServer);
-	dpmList = DPMListTCP.open("/"+dpmServer);
+	dpmList = DPMListFactory.open(dpmServer, 6802, "/dpm");
       }
     }
-    catch ( IOException e )
+    catch ( Exception e )
     {
       logger.log(Level.SEVERE,"Failed to connect to ACsys DPM",e);
       dpmList = null;
     }
+
+    if ( dpmList != null )  { scheduleConnectionWatchdog(); }
+  }
+
+  // Marks that a live reply has been received from DPM at least once; suppresses the
+  // "connection unavailable" notification from firing (it only applies to the initial connect).
+  private static void markConnectionEstablished()
+  {
+    connectionEstablished.set(true);
+  }
+
+  private void scheduleConnectionWatchdog()
+  {
+    connectWatchdog.schedule(() ->
+    {
+      if ( !connectionEstablished.get() && connectionUnavailableNotified.compareAndSet(false,true) )
+      {
+        final String message =
+          "Unable to establish the initial connection to the ACsys DPM server" +
+          (dpmServer != null ? " '"+dpmServer+"'" : "") + " after " +
+          INITIAL_CONNECT_WATCHDOG_SECONDS + " seconds of repeated attempts.\n" +
+          "PV values from this server will not update until the connection succeeds.";
+
+        logger.log(Level.SEVERE,message);
+
+        ExceptionDetailsErrorDialog.openError("ACsys DPM Connection Unavailable",message,null);
+      }
+    }, INITIAL_CONNECT_WATCHDOG_SECONDS, TimeUnit.SECONDS);
   }
 
   public static void stop() 
@@ -258,35 +313,42 @@ public class ACsys_PVConn implements DPMDataHandler
 
   public static void enableSettings(String role) throws Exception 
   {
-    instance.dpmList.enableSettings(role);
+    instance.settingsRole = role;
+    instance.dpmList.enableSettings();
   }
 
-  public void handle(DPM.Reply.DeviceInfo devInfo[], DPM.Reply.ApplySettings m)
+  @Override
+  public void handle(ApplySettings reply)
   {
-    logger.log(Level.INFO,"Settings Complete: "+m.status.length);
-    for (int i=0; i<m.status.length; i++)
+    markConnectionEstablished();
+    logger.log(Level.INFO,"Settings Complete: "+reply.status.length);
+    for (int i=0; i<reply.status.length; i++)
     {
-      logger.log(Level.INFO,"Setting complete refId "+ m.status[i].ref_id+
-		 " status "+m.status[i].status);
+      logger.log(Level.INFO,"Setting complete refId "+ reply.status[i].refId+
+		 " status "+reply.status[i].status);
     }
   }
 
-  public void handle(DPM.Reply.DeviceInfo devInfo, DPM.Reply.Scalar s)
+@Override
+  public void handle(Scalar reply)
   {
-    ArrayList<ACsys_PV> pvList = requestsByIndex.get(devInfo.ref_id);
+    markConnectionEstablished();
+    ArrayList<ACsys_PV> pvList = requestsByIndex.get(reply.refId);
     if ( pvList == null ) { return;}
 
     pvList.forEach( (pv)->
-    {
+    {    
       // use lamba expression here for string concat
-      logger.log(Level.FINE, "DPM Reply Device "+pv.fullName+ " ref_id "+ devInfo.ref_id+" " +s.data);    
-      pv.notify(s.data,s.timestamp);
+      logger.log(Level.FINE, "DPM Reply Device "+pv.fullName+ " ref_id "+ reply.refId+" " +reply.data);    
+      pv.notify(reply.data,reply.timestamp);
     });
   }
 
-  public void handle(DPM.Reply.DeviceInfo devInfo, DPM.Reply.ScalarArray s)
+  @Override
+  public void handle(ScalarArray reply)
   {
-    ArrayList<ACsys_PV> pvList = requestsByIndex.get(s.ref_id);
+    markConnectionEstablished();
+    ArrayList<ACsys_PV> pvList = requestsByIndex.get(reply.refId);
     if ( pvList == null ) { return;}
 
     pvList.forEach( (pv)->
@@ -297,97 +359,109 @@ public class ACsys_PVConn implements DPMDataHandler
       if ( pv.index >= 0 ) { index = pv.index;} 
 
       logger.log(Level.FINE,"Device ScalarArray "+pv.fullName+ " ref_id "+ 
-		 s.ref_id+" " +s.data);
-      pv.notify(s.data[index],s.timestamp);
+		 reply.refId+" " +reply.data);
+      pv.notify(reply.data[index],reply.timestamp);
     });
   }
 
-  public void handle(DPM.Reply.DeviceInfo devInfo, DPM.Reply.BasicStatus s)
+  @Override
+  public void handle(BasicStatus reply)
   {
-    ArrayList<ACsys_PV> pvList = requestsByIndex.get(devInfo.ref_id);
+    markConnectionEstablished();
+    ArrayList<ACsys_PV> pvList = requestsByIndex.get(reply.refId);
     if ( pvList == null ) { return;}
 
     pvList.forEach( (pv)->
     {    
-      pv.notify(s.on,s.timestamp);
+      pv.notify(reply.on,reply.timestamp);
       logger.log(Level.FINER,
-		 "Device BasicStatus "+pv.fullName+ " ref_id "+ devInfo.ref_id+
-		 " " +s.on+" "+s.ready);
+		 "Device BasicStatus "+pv.fullName+ " ref_id "+ reply.refId+
+		 " " +reply.on+" "+reply.ready);
     });
   }
 
-  public void handle(DPM.Reply.DeviceInfo devInfo, DPM.Reply.Status s)
+  @Override
+  public void handle(Status reply)
   {
-    ArrayList<ACsys_PV> pvList = requestsByIndex.get(s.ref_id);
+    markConnectionEstablished();
+    ArrayList<ACsys_PV> pvList = requestsByIndex.get(reply.refId);
     if ( pvList == null ) { return;}
 
     pvList.forEach( (pv)->
     {    
       if ( pv.deviceName.equals("enableSettings"))
       {
-        enableSettings = s.status;
+        enableSettings = reply.status;
         return;
       }  
       else
       {
-	pv.notify(s.status,s.timestamp);
+	pv.notify(reply.status,reply.timestamp);
       }
       logger.log(Level.FINER,
-		 "Device Status "+pv.fullName+ " ref_id "+ s.ref_id+
-		 " " +s.status);
+		 "Device Status "+pv.fullName+ " ref_id "+ reply.refId+
+		 " " +reply.status);
     });
   }
 
-  public void handle(DPM.Reply.DeviceInfo devInfo, DPM.Reply.AnalogAlarm a)
+  @Override
+  public void handle(AnalogAlarm reply)
   {
-    ArrayList<ACsys_PV> pvList = requestsByIndex.get(devInfo.ref_id);
+    markConnectionEstablished();
+    ArrayList<ACsys_PV> pvList = requestsByIndex.get(reply.refId);
     if ( pvList == null ) { return;}
 
     pvList.forEach( (pv)->
     {
-      pv.notify(a.alarm_status,a.timestamp);
+      pv.notify(reply.alarmStatus,reply.timestamp);
       logger.log(Level.FINER,
-		 "Device AnalogAlarm "+pv.fullName+ " ref_id "+ a.ref_id+
-		 " " +a.alarm_enable+" "+a.alarm_status); 
+		 "Device AnalogAlarm "+pv.fullName+ " ref_id "+ reply.refId+
+		 " " +reply.alarmEnable+" "+reply.alarmStatus); 
     });
   }
     
-  public void handle(DPM.Reply.DeviceInfo devInfo, DPM.Reply.DigitalAlarm a)
+  @Override
+  public void handle(DigitalAlarm reply)
   {
-    ArrayList<ACsys_PV> pvList = requestsByIndex.get(a.ref_id);
+    markConnectionEstablished();
+    ArrayList<ACsys_PV> pvList = requestsByIndex.get(reply.refId);
     if ( pvList == null ) { return;}
 
     pvList.forEach( (pv)->
     {    
       logger.log(Level.FINER,
 		 "Device DigitalAlarm "+pv.deviceName+ " " +
-		 " ref_id "+ a.ref_id+" " +a.alarm_enable+" "+a.alarm_status);
-      pv.notify(a.alarm_status,a.timestamp);
+		 " ref_id "+ reply.refId+" " +reply.alarmEnable+" "+reply.alarmStatus);
+      pv.notify(reply.alarmStatus,reply.timestamp);
     });
   }
 
-  public void handle(DPM.Reply.DeviceInfo devInfo, DPM.Reply.Text t)
+  @Override
+  public void handle(Text reply)
   {
-    ArrayList<ACsys_PV> pvList = requestsByIndex.get(t.ref_id);
+    markConnectionEstablished();
+    ArrayList<ACsys_PV> pvList = requestsByIndex.get(reply.refId);
     if ( pvList == null ) { return;}
 
     pvList.forEach( (pv)->
     {
       logger.log(Level.FINER,
-	       "Device Text "+pv.fullName+ " ref_id "+ t.ref_id+
-	       " " +t.data);
-      pv.notify(t.data,t.timestamp);
+	       "Device Text "+pv.fullName+ " ref_id "+ reply.refId+
+	       " " +reply.data);
+      pv.notify(reply.data,reply.timestamp);
     });
   }
 
-  public void handle(DPM.Reply.DeviceInfo devInfo, DPM.Reply.TextArray t)
+  @Override
+  public void handle(TextArray reply)
   {
-    ArrayList<ACsys_PV> pvList = requestsByIndex.get(t.ref_id);
+    markConnectionEstablished();
+    ArrayList<ACsys_PV> pvList = requestsByIndex.get(reply.refId);
     if ( pvList == null ) { return;}
 
-    logger.log(Level.FINER, "Received TextArray length "+t.data.length);
-    for ( int i =0 ; i<t.data.length; i++)
-    { logger.log(Level.FINER, i+ " " + t.data[i]); }
+    logger.log(Level.FINER, "Received TextArray length "+reply.data.length);
+    for ( int i =0 ; i<reply.data.length; i++)
+    { logger.log(Level.FINER, i+ " " + reply.data[i]); }
 
     ArrayList<ACsys_PV> pvListCopy;
     synchronized (pvList) {
@@ -402,42 +476,47 @@ public class ACsys_PVConn implements DPMDataHandler
       // We cannot serve whole arrays (yet?)
       // Does that even make sense in a widget context?
       if ( pv.index >= 0 ) { index = pv.index;} 
-      if ( index < t.data.length ) { pv.notify(t.data[index],t.timestamp); }
+      if ( index < reply.data.length ) { pv.notify(reply.data[index],reply.timestamp); }
       else                         { pv.notify(new String(),0);}
       });
   }
-  public void handle(DPM.Reply.DeviceInfo devInfo, DPM.Reply.Raw r)
+  @Override
+  public void handle(Raw reply)
   {
-    ArrayList<ACsys_PV> pvList = requestsByIndex.get(r.ref_id);
+    markConnectionEstablished();
+    ArrayList<ACsys_PV> pvList = requestsByIndex.get(reply.refId);
     if ( pvList == null ) { return;}
 
     pvList.forEach( (pv)->
     {    
       long value = 0;
     
-      for (int i=0; i<r.data.length && i<8; i++)
+      for (int i=0; i<reply.data.length && i<8; i++)
       {
-        long bValue = ((long)r.data[i])&0xFF;
+        long bValue = ((long)reply.data[i])&0xFF;
         value |= ( bValue << i*8);
       }  
 
       Long lValue = Long.valueOf(value);
-      pv.notify(lValue,r.timestamp);
+      pv.notify(lValue,reply.timestamp);
 
-      String message = "Device Raw "+pv.fullName+ " ref_id "+ r.ref_id;
-      for ( int i=0; i<r.data.length; i++) { message += " " + r.data[i];}
+      String message = "Device Raw "+pv.fullName+ " ref_id "+ reply.refId;
+      for ( int i=0; i<reply.data.length; i++) { message += " " + reply.data[i];}
       logger.log(Level.FINE, message + 
 	       " 0x"+Long.toHexString(lValue.longValue()));
     });
   }
 
 
-  public void serviceFound(DPM.Reply.ServiceDiscovery m)
+  @Override
+  public void serviceFound(Discovery reply)
   {
+    markConnectionEstablished();
     logger.log(Level.INFO,
-	       "DPM Service Found: " + m.serviceLocation);
+	       "DPM Service Found: " + reply.location);
   }
 
+  @Override
   public void serviceNotFound()
   {
     logger.log(Level.SEVERE,"DPM Service Not Found");
